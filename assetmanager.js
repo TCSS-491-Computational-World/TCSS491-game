@@ -5,6 +5,12 @@ function AssetManager() {
     this.downloadQueue = [];
 }
 
+
+
+
+
+
+
 AssetManager.prototype.queueDownload = function (path) {
     console.log("Queueing " + path);
     this.downloadQueue.push(path);
