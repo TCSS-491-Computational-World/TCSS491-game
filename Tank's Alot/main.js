@@ -145,7 +145,7 @@ Enviornment.prototype.update = function () {
 };
 
 
-AM.queueDownload("./img/Metal_001_Diffuse.png");
+AM.queueDownload("./img/grass.png");
 AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
 AM.queueDownload("./img/Tank_fire_red.png");
@@ -162,7 +162,7 @@ AM.downloadAll(function () {
     gameEngine.start();
 
 
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Metal_001_Diffuse.png")));
+    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
     gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
     gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png")));
     gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
