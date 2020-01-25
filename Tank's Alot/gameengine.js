@@ -9,7 +9,7 @@ window.requestAnimFrame = (function () {
             };
 })();
 
-function GameEngine() {
+function GameEngine() { 
     this.entities = [];
     this.ctx = null;
     this.surfaceWidth = null;
