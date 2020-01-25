@@ -62,7 +62,6 @@ GameEngine.prototype.startInput = function () {
         that.click = getXandY(e);
         console.log(e);
         console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
-        this.ctx.dr
     }, false);
 
     this.ctx.canvas.addEventListener("contextmenu", function (e) {

@@ -59,7 +59,7 @@ Background.prototype.update = function () {
 
 
 function Explosion(game, spritesheet, myX, myY) {
-    this.animation = new Animation(spritesheet, 256, 256, 5, .1, 5, false, .4);
+    this.animation = new Animation(spritesheet, 256, 256, 5, .1, 5, true, .4);
     this.speed = 0;
     this.ctx = game.ctx;
     Entity.call(this, game, myX, myY);
@@ -91,6 +91,7 @@ Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
     this.x += this.game.clockTick * this.speed;
+    //console.log("Location of tank: " + this.x);
     if (this.x > 800) this.x = -230;
     Entity.prototype.update.call(this);
 }
@@ -99,6 +100,29 @@ Tank.prototype.draw = function () {
     this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     Entity.prototype.draw.call(this);
 }
+
+function BulletFire(game, spritesheet) {
+    this.animation = new Animation(spritesheet, 95, 68, 3, 0.15, 1, true, 1.0);
+    this.speed = 350;
+    this.ctx = game.ctx;
+    Entity.call(this, game, 0, 400);
+}
+
+BulletFire.prototype = new Entity();
+BulletFire.prototype.constructor = BulletFire;
+
+BulletFire.prototype.update = function () {
+    this.x += this.game.clockTick * this.speed;
+    if (this.x > 800) this.x = -230;
+    Entity.prototype.update.call(this);
+}
+
+BulletFire.prototype.draw = function () {
+    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    Entity.prototype.draw.call(this);
+}
+
+
 
 
 function Enviornment(game, spritesheet, myX, myY) {
@@ -120,38 +144,13 @@ Enviornment.prototype.draw = function () {
 Enviornment.prototype.update = function () {
 };
 
-function HealthBar(ctx){
-    this.controller = ctx.controller;
-      this.maxHealth = ctx.maxHealth;
-      this.x = ctx.x;
-      this.y = ctx.y;
-      this.maxWidth = ctx.maxWidth;
-      this.height = ctx.height;
-      
-      this.health = this.maxHealth;
-}
-
-HealthBar.prototype.setHealth = function(health){
-    this.health = health;
-};
-
-HealthBar.prototype.draw = function(){
-    var context = this.controller.view.context;
-      context.beginPath();
-      context.rect(this.x, this.y, this.maxWidth, this.height);
-      context.fillStyle = "black";
-}
-
-function HealthBar(game) {
-    this.ctx = game.ctx;
-    this.ctx
-}
 
 AM.queueDownload("./img/Metal_001_Diffuse.png");
-AM.queueDownload("./img/Explosion_A.png")
-AM.queueDownload("./img/Explosion_C.png")
-AM.queueDownload("./img/Tank_fire_red.png")
-AM.queueDownload("./img/Puddle_01.png")
+AM.queueDownload("./img/Explosion_A.png");
+AM.queueDownload("./img/Explosion_C.png");
+AM.queueDownload("./img/Tank_fire_red.png");
+AM.queueDownload("./img/Puddle_01.png");
+AM.queueDownload("./img/bullet_red.png");
 
 AM.downloadAll(function () {
     
@@ -165,9 +164,11 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Metal_001_Diffuse.png")));
     gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
+    gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png")));
     gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
     gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
     gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
+    // console.log(gameEngine.entities[2].x);
 
 
     console.log("All Done!");
