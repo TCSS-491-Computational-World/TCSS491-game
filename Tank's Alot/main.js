@@ -111,25 +111,25 @@ Tank.prototype.draw = function() {
   Entity.prototype.draw.call(this);
 };
 
-function MedicalBox(game, spritesheet) {
-  this.animation = new Animation(spritesheet, 680, 475, 1, 0.15, 1, true, 0.25);
+function HealthBonus(game, spritesheet) {
+  this.animation = new Animation(spritesheet, 450, 326, 1, 0.15, 1, true, 0.15);
   this.speed = 0;
   this.ctx = game.ctx;
-  Entity.call(this, game, 0, 500);
+  Entity.call(this, game, 200, 100);
 }
 
-MedicalBox.prototype = new Entity();
-MedicalBox.prototype.constructor = MedicalBox;
+HealthBonus.prototype = new Entity();
+HealthBonus.prototype.constructor = HealthBonus;
 
-MedicalBox.prototype.update = function() {
+HealthBonus.prototype.draw = function() {
+  this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+  Entity.prototype.draw.call(this);
+};
+
+HealthBonus.prototype.update = function() {
   this.x += this.game.clockTick * this.speed;
   if (this.x > 800) this.x = -230;
   Entity.prototype.update.call(this);
-};
-
-MedicalBox.prototype.draw = function() {
-  this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-  Entity.prototype.draw.call(this);
 };
 
 function Enviornment(game, spritesheet, myX, myY) {
@@ -178,6 +178,7 @@ AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
 AM.queueDownload("./img/Tank_fire_red.png");
 AM.queueDownload("./img/Puddle_01.png");
+AM.queueDownload("./img/medicalBox.png");
 
 AM.downloadAll(function() {
   var canvas = document.getElementById("gameWorld");
@@ -201,6 +202,9 @@ AM.downloadAll(function() {
   );
   gameEngine.addEntity(
     new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400)
+  );
+  gameEngine.addEntity(
+    new HealthBonus(gameEngine, AM.getAsset("./img/medicalBox.png"), 150, 100)
   );
 
   console.log("All Done!");
