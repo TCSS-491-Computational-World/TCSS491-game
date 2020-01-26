@@ -80,7 +80,7 @@ Explosion.prototype.draw = function () {
 }
 
 function Tank(game, spritesheet) {
-    this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
+    this.animation = new Animation(spritesheet, 50, 50, 4, 0.15, 4, true, 1.0);
     this.speed = 50;
     this.ctx = game.ctx;
     Entity.call(this, game, 0, 300);
@@ -90,12 +90,35 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
+    //this.frame = 0;
     this.x += this.game.clockTick * this.speed;
     if (this.x > 800) this.x = -230;
     Entity.prototype.update.call(this);
 }
 
 Tank.prototype.draw = function () {
+    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    Entity.prototype.draw.call(this);
+}
+
+function Barrell(game, spritesheet) {
+    this.animation = new Animation(spritesheet, 50, 50, 4, 0.15, 1, true, 1.0);
+    this.speed = 50;
+    this.ctx = game.ctx;
+    Entity.call(this, game, 0, 300);
+}
+
+Barrell.prototype = new Entity();
+Barrell.prototype.constructor = Tank;
+
+Barrell.prototype.update = function () {
+    //this.frame = 0;
+    this.x += this.game.clockTick * this.speed;
+    if (this.x > 800) this.x = -230;
+    Entity.prototype.update.call(this);
+}
+
+Barrell.prototype.draw = function () {
     this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     Entity.prototype.draw.call(this);
 }
@@ -150,7 +173,8 @@ function HealthBar(game) {
 AM.queueDownload("./img/Metal_001_Diffuse.png");
 AM.queueDownload("./img/Explosion_A.png")
 AM.queueDownload("./img/Explosion_C.png")
-AM.queueDownload("./img/Tank_fire_red.png")
+AM.queueDownload("./img/tank_red.png")
+AM.queueDownload("./img/tank_red2Barrell.png")
 AM.queueDownload("./img/Puddle_01.png")
 
 AM.downloadAll(function () {
@@ -164,7 +188,8 @@ AM.downloadAll(function () {
 
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Metal_001_Diffuse.png")));
-    gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
+    gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/tank_red.png")/*.frame = 0*/));
+    gameEngine.addEntity(new Barrell(gameEngine, AM.getAsset("./img/tank_red2Barrell.png")));
     gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
     gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
     gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
