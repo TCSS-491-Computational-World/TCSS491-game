@@ -14,6 +14,9 @@ function GameEngine() {
     this.ctx = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
+    // this.click = null;
+    // this.mouse = null;
+    // this.rightclick = null;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -62,6 +65,12 @@ GameEngine.prototype.startInput = function () {
         that.click = getXandY(e);
         console.log(e);
         console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        // document.getElementById("ctx").onclick = function() {
+        //      document.getElementById("ctx").innerHTML = ' YOU CLICKED ME';
+        // }
+    
+        
+        BulletFire.prototype.mouseclick;
     }, false);
 
     this.ctx.canvas.addEventListener("contextmenu", function (e) {
@@ -139,6 +148,9 @@ GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
     this.update();
     this.draw();
+    // this.click = null;
+    // this.rightclick = null;
+    // this.mouse = null;
 }
 
 function Timer() {
