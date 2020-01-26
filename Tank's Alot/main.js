@@ -1,82 +1,82 @@
 var AM = new AssetManager();
 
-function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
-    this.spriteSheet = spriteSheet;
-    this.frameWidth = frameWidth;
-    this.frameDuration = frameDuration;
-    this.frameHeight = frameHeight;
-    this.sheetWidth = sheetWidth;
-    this.frames = frames;
-    this.totalTime = frameDuration * frames;
-    this.elapsedTime = 0;
-    this.loop = loop;
-    this.scale = scale;
-}
-
-// function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
+// function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
 //     this.spriteSheet = spriteSheet;
-//     this.startX = startX;
-//     this.startY = startY;
 //     this.frameWidth = frameWidth;
 //     this.frameDuration = frameDuration;
 //     this.frameHeight = frameHeight;
+//     this.sheetWidth = sheetWidth;
 //     this.frames = frames;
 //     this.totalTime = frameDuration * frames;
 //     this.elapsedTime = 0;
 //     this.loop = loop;
-//     this.reverse = reverse;
+//     this.scale = scale;
 // }
 
-// Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
-//     var scaleBy = scaleBy || 1;
-//     this.elapsedTime += tick;
-//     if (this.loop) {
-//         if (this.isDone()) {
-//             this.elapsedTime = 0;
-//         }
-//     } else if (this.isDone()) {
-//         return;
-//     }
-//     var index = this.reverse ? this.frames - this.currentFrame() - 1 : this.currentFrame();
-//     var vindex = 0;
-//     if ((index + 1) * this.frameWidth + this.startX > this.spriteSheet.width) {
-//         index -= Math.floor((this.spriteSheet.width - this.startX) / this.frameWidth);
-//         vindex++;
-//     }
-//     while ((index + 1) * this.frameWidth > this.spriteSheet.width) {
-//         index -= Math.floor(this.spriteSheet.width / this.frameWidth);
-//         vindex++;
-//     }
-
-//     var locX = x;
-//     var locY = y;
-//     var offset = vindex === 0 ? this.startX : 0;
-//     //console.log(spriteSheet + "   ssdsddsds");
-//     ctx.drawImage(this.spriteSheet,
-//                   index * this.frameWidth + offset, vindex * this.frameHeight + this.startY,  // source from sheet
-//                   this.frameWidth, this.frameHeight,
-//                   locX, locY,
-//                   this.frameWidth * scaleBy,
-//                   this.frameHeight * scaleBy);
-// }
-Animation.prototype.drawFrame = function (tick, ctx, x, y) {
-    this.elapsedTime += tick;
-    if (this.isDone()) {
-        if (this.loop) this.elapsedTime = 0;
-    }
-    var frame = this.currentFrame();
-    var xindex = 0;
-    var yindex = 0;
-    xindex = frame % this.sheetWidth;
-    yindex = Math.floor(frame / this.sheetWidth);
-
-    ctx.drawImage(this.spriteSheet,
-                 xindex * this.frameWidth, yindex * this.frameHeight,  // source from sheet
-                 this.frameWidth, this.frameHeight,
-                 x, y,
-                 this.frameWidth * this.scale,
-                 this.frameHeight * this.scale);
+function Animation(spriteSheet, startX, startY, frameWidth, frameHeight, frameDuration, frames, loop, reverse) {
+    this.spriteSheet = spriteSheet;
+    this.startX = startX;
+    this.startY = startY;
+    this.frameWidth = frameWidth;
+    this.frameDuration = frameDuration;
+    this.frameHeight = frameHeight;
+    this.frames = frames;
+    this.totalTime = frameDuration * frames;
+    this.elapsedTime = 0;
+    this.loop = loop;
+    this.reverse = reverse;
 }
+
+Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
+    var scaleBy = scaleBy || 1;
+    this.elapsedTime += tick;
+    if (this.loop) {
+        if (this.isDone()) {
+            this.elapsedTime = 0;
+        }
+    } else if (this.isDone()) {
+        return;
+    }
+    var index = this.reverse ? this.frames - this.currentFrame() - 1 : this.currentFrame();
+    var vindex = 0;
+    if ((index + 1) * this.frameWidth + this.startX > this.spriteSheet.width) {
+        index -= Math.floor((this.spriteSheet.width - this.startX) / this.frameWidth);
+        vindex++;
+    }
+    while ((index + 1) * this.frameWidth > this.spriteSheet.width) {
+        index -= Math.floor(this.spriteSheet.width / this.frameWidth);
+        vindex++;
+    }
+
+    var locX = x;
+    var locY = y;
+    var offset = vindex === 0 ? this.startX : 0;
+    //console.log(spriteSheet + "   ssdsddsds");
+    ctx.drawImage(this.spriteSheet,
+                  index * this.frameWidth + offset, vindex * this.frameHeight + this.startY,  // source from sheet
+                  this.frameWidth, this.frameHeight,
+                  locX, locY,
+                  this.frameWidth * scaleBy,
+                  this.frameHeight * scaleBy);
+}
+// Animation.prototype.drawFrame = function (tick, ctx, x, y) {
+//     this.elapsedTime += tick;
+//     if (this.isDone()) {
+//         if (this.loop) this.elapsedTime = 0;
+//     }
+//     var frame = this.currentFrame();
+//     var xindex = 0;
+//     var yindex = 0;
+//     xindex = frame % this.sheetWidth;
+//     yindex = Math.floor(frame / this.sheetWidth);
+
+//     ctx.drawImage(this.spriteSheet,
+//                  xindex * this.frameWidth, yindex * this.frameHeight,  // source from sheet
+//                  this.frameWidth, this.frameHeight,
+//                  x, y,
+//                  this.frameWidth * this.scale,
+//                  this.frameHeight * this.scale);
+// }
 
 Animation.prototype.currentFrame = function () {
     return Math.floor(this.elapsedTime / this.frameDuration);
@@ -87,7 +87,7 @@ Animation.prototype.isDone = function () {
 }
 
 // no inheritance
-function Background(game , spritesheet ) {
+function Background(game , spritesheet) {
     this.x = 0;
     this.y = 0;
     this.spritesheet = spritesheet;
@@ -126,10 +126,10 @@ Explosion.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
-function Tank(game , spritesheet ) {
-    this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
+function Tank(game /*, spritesheet */ ) {
+    //this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
 
-    //this.animation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+    this.animation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
     this.speed = 50;
     this.ctx = game.ctx;
     Entity.call(this, game, 0, 300);
@@ -139,10 +139,15 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
-    this.x += this.game.clockTick * this.speed;
-    //console.log("Location of tank: " + this.x);
-    if (this.x > 800) this.x = -230;
-    Entity.prototype.update.call(this);
+
+    if(this.game.click){
+        this.x += this.game.clockTick * this.speed;
+        //console.log("Location of tank: " + this.x);
+        if (this.x > 800) this.x = -230;
+        Entity.prototype.update.call(this);
+    }
+    
+    
 }
 
 Tank.prototype.draw = function () {
@@ -223,12 +228,12 @@ Enviornment.prototype.update = function () {
 
 
 AM.queueDownload("./img/grass.png");
-AM.queueDownload("./img/Explosion_A.png");
-AM.queueDownload("./img/Explosion_C.png");
+//AM.queueDownload("./img/Explosion_A.png");
+//AM.queueDownload("./img/Explosion_C.png");
 AM.queueDownload("./img/Tank_fire_red.png");
-AM.queueDownload("./img/Puddle_01.png");
-AM.queueDownload("./img/bullet_red.png");
-AM.queueDownload("./img/Decor_Items/Container_A.png");
+//AM.queueDownload("./img/Puddle_01.png");
+//AM.queueDownload("./img/bullet_red.png");
+//AM.queueDownload("./img/Decor_Items/Container_A.png");
 
 AM.downloadAll(function () {
     
@@ -238,23 +243,23 @@ AM.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();
-    // var background =  new Background(gameEngine);
-    // var tank = new Tank(gameEngine);
+    var background =  new Background(gameEngine, AM.getAsset("./img/grass.png"));
+    var tank = new Tank(gameEngine);
     // var enviornment = new Enviornment(gameEngine);
      
     // var explosion  =  new Explosion(gameEngine);
 
-    // gameEngine.addEntity(background);
-    // gameEngine.addEntity(tank);
+     gameEngine.addEntity(background);
+     gameEngine.addEntity(tank);
 
 
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
-    gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
-    gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png"), 800));
-    gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
-    gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Decor_Items/Container_A.png"), 100, 500));
-    gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
-    gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
+    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
+    // gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
+    // gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png"), 800));
+    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
+    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Decor_Items/Container_A.png"), 100, 500));
+    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
+    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
     // console.log(gameEngine.entities[2].x);
     
 
