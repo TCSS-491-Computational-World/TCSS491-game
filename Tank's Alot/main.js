@@ -212,7 +212,7 @@ BulletFire.prototype.update = function () {
         //this.x += this.game.clockTick * this.speed;
         //this.x += 350;
         this.x += 2;
-        if (this.x > ); //this.x = -230;
+        if (this.x > 400); //this.x = -230;
         
     }
     Entity.prototype.update.call(this);
