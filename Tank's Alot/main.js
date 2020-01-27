@@ -139,7 +139,11 @@ Explosion.prototype.draw = function () {
 function Tank(game /*, spritesheet */ ) {
     //this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
 
-    this.animation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+    //this.moveUpAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+   // this.moveDownAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 100, 0, 44, 75, 1, 1, true, false);
+    //this.moveLeftAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 200, 0, 44, 75, 1, 1, true, false);
+    this.moveRightAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+
     this.speed = 50;
     this.ctx = game.ctx;
     Entity.call(this, game, 0, 300);
@@ -158,10 +162,11 @@ Tank.prototype.update = function () {
     //}
     
     
+    
 }
 
 Tank.prototype.draw = function () {
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     Entity.prototype.draw.call(this);
 }
 
@@ -174,6 +179,8 @@ function BulletFire(game/*, distance */) {
     this.speed = 350;
     this.ctx = game.ctx;
     this.fire = false;
+   // this.currentX = null;
+   // this.currentY = null;
     //this.x = 200;
     //this.startX = 0;
     //this.startY = 0;
@@ -185,20 +192,30 @@ BulletFire.prototype.constructor = BulletFire;
 
 BulletFire.prototype.update = function () {
 
-    if(this.game.click) this.fire = true;
+    if(this.game.click){
+        this.fire = true;
+       // this.currentX = this.game.click.x;
+       // this.currentY = this.game.click.y;
+        this.x = this.game.click.x;
+        console.log("MY X:" , this.x);
+        this.y = this.game.click.y;
+    } 
     if(this.fire){
 
         //console.log("hahaha");
         if (this.animation.isDone()) {
+            console.log("RETURNED");
             this.animation.elapsedTime = 0;
             this.fire = false;
         }
         
-        this.x += this.game.clockTick * this.speed;
+        //this.x += this.game.clockTick * this.speed;
         //this.x += 350;
-        if (this.x > 800) this.x = -230;
-        Entity.prototype.update.call(this);
+        this.x += 2;
+        if (this.x > ); //this.x = -230;
+        
     }
+    Entity.prototype.update.call(this);
     
     
 }
