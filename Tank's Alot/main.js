@@ -165,14 +165,18 @@ Tank.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
-function BulletFire(game, spritesheet/*, distance */) {
+function BulletFire(game/*, distance */) {
     //this.distance = distance;
     //AM.getAsset("./img/bullet_red.png")
     //this.animation = new Animation(AM.getAsset("./img/bullet_red.png"), 95, 68, 1, (800 * .00265), 1, false, 1.0);
-    this.animation = new Animation(spritesheet,0 ,0, 95, 68, (800 * 0.00265), 1, true, false); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
+    this.animation = new Animation(AM.getAsset("./img/bullet_red.png"),0 ,0, 95, 68, (800 * 0.00265), 1, false, false); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     //this.animation = new Animation(spritesheet, 95, 68, 1, (800 * 0.00265), 1, true, 1.0); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     this.speed = 350;
     this.ctx = game.ctx;
+    this.fire = false;
+    //this.x = 200;
+    //this.startX = 0;
+    //this.startY = 0;
     Entity.call(this, game, 0, 400);
 }
 
@@ -181,23 +185,30 @@ BulletFire.prototype.constructor = BulletFire;
 
 BulletFire.prototype.update = function () {
 
-    if(this.game.click){
+    if(this.game.click) this.fire = true;
+    if(this.fire){
+
         //console.log("hahaha");
-        ;
-    }
-    this.x += this.game.clockTick * this.speed;
+        if (this.animation.isDone()) {
+            this.animation.elapsedTime = 0;
+            this.fire = false;
+        }
+        
+        this.x += this.game.clockTick * this.speed;
+        //this.x += 350;
         if (this.x > 800) this.x = -230;
-        Entity.prototype.update.call(this)
+        Entity.prototype.update.call(this);
+    }
     
     
 }
 
 BulletFire.prototype.draw = function () {
-    //if(this.game.fire){
+    if(this.fire){
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         Entity.prototype.draw.call(this);
     
-    //}
+    }
        
        
 }
@@ -218,10 +229,10 @@ BulletFire.prototype.mouseclick = function(){
 
 
 
-function Enviornment(game , spritesheet, myX, myY) {
-    this.x = myX;
-    this.y = myY;
-    this.spritesheet = spritesheet;
+function Enviornment(game) {
+    //this.x = myX;
+    //this.y = myY;
+    //this.spritesheet = spritesheet;
     this.game = game;
     this.ctx = game.ctx;
     
@@ -229,8 +240,12 @@ function Enviornment(game , spritesheet, myX, myY) {
 
 
 Enviornment.prototype.draw = function () {
-    this.ctx.drawImage(this.spritesheet,
-                  this.x, this.y);
+    this.ctx.drawImage(AM.getAsset("./img/Decor_Items/Container_A.png"),
+                  500, 380);
+                  
+     this.ctx.drawImage(AM.getAsset("./img/Puddle_01.png"),
+                  100, 150);
+        
 };
 
 
@@ -257,15 +272,15 @@ AM.downloadAll(function () {
     gameEngine.start();
     var background =  new Background(gameEngine, AM.getAsset("./img/grass.png"));
     var tank = new Tank(gameEngine);
-    var enviornment = new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200);
-    var enviornment2 = new Enviornment(gameEngine, AM.getAsset("./img/Decor_Items/Container_A.png"), 100, 500);
+    var enviornment = new Enviornment(gameEngine);
+    //var enviornment2 = new Enviornment(gameEngine);
     var explosion  =  new Explosion(gameEngine /*, AM.getAsset("./img/Explosion_A.png") */);
-    var bulletfire = new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png"));
+    var bulletfire = new BulletFire(gameEngine);
 
      gameEngine.addEntity(background);
      gameEngine.addEntity(tank);
      gameEngine.addEntity(enviornment);
-     gameEngine.addEntity(enviornment2);
+     //gameEngine.addEntity(enviornment2);
 
      gameEngine.addEntity(explosion);
      gameEngine.addEntity(bulletfire);
