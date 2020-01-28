@@ -174,17 +174,24 @@ function BulletFire(game/*, distance */) {
     //this.distance = distance;
     //AM.getAsset("./img/bullet_red.png")
     //this.animation = new Animation(AM.getAsset("./img/bullet_red.png"), 95, 68, 1, (800 * .00265), 1, false, 1.0);
-    this.animation = new Animation(AM.getAsset("./img/bullet_red.png"),0 ,0, 95, 68, (800 * 0.00265), 1, false, false); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
+    this.animation = new Animation(AM.getAsset("./img/bullet_red.png"),34, 28, 25, 11, 2 , 1, false, false); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     //this.animation = new Animation(spritesheet, 95, 68, 1, (800 * 0.00265), 1, true, 1.0); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     this.speed = 350;
     this.ctx = game.ctx;
     this.fire = false;
+    this.timeA = null;
    // this.currentX = null;
    // this.currentY = null;
     //this.x = 200;
     //this.startX = 0;
     //this.startY = 0;
+    this.endX = 0;
+    this.endY = 0;
     Entity.call(this, game, 0, 400);
+}
+
+BulletFire.prototype.distance = function(){
+    this.x
 }
 
 BulletFire.prototype = new Entity();
@@ -196,23 +203,33 @@ BulletFire.prototype.update = function () {
         this.fire = true;
        // this.currentX = this.game.click.x;
        // this.currentY = this.game.click.y;
-        this.x = this.game.click.x;
-        console.log("MY X:" , this.x);
-        this.y = this.game.click.y;
+        this.endX = this.game.click.x;
+        this.endY = this.game.click.y;
+        this.x = 0;
+        this.y = 0;
+        this.timeA = Math.sqrt((Math.pow((this.endX - this.x), 2) + Math.pow((this.endY - this.x), 2))); // the hypotneuse 
+        console.log("TIMES :" + this.timeA);
+
+        this.animation.frameDuration = this.timeA * 1;
+        //console.log("MY X:" , this.x);
+        //this.y = this.game.click.y;
     } 
     if(this.fire){
 
-        //console.log("hahaha");
-        if (this.animation.isDone()) {
-            console.log("RETURNED");
+       // console.log(this.endX, " MY END X");
+        if (this.animation.isDone() || (this.x > this.endX)/*this.x === this.endX || this.x > this.endX */) {
+            console.log("RETURNED" + this.endX);
             this.animation.elapsedTime = 0;
             this.fire = false;
+            this.x = 0;
+            this.y = 0;
         }
         
         //this.x += this.game.clockTick * this.speed;
         //this.x += 350;
         this.x += 2;
-        if (this.x > 400); //this.x = -230;
+        console.log(this.x ," MY X::::");
+        //if (this.x > this.endX); //this.x = -230;
         
     }
     Entity.prototype.update.call(this);
@@ -227,7 +244,7 @@ BulletFire.prototype.draw = function () {
     
     }
        
-       
+     
 }
 
 BulletFire.prototype.mouseclick = function(){

@@ -50,10 +50,10 @@ GameEngine.prototype.startInput = function () {
         var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
         var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
 
-        if (x < 1024) {
-            x = Math.floor(x / 32);
-            y = Math.floor(y / 32);
-        }
+        // if (x < 1024) {
+        //     x = Math.floor(x / 32);
+        //     y = Math.floor(y / 32);
+        // }
 
         return { x: x, y: y };
     }
