@@ -139,13 +139,27 @@ Explosion.prototype.draw = function () {
 function Tank(game /*, spritesheet */ ) {
     //this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
 
-    //this.moveUpAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
-   // this.moveDownAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 100, 0, 44, 75, 1, 1, true, false);
-    //this.moveLeftAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 200, 0, 44, 75, 1, 1, true, false);
-    this.moveRightAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+    // this.moveUpAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+    // this.moveDownAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 100, 0, 44, 75, 1, 1, true, false);
+    // this.moveLeftAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 200, 0, 44, 75, 1, 1, true, false);
+    // this.moveRightAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
 
-    this.speed = 50;
+    //this.moveRightTankAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+
+    this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 0, 0, 73, 60, 1, 1, true, false); //quick note{:}
+    this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 73, 0, 73, 60, 1, 1, true, false);
+    this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 146, 0, 73, 60, 1, 1, true, false);
+    this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 219, 0, 73, 60, 1, 1, true, false);
+    this.up = false;
+    this.down = false;
+    this.left = false;
+    this.right = false;
+    this.lastMove = "none";
+    this.hero = false;
+    this.speed = 10;
     this.ctx = game.ctx;
+    this.x = 100;
+    this.y = 100;
     Entity.call(this, game, 0, 300);
 }
 
@@ -154,11 +168,49 @@ Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
 
+
+    if(this.game.keyboard === 38){ //moving up
+        this.up = true;
+        this.down = false;
+        this.right = false;
+        this.left = false;
+    }
+    if(this.up === true){
+        this.y -= this.speed;
+    }
+    if(this.game.keyboard === 39){ //moving right
+    
+        this.up = false;
+        this.down = false;
+        this.right = true;
+        this.left = false;
+    }
+    if(this.right === true){
+        this.x += this.speed;
+    }
+    if(this.game.keyboard === 40){ //moving down
+        this.up = false;
+        this.down = true;
+        this.right = false;
+        this.left = false;
+    }
+    if(this.down === true){
+        this.y += this.speed;
+    }
+    if(this.game.keyboard === 37){ //moving left
+        this.up = false;
+        this.down = false;
+        this.right = false;
+        this.left = true;
+    }
+    if(this.left === true){
+        this.x -= this.speed;
+    }
     //if(this.game.click){
-        this.x += this.game.clockTick * this.speed;
+        //this.x += this.game.clockTick * this.speed;
         //console.log("Location of tank: " + this.x);
-        if (this.x > 800) this.x = -230;
-        Entity.prototype.update.call(this);
+        //if (this.x > 800) this.x = -230;
+    Entity.prototype.update.call(this);
     //}
     
     
@@ -166,7 +218,39 @@ Tank.prototype.update = function () {
 }
 
 Tank.prototype.draw = function () {
-    this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    if(this.up){
+        console.log("GOOOOO HERE" + this.up);
+        this.moveUpRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.up = false;
+        this.lastMove = "up";
+    }
+    if(this.down){
+        //console.log("GOOOOO HERE");
+        this.moveDownRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.down = false;
+        this.lastMove = "down";
+    }
+    if(this.right){
+       // console.log("GOOOOO HERE");
+        this.moveRightRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.right = false;
+        this.lastMove = "right";
+    }
+    if(this.left){
+       // console.log("GOOOOO HERE");
+        this.moveLeftRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.left = false;
+        this.lastMove = "left";
+    }
+    if(!this.left && !this.right && !this.up && !this.down){ //if tank isnt moving then stay at most recent direction.
+        if(this.lastMove === "left") this.moveLeftRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "right") this.moveRightRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "down") this.moveDownRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "up") this.moveUpRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    }
+    
+    //this.moveRightTankAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     Entity.prototype.draw.call(this);
 }
 
@@ -208,7 +292,7 @@ BulletFire.prototype.update = function () {
         this.x = 0;
         this.y = 0;
         this.timeA = Math.sqrt((Math.pow((this.endX - this.x), 2) + Math.pow((this.endY - this.x), 2))); // the hypotneuse 
-        console.log("TIMES :" + this.timeA);
+        //console.log("TIMES :" + this.timeA);
 
         this.animation.frameDuration = this.timeA * 1;
         //console.log("MY X:" , this.x);
@@ -218,7 +302,7 @@ BulletFire.prototype.update = function () {
 
        // console.log(this.endX, " MY END X");
         if (this.animation.isDone() || (this.x > this.endX)/*this.x === this.endX || this.x > this.endX */) {
-            console.log("RETURNED" + this.endX);
+           // console.log("RETURNED" + this.endX);
             this.animation.elapsedTime = 0;
             this.fire = false;
             this.x = 0;
@@ -228,7 +312,7 @@ BulletFire.prototype.update = function () {
         //this.x += this.game.clockTick * this.speed;
         //this.x += 350;
         this.x += 2;
-        console.log(this.x ," MY X::::");
+        //console.log(this.x ," MY X::::");
         //if (this.x > this.endX); //this.x = -230;
         
     }
@@ -295,6 +379,7 @@ AM.queueDownload("./img/Tank_fire_red.png");
 AM.queueDownload("./img/Puddle_01.png");
 AM.queueDownload("./img/bullet_red.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
+AM.queueDownload("./img/robot.png");
 
 AM.downloadAll(function () {
     

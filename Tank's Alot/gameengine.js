@@ -17,6 +17,7 @@ function GameEngine() {
     this.click = null;
     this.mouse = null;
     this.rightclick = null;
+    this.keyboard = null;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -94,6 +95,8 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keydown", function (e) {
         console.log(e);
         console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
+        that.keyboard = e.keyCode;
+        e.preventDefault();
     }, false);
 
     this.ctx.canvas.addEventListener("keypress", function (e) {
@@ -151,6 +154,7 @@ GameEngine.prototype.loop = function () {
     this.click = null;
     this.rightclick = null;
     this.mouse = null;
+    this.keyboard = null;
 }
 
 function Timer() {
