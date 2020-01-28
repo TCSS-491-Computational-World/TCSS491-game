@@ -389,14 +389,17 @@ AM.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();
-    var background =  new Background(gameEngine, AM.getAsset("./img/grass.png"));
+    // var background =  new Background(gameEngine, AM.getAsset("./img/grass.png"));
+
+    var desert = new Desert(gameEngine);
+
     var tank = new Tank(gameEngine);
     var enviornment = new Enviornment(gameEngine);
     //var enviornment2 = new Enviornment(gameEngine);
     var explosion  =  new Explosion(gameEngine /*, AM.getAsset("./img/Explosion_A.png") */);
     var bulletfire = new BulletFire(gameEngine);
 
-     gameEngine.addEntity(background);
+     gameEngine.addEntity(desert);
      gameEngine.addEntity(tank);
      gameEngine.addEntity(enviornment);
      //gameEngine.addEntity(enviornment2);
