@@ -372,6 +372,72 @@ Enviornment.prototype.update = function () {
 
 
 
+
+
+
+
+
+
+
+// function Cell(theX, theY, theContain) {
+//     this.x = theX;
+//     this.y = theY;
+//     this.contains = theContain;
+//   }
+
+
+
+// function Desert(game) {
+//     Entity.call(this, game, 0, 400);
+//     this.radius = 200;
+// }
+
+// Desert.prototype = new Entity();
+// Desert.prototype.constructor = Background;
+
+// Desert.prototype.update = function () {
+// }
+
+// Desert.prototype.draw = function (ctx) {
+//     let grid;
+//     grid = new Array(100);
+//     for (let i = 0; i < 50; i++) {
+//         grid[i] = new Array(50);
+//         for (let j = 0;j < 50; j++) {
+//             grid[i][j] = new Cell(i,j,0);
+//         }
+//     }
+//     let w = 80;
+//     for (let i = 0; i < 50; i++) {
+//         for (let j = 0; j < 50; j++) {
+//         ctx.noFill();
+//         ctx.strokeWeight(2);
+//         ctx.stroke(0);
+//         ctx.rect(i* w, j * w, w,w);
+//         let val = grid[i][j].contains;
+//         if (grid[i][j].contains !== 0) {
+//             ctx.textAlign(CENTER,CENTER);
+//             ctx.textSize(20);
+//             ctx.fill(0);
+//             ctx.noStroke();
+//             ctx.text(val, i* w + w/2, j * w + w/2);
+                 
+//             }         
+//         }
+    
+//     }
+//     // ctx.fillStyle = "SaddleBrown";
+//     // ctx.fillRect(0,500,800,300);
+//     Entity.prototype.draw.call(this);
+// }
+
+
+
+
+
+
+
+
 AM.queueDownload("./img/grass.png");
 AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");

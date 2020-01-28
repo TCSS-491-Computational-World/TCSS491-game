@@ -1,14 +1,15 @@
-// Part 1 For map Desert
-/*
-* 数字(1)是我方坦克（不可通行），X 不可摧毁建筑物或树（不可通行）， O 可摧毁的墙（不可通行除非摧毁），H 是补给， M 是陷阱，0是路
-*/
-
 let grid;
 let grid_new;
 
+function Cell(theX, theY, theContain) {
+  this.x = theX;
+  this.y = theY;
+  this.contains = theContain;
+}
 
 function Desert(game) {
   this.game = game;
+  this.ctx = game.ctx;
   grid = new Array(100);
   for (let i = 0; i < 50; i++) {
     grid[i] = new Array(50);
@@ -16,12 +17,6 @@ function Desert(game) {
       grid[i][j] = new Cell(i,j,0);
     }
   }
-}
-
-function Cell(theX, theY, theContain) {
-  this.x = theX;
-  this.y = theY;
-  this.contains = theContain;
 }
 
 
@@ -53,7 +48,7 @@ Desert.prototype.addWall = function() {
     // }
 }
 
-fDesert.prototype.avaliablePath = function() {
+Desert.prototype.avaliablePath = function() {
     let freeCells = []
     for (let i = 0; i < 50; ) {
         for (let j = 0; j < 50; ) {
