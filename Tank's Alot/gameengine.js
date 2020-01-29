@@ -9,9 +9,7 @@ window.requestAnimFrame = (function () {
             };
 })();
 
-
 function GameEngine() { 
-    this.players = [];
     this.entities = [];
     this.ctx = null;
     this.surfaceWidth = null;
@@ -78,8 +76,9 @@ GameEngine.prototype.startInput = function () {
 
     
     this.ctx.canvas.addEventListener("mousemove", function (e) {
-        //console.log(getXandY(e));
-        that.mouse = getXandY(e);
+        console.log(getXandY(e));
+        
+
     }, false);
 
     this.ctx.canvas.addEventListener("contextmenu", function (e) {
@@ -90,14 +89,14 @@ GameEngine.prototype.startInput = function () {
     }, false);
 
     this.ctx.canvas.addEventListener("mousemove", function (e) {
-        //console.log(e);
+        console.log(e);
         that.mouse = getXandY(e);
     }, false);
 
     this.ctx.canvas.addEventListener("mousewheel", function (e) {
         console.log(e);
         that.wheel = e;
-        console.log("Click Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
+        console.log("wheeling Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
     }, false);
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
@@ -126,9 +125,12 @@ GameEngine.prototype.startInput = function () {
 
 
 
-GameEngine.prototype.addPlayer = function(player){
-    this.players.push(player);
-}
+
+
+
+
+
+
 
 
 GameEngine.prototype.addEntity = function (entity) {
