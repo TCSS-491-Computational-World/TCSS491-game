@@ -74,6 +74,12 @@ GameEngine.prototype.startInput = function () {
         //BulletFire.prototype.mouseclick;
     }, false);
 
+    
+    this.ctx.canvas.addEventListener("mousemove", function (e) {
+        //console.log(getXandY(e));
+        that.mouse = getXandY(e);
+    }, false);
+
     this.ctx.canvas.addEventListener("contextmenu", function (e) {
         that.click = getXandY(e);
         console.log(e);
