@@ -521,6 +521,8 @@ function Tank(game , spritesheet ) {
     this.x = 100;
     this.y = 100;
     Entity.call(this, game, 0, 300);
+    this.health = 200;
+    this.shooting = false;
 }
 
 Tank.prototype = new Entity();
