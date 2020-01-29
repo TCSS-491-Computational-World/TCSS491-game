@@ -343,7 +343,7 @@ Desert.prototype.draw = function (ctx) {
     // drawing grid in the map. It is easy to look for a position to get the location of the tank.
 
     fillGrid(ctx);
-    drawGrid(ctx);
+    // drawGrid(ctx);
     setUpComponents(ctx); // It should install in environment.
 
     Entity.prototype.draw.call(this);
@@ -390,14 +390,26 @@ function setUpComponents(ctx) {
     for (let i = 0; i < 50; i++) {
         for (let j = 0; j < 50; j++) {
             // drawing walls (crate)
-            if ( i % 10 === 2 && j % 7 === 4){
+            if ((i === 5 && j === 3) 
+                || (i === 5 && j === 4) 
+                || (i === 5 && j === 5)
+                || (i === 5 && j === 6)
+                || (i === 5 && j === 7)
+                || (i === 5 && j === 8)
+                || (i === 5 && j === 9)
+                || (i === 5 && j === 10)
+                || (i === 5 && j === 11)
+                || (i === 4 && j === 5)
+                || (i === 4 && j === 6)
+                || (i === 4 && j === 7)
+                || (i === 4 && j === 8)){
                 ctx.drawImage(AM.getAsset("./img/background/crate.png"),i*w, j*w,w,w);
             }
-            // drawing big tree
-            if (i === 5 && j === 5) {
+            // drawing tree 2
+            if (i === 12 && j === 5) {
                 ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,100,100);
             }
-            // drawing small tree
+            // drawing tree 1
             if( i === 9 && j === 6) {
                 ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
             }
