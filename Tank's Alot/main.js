@@ -21,18 +21,6 @@ function setUp() {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-// function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
-//     this.spriteSheet = spriteSheet;
-//     this.frameWidth = frameWidth;
-//     this.frameDuration = frameDuration;
-//     this.frameHeight = frameHeight;
-//     this.sheetWidth = sheetWidth;
-//     this.frames = frames;
-//     this.totalTime = frameDuration * frames;
-//     this.elapsedTime = 0;
-//     this.loop = loop;
-//     this.scale = scale;
-// }
 
 //Animation Class
 function Animation(
@@ -59,7 +47,7 @@ function Animation(
     this.reverse = reverse;
 }
 
-Animation.prototype.drawFrame = function(tick, ctx, x, y, scaleBy) {
+Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
     var scaleBy = scaleBy || 1;
     this.elapsedTime += tick;
     if (this.loop) {
@@ -119,11 +107,11 @@ Animation.prototype.drawFrame = function(tick, ctx, x, y, scaleBy) {
 //                  this.frameHeight * this.scale);
 // }
 
-Animation.prototype.currentFrame = function() {
+Animation.prototype.currentFrame = function () {
     return Math.floor(this.elapsedTime / this.frameDuration);
 };
 
-Animation.prototype.isDone = function() {
+Animation.prototype.isDone = function () {
     return this.elapsedTime >= this.totalTime;
 };
 
@@ -141,12 +129,12 @@ function Background(game, spritesheet) {
     this.ctx = game.ctx;
 }
 
-Background.prototype.draw = function() {
+Background.prototype.draw = function () {
     //console.log(spriteSheet + " sssssss ");
     this.ctx.drawImage(this.spritesheet, this.x, this.y);
 };
 
-Background.prototype.update = function() {};
+Background.prototype.update = function () { };
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -173,13 +161,13 @@ function Barrell(game) {
     this.ctx = game.ctx;
     this.x = 100;
     this.y = 100;
-    Entity.call(this, game, 0, 300);
+    Entity.call(this, game, 300, 300);
 }
 
 Barrell.prototype = new Entity();
 Barrell.prototype.constructor = Barrell;
 
-Barrell.prototype.draw = function() {
+Barrell.prototype.draw = function () {
     this.Downanimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
     this.up = false;
     this.down = false;
@@ -188,7 +176,7 @@ Barrell.prototype.draw = function() {
     Entity.prototype.draw.call(this);
 };
 
-Barrell.prototype.update = function() {
+Barrell.prototype.update = function () {
     // if (this.game.mouse) {
 
     // }
@@ -256,19 +244,8 @@ function BulletFire(game) {
         true,
         false
     );
-    this.animation = new Animation(
-        AM.getAsset("./img/bullet_red.png"),
-        34,
-        28,
-        25,
-        11,
-        2,
-        1,
-        false,
-        false
-    ); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
-    //this.animation = new Animation(spritesheet, 95, 68, 1, (800 * 0.00265), 1, true, 1.0); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
-    this.speed = 350;
+
+    this.speed = 10;
     this.ctx = game.ctx;
     this.fire = false;
     this.timeA = null;
@@ -283,7 +260,7 @@ function BulletFire(game) {
 BulletFire.prototype = new Entity();
 BulletFire.prototype.constructor = BulletFire;
 
-BulletFire.prototype.update = function() {
+BulletFire.prototype.update = function () {
     if (this.game.click) {
         this.fire = true;
         // this.currentX = this.game.click.x;
@@ -297,28 +274,19 @@ BulletFire.prototype.update = function() {
         ); // the hypotneuse
         //console.log("TIMES :" + this.timeA);
 
-        this.animation.frameDuration = this.timeA * 1;
+        //this.animation.frameDuration = this.timeA * 1;
         //console.log("MY X:" , this.x);
         //this.y = this.game.click.y;
     }
     if (this.fire) {
-        // console.log(this.endX, " MY END X");
-        if (
-            this.animation.isDone() ||
-            this.x > this.endX /*this.x === this.endX || this.x > this.endX */
-        ) {
-            // console.log("RETURNED" + this.endX);
-            this.animation.elapsedTime = 0;
+
+        this.x += this.speed;
+
+        if (this.x > this.endX) {
             this.fire = false;
             this.x = 0;
-            this.y = 0;
         }
 
-        //this.x += this.game.clockTick * this.speed;
-        //this.x += 350;
-        this.x += 2;
-        //console.log(this.x ," MY X::::");
-        //if (this.x > this.endX); //this.x = -230;
     }
 
     if (this.game.mouse) {
@@ -330,10 +298,21 @@ BulletFire.prototype.update = function() {
     Entity.prototype.update.call(this);
 };
 
-BulletFire.prototype.draw = function() {
+BulletFire.prototype.draw = function () {
     if (this.fire) {
-        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-        Entity.prototype.draw.call(this);
+        this.ctx.drawImage(
+            AM.getAsset("./img/bullet_onlyred.png"),
+            0,
+            0,
+            25,
+            7,
+            this.x,
+            this.y,
+            25,
+            7
+        );
+        //this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        //Entity.prototype.draw.call(this);
     }
     if (this.cursor) {
         //this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
@@ -348,11 +327,12 @@ BulletFire.prototype.draw = function() {
             19,
             19
         );
-        Entity.prototype.draw.call(this);
+        // Entity.prototype.draw.call(this);
     }
+    Entity.prototype.draw.call(this);
 };
 
-BulletFire.prototype.mouseclick = function() {
+BulletFire.prototype.mouseclick = function () {
     //console.log("hahahah");
     //this.update;
     // document.getElementById("ctx").onclick = function() {
@@ -376,9 +356,9 @@ function Desert(game) {
 Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
 
-Desert.prototype.update = function() {};
+Desert.prototype.update = function () { };
 
-Desert.prototype.draw = function(ctx) {
+Desert.prototype.draw = function (ctx) {
     grid = new Array(100);
     for (let i = 0; i < 50; i++) {
         grid[i] = new Array(50);
@@ -488,26 +468,38 @@ function Enviornment(game) {
     this.ctx = game.ctx;
 }
 
-Enviornment.prototype.draw = function() {
+Enviornment.prototype.draw = function () {
     this.ctx.drawImage(
         AM.getAsset("./img/Decor_Items/Container_A.png"),
-        500,
+        600,
         380
     );
 
-    this.ctx.drawImage(AM.getAsset("./img/Puddle_01.png"), 100, 150);
+    this.ctx.drawImage(AM.getAsset("./img/Puddle_01.png"), 700, 220);
 };
 
-Enviornment.prototype.update = function() {};
+Enviornment.prototype.update = function () { };
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function Explosion(game /*spritesheet /*, myX, myY */ ) {
+function Explosion(game /*spritesheet /*, myX, myY */) {
     this.animation = new Animation(
         AM.getAsset("./img/Explosion_A.png"),
+        0,
+        0,
+        256,
+        256,
+        0.1,
+        5,
+        true,
+        false
+    );
+
+    this.explosionTwoAnimation = new Animation(
+        AM.getAsset("./img/Explosion_C.png"),
         0,
         0,
         256,
@@ -522,25 +514,22 @@ function Explosion(game /*spritesheet /*, myX, myY */ ) {
     //console.log(game.entities[2]);
     //console.log("EEEEEE " + this.game.);
     // this.x = this.game.click.x;
-    Entity.call(this, game, 0, 400 /*, myX, myY*/ );
+    Entity.call(this, game, 0, 400 /*, myX, myY*/);
 }
 
 Explosion.prototype = new Entity();
 Explosion.prototype.constructor = Explosion;
 
-Explosion.prototype.update = function() {
-    //if(this.game.click){
-    //console.log(this.game.click.x + "jheehehhehe")
-    //console.log("xxxxxxx " + this.game.click.x);
-    //this.x += this.game.clockTick * this.speed
-    //this.x += this.game.clockTick * this.speed;
-    //if (this.x > 800) this.x = -230;
+Explosion.prototype.update = function () {
+
     Entity.prototype.update.call(this);
-    //}
+
 };
 
-Explosion.prototype.draw = function() {
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+Explosion.prototype.draw = function () {
+
+    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, .3);
+    this.explosionTwoAnimation.drawFrame(this.game.clockTick, this.ctx, this.x + 200, this.y, .3);
     Entity.prototype.draw.call(this);
 };
 
@@ -653,13 +642,13 @@ function Tank(game, spritesheet) {
     this.ctx = game.ctx;
     this.x = 100;
     this.y = 100;
-    Entity.call(this, game, 0, 300);
+    Entity.call(this, game, 300, 300);
 }
 
 Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
-Tank.prototype.update = function() {
+Tank.prototype.update = function () {
     if (this.game.keyboard === 38 || this.game.keyboard === 87) {
         //moving up
         this.up = true;
@@ -709,7 +698,7 @@ Tank.prototype.update = function() {
     //}
 };
 
-Tank.prototype.draw = function() {
+Tank.prototype.draw = function () {
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpAnimation.drawFrame(
@@ -805,12 +794,12 @@ AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
 AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/Puddle_01.png");
-AM.queueDownload("./img/bullet_red.png");
+AM.queueDownload("./img/bullet_onlyred.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
 AM.queueDownload("./img/tank_red2Barrell.png");
 
-AM.downloadAll(function() {
+AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
 
