@@ -1,0 +1,45 @@
+body, html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.bg{
+    height: 100%;
+}
+body{
+    background-image: url("./images/background.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.title{
+    font-family: Roboto;
+    font-style: normal;
+    text-align: center;
+    color: white;
+    font-size: 5vw;
+    margin-top: 0;
+}
+div{
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+}
+a{
+    text-decoration: none;
+    display: block;
+    width: 18vw;
+    text-align: center;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    color: #000000;
+    background: #B8B8B8;
+    border-radius: 3px;
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 2vw;
+    margin: auto;
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+}
