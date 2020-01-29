@@ -331,18 +331,16 @@ Tank.prototype.draw = function () {
 function BulletFire(game/*, distance */) {
     //this.distance = distance;
  
-    this.cursorAnimation = new Animation(AM.getAsset("./img/cursor.png"), )
+    this.cursorAnimation = new Animation(AM.getAsset("./img/cursor.png"), 0, 0, 19, 19, 1, 1, true, false );
     this.animation = new Animation(AM.getAsset("./img/bullet_red.png"),34, 28, 25, 11, 2 , 1, false, false); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     //this.animation = new Animation(spritesheet, 95, 68, 1, (800 * 0.00265), 1, true, 1.0); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     this.speed = 350;
     this.ctx = game.ctx;
     this.fire = false;
     this.timeA = null;
-   // this.currentX = null;
-   // this.currentY = null;
-    //this.x = 200;
-    //this.startX = 0;
-    //this.startY = 0;
+    this.cursor = false;
+    this.cursorX;
+    this.cursorY;
     this.endX = 0;
     this.endY = 0;
     Entity.call(this, game, 0, 400);
@@ -390,6 +388,13 @@ BulletFire.prototype.update = function () {
         //if (this.x > this.endX); //this.x = -230;
         
     }
+
+    if(this.game.mouse){
+        document.getElementById('gameWorld').style.cursor = 'none';
+        this.cursor = true;
+        this.cursorX = this.game.mouse.x;
+        this.cursorY = this.game.mouse.y;
+    }
     Entity.prototype.update.call(this);
     
     
@@ -402,7 +407,8 @@ BulletFire.prototype.draw = function () {
     
     }
     if(this.cursor){
-
+        this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
+        Entity.prototype.draw.call(this);
     }
        
      
