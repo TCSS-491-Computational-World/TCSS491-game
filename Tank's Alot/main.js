@@ -395,11 +395,11 @@ function setUpComponents(ctx) {
             }
             // drawing big tree
             if (i === 5 && j === 5) {
-                ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,150,200);
+                ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,100,100);
             }
             // drawing small tree
             if( i === 9 && j === 6) {
-                ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,150);
+                ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
             }
 
         }
