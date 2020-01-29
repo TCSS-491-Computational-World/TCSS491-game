@@ -337,12 +337,13 @@ BulletFire.prototype.draw = function () {
         Entity.prototype.draw.call(this);
     
     }
-    // if(this.cursor){
-    //     // this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY);
-    //     this.ctx.drawImage(AM.getAsset("./img/cursor.png"),0, 0, 19, 19,this.cursorX, this.cursorY,19, 19);
-    //     Entity.prototype.draw.call(this);
-    // }
-          
+    if(this.cursor){
+        // this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY);
+        this.ctx.drawImage(AM.getAsset("./img/cursor.png"),0, 0, 19, 19,this.cursorX, this.cursorY,19, 19);
+        Entity.prototype.draw.call(this);
+    }
+       
+     
 }
 
 BulletFire.prototype.mouseclick = function(){

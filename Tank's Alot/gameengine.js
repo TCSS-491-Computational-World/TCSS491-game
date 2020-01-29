@@ -9,7 +9,9 @@ window.requestAnimFrame = (function () {
             };
 })();
 
+
 function GameEngine() { 
+    this.players = [];
     this.entities = [];
     this.ctx = null;
     this.surfaceWidth = null;
@@ -124,9 +126,9 @@ GameEngine.prototype.startInput = function () {
 
 
 
-
-
-
+GameEngine.prototype.addPlayer = function(player){
+    this.players.push(player);
+}
 
 
 GameEngine.prototype.addEntity = function (entity) {
