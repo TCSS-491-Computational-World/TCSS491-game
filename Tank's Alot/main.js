@@ -140,27 +140,15 @@ Explosion.prototype.draw = function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 function Tank(game /*, spritesheet */ ) {
     this.animation = new Animation(AM.getAsset("./img/tank_red.png"), 0,0,44, 75, 1, 1, true, false);
 
-    // this.moveUpAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
-    // this.moveDownAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 100, 0, 44, 75, 1, 1, true, false);
-    // this.moveLeftAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 200, 0, 44, 75, 1, 1, true, false);
-    // this.moveRightAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+    this.moveDownAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 0, 0, 50, 50, 1, 1, true, false);
+    this.moveRightAnimation = new Animation(AM.getAsset("./img/tank_red.png") , 50, 0, 50, 50, 1, 1, true, false);
+    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 100, 0, 50, 50, 1, 1, true, false);
+    this.moveLeftAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 150, 0, 50, 50, 1, 1, true, false);
 
-    //this.moveRightTankAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+    //this.moveRightTankAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 0, 0, 44, 75, 1, 1, true, false);
 
     this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 0, 0, 73, 60, 1, 1, true, false); //quick note{:}
     this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 73, 0, 73, 60, 1, 1, true, false);
@@ -233,6 +221,8 @@ Tank.prototype.update = function () {
     
 }
 
+
+
 Tank.prototype.draw = function () {
     // if (!this.up && !this.down&&!this.right&&!this.left) {
     //     this.animation.drawFrame(this.game.clockTick,this.ctx, this.x, this.y);
@@ -240,34 +230,35 @@ Tank.prototype.draw = function () {
 
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if(this.up){
-        console.log("GOOOOO HERE" + this.up);
-        this.moveUpRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        //console.log("GOOOOO HERE" + this.up);
+        this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.up = false;
         this.lastMove = "up";
     }
     if(this.down){
         //console.log("GOOOOO HERE");
-        this.moveDownRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.moveDownAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.down = false;
         this.lastMove = "down";
     }
     if(this.right){
        // console.log("GOOOOO HERE");
-        this.moveRightRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.right = false;
         this.lastMove = "right";
     }
     if(this.left){
        // console.log("GOOOOO HERE");
-        this.moveLeftRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        this.moveLeftAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.left = false;
         this.lastMove = "left";
     }
     if(!this.left && !this.right && !this.up && !this.down){ //if tank isnt moving then stay at most recent direction.
-        if(this.lastMove === "left") this.moveLeftRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-        if(this.lastMove === "right") this.moveRightRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-        if(this.lastMove === "down") this.moveDownRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-        if(this.lastMove === "up") this.moveUpRobotAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "left") this.moveLeftAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "right") this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "down") this.moveDownAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "up") this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "none") this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
     
     //this.moveRightTankAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
@@ -433,13 +424,8 @@ Desert.prototype.draw = function (ctx) {
     // for () {
 
     // }
-    var w = 100;
-    for (let i = 0; i < 50; i++) {
-        for (let j = 0; j < 50; j++) {
-            ctx.strokeRect(i*w, j*w, w, w);
-        }
-    }
-    
+
+    drawGrid(ctx);
 
 
 
@@ -470,20 +456,38 @@ Desert.prototype.draw = function (ctx) {
 }
 
 
+function drawGrid(ctx) {
+    var w = 50;
+    for (let i = 0; i < 50; i++) {
+        for (let j = 0; j < 50; j++) {
+
+            ctx.strokeRect(i*w, j*w, w, w);
+            // ctx.drawImage(AM.getAsset("./img/desert.jpg"),i*w, j*w, w, w);
+            
+        }
+    }
+}
 
 
 
 
 
 
+
+// background images.
 AM.queueDownload("./img/grass.png");
+// AM.queueDownload("./img/desert.jpg");
+
+
+
 AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
-AM.queueDownload("./img/Tank_fire_red.png");
+AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/Puddle_01.png");
 AM.queueDownload("./img/bullet_red.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
+// AM.queueDownload("./img/tank_red2Barrell.png");
 
 AM.downloadAll(function () {
     
@@ -493,21 +497,23 @@ AM.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
     gameEngine.start();
-    // var background =  new Background(gameEngine, AM.getAsset("./img/grass.png"));
+    // var background =  new Background(gameEngine, AM.getAsset("./img/desert.jpg"));
 
     var desert = new Desert(gameEngine);
 
     var tank = new Tank(gameEngine);
+    // var barrell = new Barrell(gameEngine);
     var enviornment = new Enviornment(gameEngine);
     //var enviornment2 = new Enviornment(gameEngine);
     var explosion  =  new Explosion(gameEngine /*, AM.getAsset("./img/Explosion_A.png") */);
     var bulletfire = new BulletFire(gameEngine);
 
-    //  gameEngine.addEntity(desert);
+     gameEngine.addEntity(desert);
+    // gameEngine.addEntity(background);
      gameEngine.addEntity(tank);
      gameEngine.addEntity(enviornment);
      //gameEngine.addEntity(enviornment2);
-
+    // gameEngine.addEntity(barrell);
      gameEngine.addEntity(explosion);
      gameEngine.addEntity(bulletfire);
 
