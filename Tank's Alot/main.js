@@ -132,7 +132,7 @@ Explosion.prototype.update = function () {
 }
 
 Explosion.prototype.draw = function () {
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, .5);
     Entity.prototype.draw.call(this);
 }
 
