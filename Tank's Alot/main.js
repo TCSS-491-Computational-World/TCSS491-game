@@ -239,7 +239,6 @@ Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
 
-
     if(this.game.keyboard === 38){ //moving up
         this.up = true;
         this.down = false;
@@ -293,25 +292,25 @@ Tank.prototype.update = function () {
 Tank.prototype.draw = function () {
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if(this.up){
-        //console.log("GOOOOO HERE" + this.up);
+  
         this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.up = false;
         this.lastMove = "up";
     }
     if(this.down){
-        //console.log("GOOOOO HERE");
+    
         this.moveDownAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.down = false;
         this.lastMove = "down";
     }
     if(this.right){
-       // console.log("GOOOOO HERE");
+    
         this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.right = false;
         this.lastMove = "right";
     }
     if(this.left){
-       // console.log("GOOOOO HERE");
+  
         this.moveLeftAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         this.left = false;
         this.lastMove = "left";
@@ -323,15 +322,14 @@ Tank.prototype.draw = function () {
         if(this.lastMove === "up") this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         if(this.lastMove === "none") this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
-    
-    //this.moveRightTankAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+
     Entity.prototype.draw.call(this);
 }
 
-function BulletFire(game/*, distance */) {
+function BulletFire(game) {
     //this.distance = distance;
  
-    this.cursorAnimation = new Animation(AM.getAsset("./img/cursor.png"), 0, 0, 19, 19, 1, 1, true, false );
+    this.cursorAnimation = new Animation(AM.getAsset("./img/cursor.png"), 0, 0, 19, 19, 20, 1, true, false );
     this.animation = new Animation(AM.getAsset("./img/bullet_red.png"),34, 28, 25, 11, 2 , 1, false, false); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     //this.animation = new Animation(spritesheet, 95, 68, 1, (800 * 0.00265), 1, true, 1.0); //takes 2.12 seconds to go 800pixels right (0.00265) = constant at speed 350
     this.speed = 350;
@@ -344,10 +342,6 @@ function BulletFire(game/*, distance */) {
     this.endX = 0;
     this.endY = 0;
     Entity.call(this, game, 0, 400);
-}
-
-BulletFire.prototype.distance = function(){
-    this.x
 }
 
 BulletFire.prototype = new Entity();
@@ -407,7 +401,8 @@ BulletFire.prototype.draw = function () {
     
     }
     if(this.cursor){
-        this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
+        //this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
+        this.ctx.drawImage(AM.getAsset("./img/cursor.png"),0, 0, 19, 19,this.cursorX, this.cursorY,19, 19);
         Entity.prototype.draw.call(this);
     }
        
