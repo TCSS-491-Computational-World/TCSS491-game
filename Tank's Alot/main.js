@@ -139,12 +139,35 @@ Explosion.prototype.draw = function () {
 function Tank(game /*, spritesheet */ ) {
     //this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
 
+<<<<<<< Updated upstream
     //this.moveUpAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
    // this.moveDownAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 100, 0, 44, 75, 1, 1, true, false);
     //this.moveLeftAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 200, 0, 44, 75, 1, 1, true, false);
     this.moveRightAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
 
     this.speed = 50;
+=======
+    this.moveDownAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 0, 0, 50, 50, 1, 1, true, false);
+    this.moveRightAnimation = new Animation(AM.getAsset("./img/tank_red.png") , 50, 0, 50, 50, 1, 1, true, false);
+    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 100, 0, 50, 50, 1, 1, true, false);
+    this.moveLeftAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 150, 0, 50, 50, 1, 1, true, false);
+
+    //this.moveRightTankAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 0, 0, 44, 75, 1, 1, true, false);
+
+    this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 0, 0, 73, 60, 1, 1, true, false); //quick note{:}
+    this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 73, 0, 73, 60, 1, 1, true, false);
+    this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 146, 0, 73, 60, 1, 1, true, false);
+    this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 219, 0, 73, 60, 1, 1, true, false);
+
+
+    this.up = false;
+    this.down = false;
+    this.left = false;
+    this.right = false;
+    this.lastMove = "none";
+    this.hero = false;
+    this.speed = 10;
+>>>>>>> Stashed changes
     this.ctx = game.ctx;
     Entity.call(this, game, 0, 300);
 }
@@ -154,13 +177,52 @@ Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
 
+<<<<<<< Updated upstream
+=======
+    if(this.game.keyboard === 87 || this.game.keyboard === 119 ){ //moving up
+        this.up = true;
+        this.down = false;
+        this.right = false;
+        this.left = false;
+    }
+    if(this.up === true){
+        this.y -= this.speed;
+    }
+    if(this.game.keyboard === 68 || this.game.keyboard === 100){ //moving right
+    
+        this.up = false;
+        this.down = false;
+        this.right = true;
+        this.left = false;
+    }
+    if(this.right === true){
+        this.x += this.speed;
+    }
+    if(this.game.keyboard === 83 || this.game.keyboard === 115){ //moving down
+        this.up = false;
+        this.down = true;
+        this.right = false;
+        this.left = false;
+    }
+    if(this.down === true){
+        this.y += this.speed;
+    }
+    if(this.game.keyboard === 65 || this.game.keyboard === 97){ //moving left
+        this.up = false;
+        this.down = false;
+        this.right = false;
+        this.left = true;
+    }
+    if(this.left === true){
+        this.x -= this.speed;
+    }
+>>>>>>> Stashed changes
     //if(this.game.click){
         this.x += this.game.clockTick * this.speed;
         //console.log("Location of tank: " + this.x);
         if (this.x > 800) this.x = -230;
         Entity.prototype.update.call(this);
     //}
-    
     
     
 }
@@ -180,6 +242,8 @@ function BulletFire(game/*, distance */) {
     this.ctx = game.ctx;
     this.fire = false;
     this.timeA = null;
+    this.tankX = 0;
+    this.tankY = 0;
    // this.currentX = null;
    // this.currentY = null;
     //this.x = 200;
@@ -187,7 +251,7 @@ function BulletFire(game/*, distance */) {
     //this.startY = 0;
     this.endX = 0;
     this.endY = 0;
-    Entity.call(this, game, 0, 400);
+    Entity.call(this, game, this.game.players[0].x, this.game.players[0].y);
 }
 
 BulletFire.prototype.distance = function(){
@@ -204,9 +268,10 @@ BulletFire.prototype.update = function () {
        // this.currentX = this.game.click.x;
        // this.currentY = this.game.click.y;
         this.endX = this.game.click.x;
-        this.endY = this.game.click.y;
-        this.x = 0;
-        this.y = 0;
+        this.endY = this.game.click.x;
+        this.x = this.game.players[0].x;
+        this.y = this.game.players[0].y;
+        //console.log(this.game.enteties[1].x);
         this.timeA = Math.sqrt((Math.pow((this.endX - this.x), 2) + Math.pow((this.endY - this.x), 2))); // the hypotneuse 
         console.log("TIMES :" + this.timeA);
 
@@ -221,8 +286,8 @@ BulletFire.prototype.update = function () {
             console.log("RETURNED" + this.endX);
             this.animation.elapsedTime = 0;
             this.fire = false;
-            this.x = 0;
-            this.y = 0;
+            this.x = this.game.players[0].x;
+            this.y = this.game.players[0].y;
         }
         
         //this.x += this.game.clockTick * this.speed;
@@ -311,6 +376,7 @@ AM.downloadAll(function () {
     var explosion  =  new Explosion(gameEngine /*, AM.getAsset("./img/Explosion_A.png") */);
     var bulletfire = new BulletFire(gameEngine);
 
+     gameEngine.addPlayer(tank);
      gameEngine.addEntity(background);
      gameEngine.addEntity(tank);
      gameEngine.addEntity(enviornment);
@@ -318,16 +384,9 @@ AM.downloadAll(function () {
 
      gameEngine.addEntity(explosion);
      gameEngine.addEntity(bulletfire);
+     
 
-
-    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
-    // gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
-    // gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png"), 800));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Decor_Items/Container_A.png"), 100, 500));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
-    // console.log(gameEngine.entities[2].x);
+     //console.log(gameEngine.players[0].y);
     
 
     console.log("All Done!");

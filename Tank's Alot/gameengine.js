@@ -9,7 +9,12 @@ window.requestAnimFrame = (function () {
             };
 })();
 
+<<<<<<< Updated upstream
 function GameEngine() {
+=======
+function GameEngine() { 
+    this.players = [];
+>>>>>>> Stashed changes
     this.entities = [];
     this.ctx = null;
     this.surfaceWidth = null;
@@ -115,9 +120,9 @@ GameEngine.prototype.startInput = function () {
 
 
 
-
-
-
+GameEngine.prototype.addPlayer = function(player){
+    this.players.push(player);
+}
 
 
 GameEngine.prototype.addEntity = function (entity) {
