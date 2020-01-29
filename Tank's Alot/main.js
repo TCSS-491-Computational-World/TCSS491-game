@@ -139,19 +139,70 @@ Explosion.prototype.draw = function () {
 //________________________________________________________________________________________________________
 
 function Barrell(game, spritesheet){
-
+    this.Banimation = new Animation(AM.getAsset("./img/tank_red2Barrell.png"), 0, 0, 50, 50, 1, 1, true, false);
+    this.up = false;
+    this.down = false;
+    this.left = false;
+    this.right = false;
+    this.speed = 10;
+    this.ctx = game.ctx;
+    this.x = 100;
+    this.y = 100;
+    Entity.call(this, game, 0, 300);
 }
 
 Barrell.prototype = new Entity();
 Barrell.prototype.constructor = Barrell;
 
 Barrell.prototype.draw = function (){
-
+    this.Banimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
+    this.up = false;
+    this.down = false;
+    this.right = false;
+    this.left = false;
+    Entity.prototype.draw.call(this);
 }
 
 
 Barrell.prototype.update = function(){
-
+    if(this.game.keyboard === 38){ //moving up
+        this.up = true;
+        this.down = false;
+        this.right = false;
+        this.left = false;
+    }
+    if(this.up === true){
+        this.y -= this.speed;
+    }
+    if(this.game.keyboard === 39){ //moving right
+    
+        this.up = false;
+        this.down = false;
+        this.right = true;
+        this.left = false;
+    }
+    if(this.right === true){
+        this.x += this.speed;
+    }
+    if(this.game.keyboard === 40){ //moving down
+        this.up = false;
+        this.down = true;
+        this.right = false;
+        this.left = false;
+    }
+    if(this.down === true){
+        this.y += this.speed;
+    }
+    if(this.game.keyboard === 37){ //moving left
+        this.up = false;
+        this.down = false;
+        this.right = false;
+        this.left = true;
+    }
+    if(this.left === true){
+        this.x -= this.speed;
+    }
+    Entity.prototype.update.call(this);
 }
 
 //___________________________________________________________________________________________________________
@@ -270,6 +321,7 @@ Tank.prototype.draw = function () {
         if(this.lastMove === "right") this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         if(this.lastMove === "down") this.moveDownAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         if(this.lastMove === "up") this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        if(this.lastMove === "none") this.moveUpAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     }
     
     //this.moveRightTankAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
@@ -414,7 +466,7 @@ AM.downloadAll(function () {
     gameEngine.start();
     var background =  new Background(gameEngine, AM.getAsset("./img/grass.png"));
     var tank = new Tank(gameEngine);
-    //var barrell = new barrell()
+    var barrell = new Barrell(gameEngine);
     var enviornment = new Enviornment(gameEngine);
     //var enviornment2 = new Enviornment(gameEngine);
     var explosion  =  new Explosion(gameEngine /*, AM.getAsset("./img/Explosion_A.png") */);
@@ -424,7 +476,7 @@ AM.downloadAll(function () {
      gameEngine.addEntity(tank);
      gameEngine.addEntity(enviornment);
      //gameEngine.addEntity(enviornment2);
-
+    gameEngine.addEntity(barrell);
      gameEngine.addEntity(explosion);
      gameEngine.addEntity(bulletfire);
 
