@@ -389,12 +389,17 @@ function setUpComponents(ctx) {
     // var img = AM.getAsset("./img/background/crate.png");
     for (let i = 0; i < 50; i++) {
         for (let j = 0; j < 50; j++) {
+            // drawing walls (crate)
             if ( i % 10 === 2 && j % 7 === 4){
                 ctx.drawImage(AM.getAsset("./img/background/crate.png"),i*w, j*w,w,w);
             }
-
-            if (i === 0 && j === 5) {
-                ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i,j,150,200);
+            // drawing big tree
+            if (i === 5 && j === 5) {
+                ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,150,200);
+            }
+            // drawing small tree
+            if( i === 9 && j === 6) {
+                ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,150);
             }
 
         }
@@ -603,6 +608,8 @@ Tank.prototype.draw = function () {
 AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
 AM.queueDownload("./img/background/tree2.png");
+AM.queueDownload("./img/background/tree1.png");
+
 
 AM.queueDownload("./img/cursor.png");
 AM.queueDownload("./img/grass.png");
