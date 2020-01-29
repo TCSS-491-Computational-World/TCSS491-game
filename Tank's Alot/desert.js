@@ -95,37 +95,6 @@ Desert.prototype.drawGrid = function() {
 
 
 
-
-// // Tank four moves
-// function moveUp(tank) { // grid as a global variable
-//   grid[cell.x][cell.y-1] = cell.contains;
-//   cell.contains = cloneMap[cell.x][cell.y].contains;
-//   return grid;
-  
-
-// }
-
-// function moveDown(tank) {
-//   grid[cell.x][cell.y+1] = cell.contains;
-//   cell.contains = cloneMap[cell.x][cell.y].contains;
-//   return grid;
-// }
-
-
-// function moveLeft(cell) {
-//   grid[cell.x-1][cell.y] = cell.contains;
-//   cell.contains = cloneMap[cell.x][cell.y].contains;
-//   return grid;
-// }
-
-// function moveRight(tank) {
-//   grid[cell.x+1][cell.y] =cell.contains;
-//   cell.contains = cloneMap[cell.x][cell.y].contains;
-//   return grid;
-// }
-
-
-
 // function Tank(theX, theY, theIcon,theHealth) {
 //   this.x = theX;
 //   this.y = theY;

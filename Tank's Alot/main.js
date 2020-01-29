@@ -136,8 +136,24 @@ Explosion.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function Tank(game /*, spritesheet */ ) {
-    //this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
+    this.animation = new Animation(AM.getAsset("./img/tank_red.png"), 0,0,44, 75, 1, 1, true, false);
 
     // this.moveUpAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 0, 0, 44, 75, 1, 1, true, false);
     // this.moveDownAnimation = new Animation(AM.getAsset("./img/Tank_fire_red.png"), 100, 0, 44, 75, 1, 1, true, false);
@@ -156,7 +172,7 @@ function Tank(game /*, spritesheet */ ) {
     this.right = false;
     this.lastMove = "none";
     this.hero = false;
-    this.speed = 10;
+    this.speed = 0;
     this.ctx = game.ctx;
     this.x = 100;
     this.y = 100;
@@ -218,6 +234,10 @@ Tank.prototype.update = function () {
 }
 
 Tank.prototype.draw = function () {
+    // if (!this.up && !this.down&&!this.right&&!this.left) {
+    //     this.animation.drawFrame(this.game.clockTick,this.ctx, this.x, this.y);
+    // }
+
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if(this.up){
         console.log("GOOOOO HERE" + this.up);
@@ -379,57 +399,75 @@ Enviornment.prototype.update = function () {
 
 
 
-// function Cell(theX, theY, theContain) {
-//     this.x = theX;
-//     this.y = theY;
-//     this.contains = theContain;
-//   }
+function Cell(theX, theY, theContain) {
+    this.x = theX;
+    this.y = theY;
+    this.contains = theContain;
+  }
 
 
 
-// function Desert(game) {
-//     Entity.call(this, game, 0, 400);
-//     this.radius = 200;
-// }
+function Desert(game) {
+    Entity.call(this, game, 0, 400);
+    this.radius = 200;
+}
 
-// Desert.prototype = new Entity();
-// Desert.prototype.constructor = Background;
+Desert.prototype = new Entity();
+Desert.prototype.constructor = Desert;
 
-// Desert.prototype.update = function () {
-// }
+Desert.prototype.update = function () {
+}
 
-// Desert.prototype.draw = function (ctx) {
-//     let grid;
-//     grid = new Array(100);
-//     for (let i = 0; i < 50; i++) {
-//         grid[i] = new Array(50);
-//         for (let j = 0;j < 50; j++) {
-//             grid[i][j] = new Cell(i,j,0);
-//         }
-//     }
-//     let w = 80;
-//     for (let i = 0; i < 50; i++) {
-//         for (let j = 0; j < 50; j++) {
-//         ctx.noFill();
-//         ctx.strokeWeight(2);
-//         ctx.stroke(0);
-//         ctx.rect(i* w, j * w, w,w);
-//         let val = grid[i][j].contains;
-//         if (grid[i][j].contains !== 0) {
-//             ctx.textAlign(CENTER,CENTER);
-//             ctx.textSize(20);
-//             ctx.fill(0);
-//             ctx.noStroke();
-//             ctx.text(val, i* w + w/2, j * w + w/2);
-                 
-//             }         
-//         }
+Desert.prototype.draw = function (ctx) {
+    let grid;
+    grid = new Array(100);
+    for (let i = 0; i < 50; i++) {
+        grid[i] = new Array(50);
+        for (let j = 0;j < 50; j++) {
+            grid[i][j] = new Cell(i,j,0);
+        }
+    }
+    // ctx.moveTo(0,0);
+    // ctx.lineTo(0,80);
+    // ctx.stroke();
+    // for () {
+
+    // }
+    var w = 100;
+    for (let i = 0; i < 50; i++) {
+        for (let j = 0; j < 50; j++) {
+            ctx.strokeRect(i*w, j*w, w, w);
+        }
+    }
     
-//     }
-//     // ctx.fillStyle = "SaddleBrown";
-//     // ctx.fillRect(0,500,800,300);
-//     Entity.prototype.draw.call(this);
-// }
+
+
+
+    // let w = 80;
+    // for (let i = 0; i < 50; i++) {
+    //     for (let j = 0; j < 50; j++) {
+    //     ctx.noFill();
+    //     ctx.strokeWeight(2);
+    //     ctx.stroke(0);
+    //     ctx.rect(i* w, j * w, w,w);
+    //     let val = grid[i][j].contains;
+    //     if (grid[i][j].contains !== 0) {
+    //         ctx.textAlign(CENTER,CENTER);
+    //         ctx.textSize(20);
+    //         ctx.fill(0);
+    //         ctx.noStroke();
+    //         ctx.text(val, i* w + w/2, j * w + w/2);
+                 
+    //         }         
+    //     }
+    
+    // }
+
+    // };
+    // ctx.fillStyle = "SaddleBrown";
+    // ctx.fillRect(0,500,800,300);
+    Entity.prototype.draw.call(this);
+}
 
 
 
@@ -465,13 +503,15 @@ AM.downloadAll(function () {
     var explosion  =  new Explosion(gameEngine /*, AM.getAsset("./img/Explosion_A.png") */);
     var bulletfire = new BulletFire(gameEngine);
 
-     gameEngine.addEntity(desert);
+    //  gameEngine.addEntity(desert);
      gameEngine.addEntity(tank);
      gameEngine.addEntity(enviornment);
      //gameEngine.addEntity(enviornment2);
 
      gameEngine.addEntity(explosion);
      gameEngine.addEntity(bulletfire);
+
+     
 
 
     // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
