@@ -1,4 +1,27 @@
 var AM = new AssetManager();
+var grid = new Array(100);
+
+
+function Cell(theX, theY, theContain) {
+    this.x = theX;
+    this.y = theY;
+    this.contains = theContain;
+}
+
+function setUp() {
+    for (let i = 0; i < 100; i++) {
+        grid[i] = new Array(100);
+        for (let j = 0; j < 100; j++) {
+            grid[i][j] = new Cell(i,j,0);
+        }
+    }
+}
+
+//________________________________________________________________________________________________________
+//________________________________________________________________________________________________________
+//________________________________________________________________________________________________________
+//________________________________________________________________________________________________________
+
 
 // function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
 //     this.spriteSheet = spriteSheet;
@@ -117,7 +140,7 @@ Background.prototype.update = function () {
 
 
 function Barrell(game){
-    this.Banimation = new Animation(AM.getAsset("./img/tank_red2Barrell.png"), 0, 0, 50, 50, 1, 1, true, false);
+    this.Downanimation = new Animation(AM.getAsset("./img/tank_red2Barrell.png"), 0, 0, 50, 50, 1, 1, true, false);
     this.up = false;
     this.down = false;
     this.left = false;
@@ -133,7 +156,7 @@ Barrell.prototype = new Entity();
 Barrell.prototype.constructor = Barrell;
 
 Barrell.prototype.draw = function (){
-    this.Banimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
+    this.Downanimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
     this.up = false;
     this.down = false;
     this.right = false;
@@ -143,47 +166,47 @@ Barrell.prototype.draw = function (){
 
 
 Barrell.prototype.update = function(){
-    if (this.game.mouse) {
+    // if (this.game.mouse) {
 
+    // }
+
+    if(this.game.keyboard === 38 || this.game.keyboard === 87){ //moving up
+        this.up = true;
+        this.down = false;
+        this.right = false;
+        this.left = false;
     }
-
-    // if(this.game.keyboard === 38 || this.game.keyboard === 87){ //moving up
-    //     this.up = true;
-    //     this.down = false;
-    //     this.right = false;
-    //     this.left = false;
-    // }
-    // if(this.up === true){
-    //     this.y -= this.speed;
-    // }
-    // if(this.game.keyboard === 39 || this.game.keyboard === 68){ //moving right
+    if(this.up === true){
+        this.y -= this.speed;
+    }
+    if(this.game.keyboard === 39 || this.game.keyboard === 68){ //moving right
     
-    //     this.up = false;
-    //     this.down = false;
-    //     this.right = true;
-    //     this.left = false;
-    // }
-    // if(this.right === true){
-    //     this.x += this.speed;
-    // }
-    // if(this.game.keyboard === 40 || this.game.keyboard === 83){ //moving down
-    //     this.up = false;
-    //     this.down = true;
-    //     this.right = false;
-    //     this.left = false;
-    // }
-    // if(this.down === true){
-    //     this.y += this.speed;
-    // }
-    // if(this.game.keyboard === 37 || this.game.keyboard === 65){ //moving left
-    //     this.up = false;
-    //     this.down = false;
-    //     this.right = false;
-    //     this.left = true;
-    // }
-    // if(this.left === true){
-    //     this.x -= this.speed;
-    // }
+        this.up = false;
+        this.down = false;
+        this.right = true;
+        this.left = false;
+    }
+    if(this.right === true){
+        this.x += this.speed;
+    }
+    if(this.game.keyboard === 40 || this.game.keyboard === 83){ //moving down
+        this.up = false;
+        this.down = true;
+        this.right = false;
+        this.left = false;
+    }
+    if(this.down === true){
+        this.y += this.speed;
+    }
+    if(this.game.keyboard === 37 || this.game.keyboard === 65){ //moving left
+        this.up = false;
+        this.down = false;
+        this.right = false;
+        this.left = true;
+    }
+    if(this.left === true){
+        this.x -= this.speed;
+    }
     Entity.prototype.update.call(this);
 }
 
@@ -295,17 +318,6 @@ BulletFire.prototype.mouseclick = function(){
 //________________________________________________________________________________________________________
 
 
-function Cell(theX, theY, theContain) {
-    this.x = theX;
-    this.y = theY;
-    this.contains = theContain;
-  }
-
-
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
 
 function Desert(game) {
     Entity.call(this, game, 0, 400);
@@ -319,7 +331,6 @@ Desert.prototype.update = function () {
 }
 
 Desert.prototype.draw = function (ctx) {
-    let grid;
     grid = new Array(100);
     for (let i = 0; i < 50; i++) {
         grid[i] = new Array(50);
@@ -333,6 +344,7 @@ Desert.prototype.draw = function (ctx) {
 
     fillGrid(ctx);
     drawGrid(ctx);
+    setUpComponents(ctx); // It should install in environment.
 
     Entity.prototype.draw.call(this);
 }
@@ -358,6 +370,31 @@ function fillGrid(ctx) {
             ctx.drawImage(img,i*w, j*w,w,w);
         }
     }
+}
+
+
+function setUpComponents(ctx) {
+    // let wallList = [];
+    // for (let i = 0; i < 100; i++) {
+    //     for (let j = 0; j< 100; j++) {
+    //         wallList.push();
+    //     }
+
+    // }
+
+
+
+
+    var w = 50;
+    var img = AM.getAsset("./img/crate.png");
+    for (let i = 0; i < 50; i++) {
+        for (let j = 0; j < 50; j++) {
+            if ( i % 10 === 2 && j % 7 === 4){
+                ctx.drawImage(img,i*w, j*w,w,w);
+            }
+
+        }
+    }   
 }
 
 
@@ -560,6 +597,7 @@ Tank.prototype.draw = function () {
 
 
 AM.queueDownload("./img/desertTile.png");
+AM.queueDownload("./img/crate.png");
 
 
 AM.queueDownload("./img/cursor.png");
@@ -592,10 +630,11 @@ AM.downloadAll(function () {
 
     var desert = new Desert(gameEngine);
 
-    var enviornment = new Enviornment(gameEngine);
+    
     var explosion  =  new Explosion(gameEngine /*, AM.getAsset("./img/Explosion_A.png") */);
 
     var tank = new Tank(gameEngine);
+    var enviornment = new Enviornment(gameEngine);
 
 
     //var enviornment2 = new Enviornment(gameEngine);
@@ -604,9 +643,9 @@ AM.downloadAll(function () {
      gameEngine.addEntity(desert);
     //  gameEngine.addEntity(background);
      gameEngine.addEntity(tank);
-     gameEngine.addEntity(enviornment);
-     //gameEngine.addEntity(enviornment2);
      gameEngine.addEntity(barrell);
+     gameEngine.addEntity(enviornment);    // block the way
+     //gameEngine.addEntity(enviornment2); // can cross
      gameEngine.addEntity(explosion);
      gameEngine.addEntity(bulletfire);
 
