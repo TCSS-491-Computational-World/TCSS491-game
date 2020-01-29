@@ -88,24 +88,6 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
         this.frameHeight * scaleBy
     );
 };
-// Animation.prototype.drawFrame = function (tick, ctx, x, y) {
-//     this.elapsedTime += tick;
-//     if (this.isDone()) {
-//         if (this.loop) this.elapsedTime = 0;
-//     }
-//     var frame = this.currentFrame();
-//     var xindex = 0;
-//     var yindex = 0;
-//     xindex = frame % this.sheetWidth;
-//     yindex = Math.floor(frame / this.sheetWidth);
-
-//     ctx.drawImage(this.spriteSheet,
-//                  xindex * this.frameWidth, yindex * this.frameHeight,  // source from sheet
-//                  this.frameWidth, this.frameHeight,
-//                  x, y,
-//                  this.frameWidth * this.scale,
-//                  this.frameHeight * this.scale);
-// }
 
 Animation.prototype.currentFrame = function () {
     return Math.floor(this.elapsedTime / this.frameDuration);
@@ -539,7 +521,6 @@ Explosion.prototype.draw = function () {
 //________________________________________________________________________________________________________
 
 function Tank(game, spritesheet) {
-    //this.animation = new Animation(spritesheet, 44, 75, 1, 0.15, 1, true, 1.0);
 
     this.moveDownAnimation = new Animation(
         AM.getAsset("./img/tank_red.png"),
@@ -585,8 +566,6 @@ function Tank(game, spritesheet) {
         true,
         false
     );
-
-    //this.moveRightTankAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 0, 0, 44, 75, 1, 1, true, false);
 
     this.moveDownRobotAnimation = new Animation(
         AM.getAsset("./img/robot.png"),
@@ -690,12 +669,8 @@ Tank.prototype.update = function () {
     if (this.left === true) {
         this.x -= this.speed;
     }
-    //if(this.game.click){
-    //this.x += this.game.clockTick * this.speed;
-    //console.log("Location of tank: " + this.x);
-    //if (this.x > 800) this.x = -230;
+
     Entity.prototype.update.call(this);
-    //}
 };
 
 Tank.prototype.draw = function () {
@@ -820,25 +795,13 @@ AM.downloadAll(function () {
     var tank = new Tank(gameEngine);
     var enviornment = new Enviornment(gameEngine);
 
-    //var enviornment2 = new Enviornment(gameEngine);
-
     gameEngine.addEntity(desert);
-    //  gameEngine.addEntity(background);
     gameEngine.addEntity(tank);
     gameEngine.addEntity(barrell);
     gameEngine.addEntity(enviornment); // block the way
-    //gameEngine.addEntity(enviornment2); // can cross
+
     gameEngine.addEntity(explosion);
     gameEngine.addEntity(bulletfire);
-
-    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
-    // gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
-    // gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png"), 800));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Decor_Items/Container_A.png"), 100, 500));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
-    // console.log(gameEngine.entities[2].x);
 
     console.log("All Done!");
 });
