@@ -439,6 +439,18 @@ function setUpComponents(ctx) {
                     w
                 );
             }
+
+            // drawing health bonus
+            if (i === 1 && j === 1) {
+                ctx.drawImage(
+                    AM.getAsset("./img/background/HP_Bonus.png"),
+                    i * w,
+                    j * w,
+                    150 * 0.25,
+                    200 * 0.25
+                );
+            }
+
             // drawing big tree
             if (i === 5 && j === 5) {
                 ctx.drawImage(
@@ -785,6 +797,7 @@ AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
 AM.queueDownload("./img/background/tree2.png");
 AM.queueDownload("./img/background/tree1.png");
+AM.queueDownload("./img/background/HP_Bonus.png");
 
 AM.queueDownload("./img/cursor.png");
 AM.queueDownload("./img/grass.png");
