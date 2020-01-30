@@ -212,7 +212,7 @@ Barrell.prototype.update = function () {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function BulletFire(game) {
+function BulletFire(game, fire, tankX, tankY) {
     //this.distance = distance;
 
     this.cursorAnimation = new Animation(
@@ -226,47 +226,49 @@ function BulletFire(game) {
         true,
         false
     );
+    this.tankX = tankX;
+    this.tankY = tankY;
 
+    this.fire = false;
     this.speed = 10;
     this.ctx = game.ctx;
-    this.fire = false;
+    this.fire = fire;
     this.timeA = null;
     this.cursor = false;
     this.cursorX;
     this.cursorY;
-    this.endX = 0;
+    this.endX = 500;
     this.endY = 0;
-    Entity.call(this, game, 0, 400);
+    Entity.call(this, game, this.tankX, this.tankY);
 }
 
 BulletFire.prototype = new Entity();
 BulletFire.prototype.constructor = BulletFire;
 
 BulletFire.prototype.update = function () {
-    if (this.game.click) {
-        this.fire = true;
-        // this.currentX = this.game.click.x;
-        // this.currentY = this.game.click.y;
-        this.endX = this.game.click.x;
-        this.endY = this.game.click.y;
-        this.x = 0;
-        this.y = 0;
-        this.timeA = Math.sqrt(
-            Math.pow(this.endX - this.x, 2) + Math.pow(this.endY - this.x, 2)
-        ); // the hypotneuse
+
+    //if (this.game.click) {
+        //this.fire = true;
+        //this.endX = this.game.click.x;
+        //this.endY = this.game.click.y;
+        //this.x = 0;
+        //this.y = 0;
+        //this.timeA = Math.sqrt(
+            //Math.pow(this.endX - this.x, 2) + Math.pow(this.endY - this.x, 2)
+       // ); // the hypotneuse
         //console.log("TIMES :" + this.timeA);
 
         //this.animation.frameDuration = this.timeA * 1;
         //console.log("MY X:" , this.x);
         //this.y = this.game.click.y;
-    }
+    //}
     if (this.fire) {
 
         this.x += this.speed;
 
-        if (this.x > this.endX) {
+        if (this.x > this.ctx.width) {
             this.fire = false;
-            this.x = 0;
+            this.x = this.tankX;
         }
 
     }
@@ -314,16 +316,6 @@ BulletFire.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 };
 
-BulletFire.prototype.mouseclick = function () {
-    //console.log("hahahah");
-    //this.update;
-    // document.getElementById("ctx").onclick = function() {
-    //     myFunction();
-    // }
-    // function myFunction(){
-    //     document.getElementById("ctx").innerHTML = ' YOU CLICKED ME';
-    // }
-};
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -331,6 +323,7 @@ BulletFire.prototype.mouseclick = function () {
 //________________________________________________________________________________________________________
 
 function Desert(game) {
+    this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
     Entity.call(this, game, 0, 400);
     this.radius = 200;
 }
@@ -338,9 +331,14 @@ function Desert(game) {
 Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
 
-Desert.prototype.update = function () { };
+Desert.prototype.update = function () { 
+    Entity.prototype.update.call(this);
+};
 
 Desert.prototype.draw = function (ctx) {
+
+   
+
     grid = new Array(100);
     for (let i = 0; i < 50; i++) {
         grid[i] = new Array(50);
@@ -349,12 +347,13 @@ Desert.prototype.draw = function (ctx) {
         }
     }
 
+
     // drawing grid in the map. It is easy to look for a position to get the location of the tank.
 
     fillGrid(ctx);
     // drawGrid(ctx);
     setUpComponents(ctx); // It should install in environment.
-
+    this.coinAnimation.drawFrame(this.game.clockTick, ctx, 100, 100, 1);
     Entity.prototype.draw.call(this);
 };
 
@@ -415,6 +414,10 @@ function setUpComponents(ctx) {
             if( i === 9 && j === 6) {
                 ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
             }
+
+            // if( i === 10 && j === 10){
+            //     this.animation.drawFrame(this.game.clockTick, ctx, i*w, j*w, 1); //make sure its not this.ctx -> ctx
+            //  }
         }
     }
 }
@@ -603,6 +606,7 @@ function Tank(game, spritesheet) {
     this.ctx = game.ctx;
     this.x = 100;
     this.y = 100;
+    this.shooting = false;
     Entity.call(this, game, 300, 300);
 }
 
@@ -610,6 +614,16 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
+    if(this.game.click) {
+        this.shooting = true;
+    }
+    if(this.shooting){
+        bullet = new BulletFire(this.game, true, this.x, this.y);
+        this.game.addEntity(bullet);
+        this.shooting = false;
+        //this.bullet.fire = true;
+
+    }
     if (this.game.keyboard === 38 || this.game.keyboard === 87) {
         //moving up
         this.up = true;
@@ -751,6 +765,7 @@ AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
 AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/Puddle_01.png");
+AM.queueDownload("./img/coin2.png");
 AM.queueDownload("./img/bullet_onlyred.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
@@ -766,7 +781,7 @@ AM.downloadAll(function () {
 
     var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
     var barrell = new Barrell(gameEngine);
-    var bulletfire = new BulletFire(gameEngine);
+    //var bulletfire = new BulletFire(gameEngine);
 
     var desert = new Desert(gameEngine);
 
@@ -783,7 +798,7 @@ AM.downloadAll(function () {
     gameEngine.addEntity(enviornment); // block the way
 
     gameEngine.addEntity(explosion);
-    gameEngine.addEntity(bulletfire);
+    //gameEngine.addEntity(bulletfire);
 
     console.log("All Done!");
 });
