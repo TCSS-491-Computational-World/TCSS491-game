@@ -901,7 +901,7 @@ AM.downloadAll(function() {
 
     //  gameEngine.addEntity(enviornment);    // block the way
     //gameEngine.addEntity(enviornment2); // can cross
-    // gameEngine.addEntity(explosion);
+    gameEngine.addEntity(explosion);
     //  gameEngine.addEntity(bulletfire);
 
 
