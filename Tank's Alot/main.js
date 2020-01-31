@@ -276,7 +276,7 @@ BulletFire.prototype.update = function () {
     if (this.game.mouse) {
         document.getElementById("gameWorld").style.cursor = "none";
         this.cursor = true;
-        this.cursorX = this.game.mouse.x;
+       this.cursorX = this.game.mouse.x;
         this.cursorY = this.game.mouse.y;
     }
     Entity.prototype.update.call(this);
@@ -299,7 +299,7 @@ BulletFire.prototype.draw = function () {
         //Entity.prototype.draw.call(this);
     }
     if (this.cursor) {
-        //this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
+        this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
         this.ctx.drawImage(
             AM.getAsset("./img/cursor.png"),
             0,
