@@ -1,34 +1,24 @@
-< !DOCTYPE html >
-    <
-    html >
+var AM = new AssetManager();
+var grid = new Array(100);
 
-    <
-    head >
-    <
-    meta charset = "utf-8" / >
-    <
-    title > Game Project Shell < /title> <
-    script type = "text/javascript"
-src = "./gameengine.js" > < /script> <
-    script type = "text/javascript"
-src = "./assetmanager.js" > < /script> <
-    script type = "text/javascript"
-src = "./main.js" > < /script> <
-    /head>
+function Cell(theX, theY, theContain) {
+    this.x = theX;
+    this.y = theY;
+    this.contains = theContain;
+}
 
-<
-body >
+function setUp() {
+    for (let i = 0; i < 100; i++) {
+        grid[i] = new Array(100);
+        for (let j = 0; j < 100; j++) {
+            grid[i][j] = new Cell(i, j, 0);
+        }
+    }
+}
 
-    <
-    canvas id = "gameWorld"
-tabindex = "1"
-width = "2500"
-height = "2500"
-style = "border: 1px solid brown; background: lightskyblue" > < /canvas> <
-    /body>
-
-<
-/html>/ / ________________________________________________________________________________________________________
+//________________________________________________________________________________________________________
+//________________________________________________________________________________________________________
+//________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
 //Animation Class
