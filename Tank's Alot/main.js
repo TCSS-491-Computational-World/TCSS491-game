@@ -124,17 +124,9 @@ Background.prototype.update = function () { };
 //________________________________________________________________________________________________________
 
 function Barrell(game) {
-    this.Banimation = new Animation(
-        AM.getAsset("./img/tank_red2Barrell.png"),
-        0,
-        0,
-        50,
-        50,
-        1,
-        1,
-        true,
-        false
-    );
+    this.BB = AM.getAsset("./img/tank_red2Barrell.png");
+    //this.Banimation = new Animation(AM.getAsset("./img/tank_red2Barrell.png"),0,0,50,50,1,1,true,false);
+    //this.Banimation = new Animation(rotateAndCache(AM.getAsset("./img/tank_red2Barrell.png"),90),0,0,50,50,1,1,true,false);
     this.up = false;
     this.down = false;
     this.left = false;
@@ -143,6 +135,8 @@ function Barrell(game) {
     this.ctx = game.ctx;
     this.x = 100;
     this.y = 100;
+    this.cursorX;
+    this.cursorY;
     Entity.call(this, game, 300, 300);
 }
 
@@ -150,7 +144,12 @@ Barrell.prototype = new Entity();
 Barrell.prototype.constructor = Barrell;
 
 Barrell.prototype.draw = function () {
-    this.Banimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
+    //this.spritesheet = this.rotateAndCache(this.Banimation, 90);
+    //this.Banimation = this.rotateAndCache(this.Banimation, 90);
+    //this.Banimation.drawFrame(this.game.clockTick, Banimation = this.rotateAndCache(this.Banimation, 90), this.x, this.y);
+    //////this.Banimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
+    //this.Banimation.drawFrame(this.game.clockTick, Banimation = this.rotateAndCache(this.Banimation, 90), this.x, this.y);
+    this.ctx.drawImage(this.BB, this.x, this.y);
     this.up = false;
     this.down = false;
     this.right = false;
@@ -158,13 +157,17 @@ Barrell.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 };
 
-Barrell.prototype.rotateAndCache = function(){
-
-}
+//Barrell.prototype.rotateAndCache = function(){
+    //print("It WORKS DAMN");
+//}
 
 Barrell.prototype.update = function () {
     if (this.game.mouse) {
-         this.rotateAndCache(this.Banimation, 90);
+        console.log("fhdfhfdh");
+        this.cursorX = this.game.mouse.x;
+        this.cursorY = this.game.mouse.y;
+        this.BB = this.rotateAndCache(AM.getAsset("./img/tank_red2Barrell.png"), this.cursorX);
+        //console.log(this.spritesheet);
     }
 
     if (this.game.keyboard === 38 || this.game.keyboard === 87) {
