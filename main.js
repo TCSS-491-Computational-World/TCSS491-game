@@ -123,89 +123,7 @@ Background.prototype.update = function () { };
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function Barrell(game) {
-    this.Downanimation = new Animation(
-        AM.getAsset("./img/tank_red2Barrell.png"),
-        0,
-        0,
-        50,
-        50,
-        1,
-        1,
-        true,
-        false
-    );
-    this.up = false;
-    this.down = false;
-    this.left = false;
-    this.right = false;
-    this.speed = 10;
-    this.ctx = game.ctx;
-    this.x = 100;
-    this.y = 100;
-    Entity.call(this, game, 300, 300);
-}
 
-Barrell.prototype = new Entity();
-Barrell.prototype.constructor = Barrell;
-
-Barrell.prototype.draw = function () {
-    this.Downanimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
-    this.up = false;
-    this.down = false;
-    this.right = false;
-    this.left = false;
-    Entity.prototype.draw.call(this);
-};
-
-Barrell.prototype.update = function () {
-    // if (this.game.mouse) {
-
-    // }
-
-    if (this.game.keyboard === 38 || this.game.keyboard === 87) {
-        //moving up
-        this.up = true;
-        this.down = false;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.up === true) {
-        this.y -= this.speed;
-    }
-    if (this.game.keyboard === 39 || this.game.keyboard === 68) {
-        //moving right
-
-        this.up = false;
-        this.down = false;
-        this.right = true;
-        this.left = false;
-    }
-    if (this.right === true) {
-        this.x += this.speed;
-    }
-    if (this.game.keyboard === 40 || this.game.keyboard === 83) {
-        //moving down
-        this.up = false;
-        this.down = true;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.down === true) {
-        this.y += this.speed;
-    }
-    if (this.game.keyboard === 37 || this.game.keyboard === 65) {
-        //moving left
-        this.up = false;
-        this.down = false;
-        this.right = false;
-        this.left = true;
-    }
-    if (this.left === true) {
-        this.x -= this.speed;
-    }
-    Entity.prototype.update.call(this);
-};
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -216,9 +134,18 @@ function BulletFire(game, fire, tankX, tankY) {
     //this.distance = distance;
 
     this.cursorAnimation = new Animation(
-        AM.getAsset("./img/cursor.png"),0,0,19,19,20,1,true,false);
-    this.tankX = tankX + 25;
-    this.tankY = tankY + 25;
+        AM.getAsset("./img/cursor.png"),
+        0,
+        0,
+        19,
+        19,
+        20,
+        1,
+        true,
+        false
+    );
+    this.tankX = tankX;
+    this.tankY = tankY;
 
     this.fire = false;
     this.speed = 10;
@@ -267,7 +194,7 @@ BulletFire.prototype.update = function () {
     if (this.game.mouse) {
         document.getElementById("gameWorld").style.cursor = "none";
         this.cursor = true;
-        this.cursorX = this.game.mouse.x;
+       this.cursorX = this.game.mouse.x;
         this.cursorY = this.game.mouse.y;
     }
     Entity.prototype.update.call(this);
@@ -290,7 +217,7 @@ BulletFire.prototype.draw = function () {
         //Entity.prototype.draw.call(this);
     }
     if (this.cursor) {
-        //this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
+        this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
         this.ctx.drawImage(
             AM.getAsset("./img/cursor.png"),
             0,
@@ -394,125 +321,24 @@ function setUpComponents(ctx) {
                 || (i === 4 && j === 5)
                 || (i === 4 && j === 6)
                 || (i === 4 && j === 7)
-                || (i === 4 && j === 8)
-                
-                // lower L
-                || (i === 2 && j === 14)
-                || (i === 3 && j === 14)
-                || (i === 4 && j === 14)
-                || (i === 5 && j === 14)
-                || (i === 6 && j === 14)
-                || (i === 7 && j === 14)
-                || (i === 8 && j === 14)
-                || (i === 2 && j === 13)
-                || (i === 2 && j === 12)
-                
-                
-                
-                // crossing
-                || (i === 20 && j === 22)
-                || (i === 21 && j === 23)
-                || (i === 22 && j === 24)
-                || (i === 23 && j === 25)
-                || (i === 24 && j === 26)
-                || (i === 25 && j === 27)
-                || (i === 26 && j === 28)
-                || (i === 27 && j === 29)
-                || (i === 28 && j === 30)
-                || (i === 29 && j === 31)
-
-                || (i === 29 && j === 22)
-                || (i === 28 && j === 23)
-                || (i === 27 && j === 24)
-                || (i === 26 && j === 25)
-                || (i === 25 && j === 26)
-                || (i === 24 && j === 27)
-                || (i === 23 && j === 28)
-                || (i === 22 && j === 29)
-                || (i === 21 && j === 30)
-                || (i === 20 && j === 31)
-
-
-                || (i === 34 && j === 25)
-                || (i === 34 && j === 26)
-                || (i === 34 && j === 27)
-
-                || (i === 7 && j === 42)
-                || (i === 7 && j === 41)
-                || (i === 6 && j === 41)
-                || (i === 7 && j === 43)
-                || (i === 7 && j === 44)
-                || (i === 8 && j === 42)
-
-                || (i === 32 && j === 42) 
-                || (i === 33 && j === 42) 
-                || (i === 34 && j === 42) 
-                || (i === 30 && j === 42) 
-                || (i === 31 && j === 41) 
-                || (i === 34 && j === 42) 
-
-                || (i === 36 && j === 42) 
-                || (i === 36 && j === 41) 
-                || (i === 36 && j === 43) 
-                || (i === 36 && j === 44) 
-                || (i === 36 && j === 46) 
-                || (i === 36 && j === 47) 
-                || (i === 36 && j === 48) 
-                || (i === 36 && j === 49)  
-
-
-
-
-
-                ){
+                || (i === 4 && j === 8)){
                 ctx.drawImage(AM.getAsset("./img/background/crate.png"),i*w, j*w,w,w);
             }
-
-
-
             // drawing tree 2
-            if  ((i === 0 && j == 10)
-                || (i === 21 && j == 26)
-                || (i === 41 && j == 28)
-                || (i === 47 && j === 5)
-                || (i === 48 && j == 36)
-                ) {
+            if (i === 12 && j === 5) {
                 ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,100,100);
             }
-
-
-
-
             // drawing tree 1
-            if((i === 9 && j === 6)
-                || (i === 11 && j === 40)
-                || (i === 13 && j === 13)
-                || (i === 15 && j === 9)
-                || (i === 42 && j === 21)
-                || (i === 47 && j === 13)
-                || (i === 29 && j === 27)
-            ) {
+            if( i === 9 && j === 6) {
                 ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
             }
 
-            if (( i === 0 && j === 49)
-            ||  ( i  === 6 && j === 35 )
-            || ( i === 16 && j === 24)
-            || ( i === 40&& j === 34)
-            || ( i === 44 && j === 47)
-            ) {
-                ctx.drawImage(AM.getAsset("./img/background/tree3.png"),i*w, j*w, 150,150);
-            }
-
-
-
-
-
+            // if( i === 10 && j === 10){
+            //     this.animation.drawFrame(this.game.clockTick, ctx, i*w, j*w, 1); //make sure its not this.ctx -> ctx
+            //  }
         }
-    }   
+    }
 }
-
-
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -598,6 +424,13 @@ Explosion.prototype.draw = function () {
 //________________________________________________________________________________________________________
 
 function Tank(game, spritesheet) {
+
+    //Barrell Code
+    //________________________________________________________________________________________________________
+    this.BB = AM.getAsset("./img/tank_red2Barrell.png");
+    this.cursorX;
+    this.cursorY;
+    //_________________________________________________________________________________________________________
 
     this.moveDownAnimation = new Animation(
         AM.getAsset("./img/tank_red.png"),
@@ -706,6 +539,31 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function () {
+    var bool = true;
+    //Barrell Code
+    //____________________________________________________________________________________________________
+    if (this.game.mouse) {
+        console.log("fhdfhfdh");
+        var dy = this.y - this.cursorY;
+        var dx = this.x - this.cursorX;
+        var theta = Math.atan2(dy, dx); // range (-PI, PI]
+        //theta *= 180 / Math.PI;
+        this.cursorX = this.game.mouse.x;
+        this.cursorY = this.game.mouse.y;
+        this.BB = this.rotateAndCache(AM.getAsset("./img/tank_red2Barrell.png"), theta);
+        //console.log(this.spritesheet);
+    } else {
+        console.log("fhdfhfdh");
+        var dy = this.y - this.cursorY;
+        var dx = this.x - this.cursorX;
+        var theta = Math.atan2(dy, dx); // range (-PI, PI]
+        //theta *= 180 / Math.PI;
+        //this.cursorX = this.game.mouse.x;
+        //this.cursorY = this.game.mouse.y;
+        this.BB = this.rotateAndCache(AM.getAsset("./img/tank_red2Barrell.png"), theta);
+    }
+    //_____________________________________________________________________________________________________
+
     if(this.game.click) {
         this.shooting = true;
     }
@@ -842,16 +700,16 @@ Tank.prototype.draw = function () {
             );
     }
 
+    //Barrell Code
+    this.ctx.drawImage(this.BB, this.x, this.y);
+
     Entity.prototype.draw.call(this);
 };
 
 AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
-
-AM.queueDownload("./img/background/tree1.png");
 AM.queueDownload("./img/background/tree2.png");
-AM.queueDownload("./img/background/tree3.png");
-
+AM.queueDownload("./img/background/tree1.png");
 AM.queueDownload("./img/background/HP_Bonus.png");
 
 AM.queueDownload("./img/cursor.png");
@@ -875,7 +733,7 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
-    var barrell = new Barrell(gameEngine);
+    //var barrell = new Barrell(gameEngine);
     //var bulletfire = new BulletFire(gameEngine);
 
     var desert = new Desert(gameEngine);
@@ -889,31 +747,11 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(desert);
     gameEngine.addEntity(tank);
-    gameEngine.addEntity(barrell);
+    //gameEngine.addEntity(barrell);
     gameEngine.addEntity(enviornment); // block the way
 
-    //var enviornment2 = new Enviornment(gameEngine);
-
-
-     gameEngine.addEntity(desert);
-    //  gameEngine.addEntity(background);
-     gameEngine.addEntity(tank);
-     gameEngine.addEntity(barrell);
-    //  gameEngine.addEntity(enviornment);    // block the way
-     //gameEngine.addEntity(enviornment2); // can cross
-    //  gameEngine.addEntity(explosion);
-     gameEngine.addEntity(bulletfire);
-
-
-    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
-    // gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
-    // gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png"), 800));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Decor_Items/Container_A.png"), 100, 500));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
-    // console.log(gameEngine.entities[2].x);
-    
+    gameEngine.addEntity(explosion);
+    //gameEngine.addEntity(bulletfire);
 
     console.log("All Done!");
 });
