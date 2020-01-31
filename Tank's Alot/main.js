@@ -494,7 +494,7 @@ function setUpComponents(ctx) {
             ) {
                 ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
             }
-
+            // drawing tree 3
             if (( i === 0 && j === 49)
             ||  ( i  === 6 && j === 35 )
             || ( i === 16 && j === 24)
@@ -504,6 +504,9 @@ function setUpComponents(ctx) {
                 ctx.drawImage(AM.getAsset("./img/background/tree3.png"),i*w, j*w, 150,150);
             }
 
+            if ( i === 19 && j === 5) {
+                ctx.drawImage(AM.getAsset("./img/rooftop.png"),i*w, j*w, 250, 250);
+            }
 
 
 
@@ -851,6 +854,7 @@ AM.queueDownload("./img/background/crate.png");
 AM.queueDownload("./img/background/tree1.png");
 AM.queueDownload("./img/background/tree2.png");
 AM.queueDownload("./img/background/tree3.png");
+AM.queueDownload("./img/rooftop.png");
 
 AM.queueDownload("./img/background/HP_Bonus.png");
 
@@ -901,7 +905,7 @@ AM.downloadAll(function () {
      gameEngine.addEntity(barrell);
     //  gameEngine.addEntity(enviornment);    // block the way
      //gameEngine.addEntity(enviornment2); // can cross
-    //  gameEngine.addEntity(explosion);
+     gameEngine.addEntity(explosion);
      gameEngine.addEntity(bulletfire);
 
 
