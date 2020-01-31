@@ -124,7 +124,7 @@ Background.prototype.update = function () { };
 //________________________________________________________________________________________________________
 
 function Barrell(game) {
-    this.Downanimation = new Animation(
+    this.Banimation = new Animation(
         AM.getAsset("./img/tank_red2Barrell.png"),
         0,
         0,
@@ -150,7 +150,7 @@ Barrell.prototype = new Entity();
 Barrell.prototype.constructor = Barrell;
 
 Barrell.prototype.draw = function () {
-    this.Downanimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
+    this.Banimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
     this.up = false;
     this.down = false;
     this.right = false;
@@ -158,10 +158,14 @@ Barrell.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 };
 
-Barrell.prototype.update = function () {
-    // if (this.game.mouse) {
+Barrell.prototype.rotateAndCache = function(){
 
-    // }
+}
+
+Barrell.prototype.update = function () {
+    if (this.game.mouse) {
+         this.rotateAndCache(this.Banimation, 90);
+    }
 
     if (this.game.keyboard === 38 || this.game.keyboard === 87) {
         //moving up
