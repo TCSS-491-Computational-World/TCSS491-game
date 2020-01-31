@@ -913,7 +913,7 @@ AM.downloadAll(function() {
     //  gameEngine.addEntity(enviornment);    // block the way
     //gameEngine.addEntity(enviornment2); // can cross
     //  gameEngine.addEntity(explosion);
-    gameEngine.addEntity(bulletfire);
+    // gameEngine.addEntity(bulletfire);
 
     // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
     // gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
