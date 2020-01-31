@@ -878,6 +878,8 @@ AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
 AM.queueDownload("./img/tank_red2Barrell.png");
 
+AM.queueDownload("./img/Armor_Bonus.png");
+
 AM.downloadAll(function() {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
@@ -907,7 +909,9 @@ AM.downloadAll(function() {
     //var enviornment2 = new Enviornment(gameEngine);
 
     gameEngine.addEntity(desert);
+
     //  gameEngine.addEntity(background);
+
     gameEngine.addEntity(tank);
     gameEngine.addEntity(barrell);
     //  gameEngine.addEntity(enviornment);    // block the way
