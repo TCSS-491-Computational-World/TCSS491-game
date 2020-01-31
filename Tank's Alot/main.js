@@ -216,16 +216,7 @@ function BulletFire(game, fire, tankX, tankY) {
     //this.distance = distance;
 
     this.cursorAnimation = new Animation(
-        AM.getAsset("./img/cursor.png"),
-        0,
-        0,
-        19,
-        19,
-        20,
-        1,
-        true,
-        false
-    );
+        AM.getAsset("./img/cursor.png"),0,0,19,19,20,1,true,false);
     this.tankX = tankX + 25;
     this.tankY = tankY + 25;
 
