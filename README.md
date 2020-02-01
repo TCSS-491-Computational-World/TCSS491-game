@@ -1,1 +1,1 @@
-# Tank-s-Alot
+# This is a prototype for our game. 

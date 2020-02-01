@@ -21,7 +21,6 @@ function setUp() {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-
 //Animation Class
 function Animation(
     spriteSheet,
@@ -47,7 +46,7 @@ function Animation(
     this.reverse = reverse;
 }
 
-Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
+Animation.prototype.drawFrame = function(tick, ctx, x, y, scaleBy) {
     var scaleBy = scaleBy || 1;
     this.elapsedTime += tick;
     if (this.loop) {
@@ -89,11 +88,11 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
     );
 };
 
-Animation.prototype.currentFrame = function () {
+Animation.prototype.currentFrame = function() {
     return Math.floor(this.elapsedTime / this.frameDuration);
 };
 
-Animation.prototype.isDone = function () {
+Animation.prototype.isDone = function() {
     return this.elapsedTime >= this.totalTime;
 };
 
@@ -111,101 +110,17 @@ function Background(game, spritesheet) {
     this.ctx = game.ctx;
 }
 
-Background.prototype.draw = function () {
+Background.prototype.draw = function() {
     //console.log(spriteSheet + " sssssss ");
     this.ctx.drawImage(this.spritesheet, this.x, this.y);
 };
 
-Background.prototype.update = function () { };
+Background.prototype.update = function() {};
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
-
-function Barrell(game) {
-    this.Downanimation = new Animation(
-        AM.getAsset("./img/tank_red2Barrell.png"),
-        0,
-        0,
-        50,
-        50,
-        1,
-        1,
-        true,
-        false
-    );
-    this.up = false;
-    this.down = false;
-    this.left = false;
-    this.right = false;
-    this.speed = 10;
-    this.ctx = game.ctx;
-    this.x = 100;
-    this.y = 100;
-    Entity.call(this, game, 300, 300);
-}
-
-Barrell.prototype = new Entity();
-Barrell.prototype.constructor = Barrell;
-
-Barrell.prototype.draw = function () {
-    this.Downanimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y); //Banimation == Barrell Animation
-    this.up = false;
-    this.down = false;
-    this.right = false;
-    this.left = false;
-    Entity.prototype.draw.call(this);
-};
-
-Barrell.prototype.update = function () {
-    // if (this.game.mouse) {
-
-    // }
-
-    if (this.game.keyboard === 38 || this.game.keyboard === 87) {
-        //moving up
-        this.up = true;
-        this.down = false;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.up === true) {
-        this.y -= this.speed;
-    }
-    if (this.game.keyboard === 39 || this.game.keyboard === 68) {
-        //moving right
-
-        this.up = false;
-        this.down = false;
-        this.right = true;
-        this.left = false;
-    }
-    if (this.right === true) {
-        this.x += this.speed;
-    }
-    if (this.game.keyboard === 40 || this.game.keyboard === 83) {
-        //moving down
-        this.up = false;
-        this.down = true;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.down === true) {
-        this.y += this.speed;
-    }
-    if (this.game.keyboard === 37 || this.game.keyboard === 65) {
-        //moving left
-        this.up = false;
-        this.down = false;
-        this.right = false;
-        this.left = true;
-    }
-    if (this.left === true) {
-        this.x -= this.speed;
-    }
-    Entity.prototype.update.call(this);
-};
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -216,9 +131,18 @@ function BulletFire(game, fire, tankX, tankY) {
     //this.distance = distance;
 
     this.cursorAnimation = new Animation(
-        AM.getAsset("./img/cursor.png"),0,0,19,19,20,1,true,false);
-    this.tankX = tankX + 25;
-    this.tankY = tankY + 25;
+        AM.getAsset("./img/cursor.png"),
+        0,
+        0,
+        19,
+        19,
+        20,
+        1,
+        true,
+        false
+    );
+    this.tankX = tankX;
+    this.tankY = tankY;
 
     this.fire = false;
     this.speed = 10;
@@ -236,32 +160,29 @@ function BulletFire(game, fire, tankX, tankY) {
 BulletFire.prototype = new Entity();
 BulletFire.prototype.constructor = BulletFire;
 
-BulletFire.prototype.update = function () {
-
+BulletFire.prototype.update = function() {
     //if (this.game.click) {
-        //this.fire = true;
-        //this.endX = this.game.click.x;
-        //this.endY = this.game.click.y;
-        //this.x = 0;
-        //this.y = 0;
-        //this.timeA = Math.sqrt(
-            //Math.pow(this.endX - this.x, 2) + Math.pow(this.endY - this.x, 2)
-       // ); // the hypotneuse
-        //console.log("TIMES :" + this.timeA);
+    //this.fire = true;
+    //this.endX = this.game.click.x;
+    //this.endY = this.game.click.y;
+    //this.x = 0;
+    //this.y = 0;
+    //this.timeA = Math.sqrt(
+    //Math.pow(this.endX - this.x, 2) + Math.pow(this.endY - this.x, 2)
+    // ); // the hypotneuse
+    //console.log("TIMES :" + this.timeA);
 
-        //this.animation.frameDuration = this.timeA * 1;
-        //console.log("MY X:" , this.x);
-        //this.y = this.game.click.y;
+    //this.animation.frameDuration = this.timeA * 1;
+    //console.log("MY X:" , this.x);
+    //this.y = this.game.click.y;
     //}
     if (this.fire) {
-
         this.x += this.speed;
 
         if (this.x > this.ctx.width) {
             this.fire = false;
             this.x = this.tankX;
         }
-
     }
 
     if (this.game.mouse) {
@@ -273,7 +194,7 @@ BulletFire.prototype.update = function () {
     Entity.prototype.update.call(this);
 };
 
-BulletFire.prototype.draw = function () {
+BulletFire.prototype.draw = function() {
     if (this.fire) {
         this.ctx.drawImage(
             AM.getAsset("./img/bullet_onlyred.png"),
@@ -290,7 +211,12 @@ BulletFire.prototype.draw = function () {
         //Entity.prototype.draw.call(this);
     }
     if (this.cursor) {
-        //this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
+        this.cursorAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.cursorX,
+            this.cursorY
+        );
         this.ctx.drawImage(
             AM.getAsset("./img/cursor.png"),
             0,
@@ -307,14 +233,23 @@ BulletFire.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 };
 
-
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
 function Desert(game) {
-    this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
+    this.coinAnimation = new Animation(
+        AM.getAsset("./img/coin2.png"),
+        0,
+        0,
+        16,
+        16,
+        0.2,
+        8,
+        true,
+        false
+    );
     Entity.call(this, game, 0, 400);
     this.radius = 200;
 }
@@ -322,14 +257,11 @@ function Desert(game) {
 Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
 
-Desert.prototype.update = function () { 
+Desert.prototype.update = function() {
     Entity.prototype.update.call(this);
 };
 
-Desert.prototype.draw = function (ctx) {
-
-   
-
+Desert.prototype.draw = function(ctx) {
     grid = new Array(100);
     for (let i = 0; i < 50; i++) {
         grid[i] = new Array(50);
@@ -337,7 +269,6 @@ Desert.prototype.draw = function (ctx) {
             grid[i][j] = new Cell(i, j, 0);
         }
     }
-
 
     // drawing grid in the map. It is easy to look for a position to get the location of the tank.
 
@@ -382,147 +313,56 @@ function setUpComponents(ctx) {
     for (let i = 0; i < 50; i++) {
         for (let j = 0; j < 50; j++) {
             // drawing walls (crate)
-            if ((i === 5 && j === 3) 
-                || (i === 5 && j === 4) 
-                || (i === 5 && j === 5)
-                || (i === 5 && j === 6)
-                || (i === 5 && j === 7)
-                || (i === 5 && j === 8)
-                || (i === 5 && j === 9)
-                || (i === 5 && j === 10)
-                || (i === 5 && j === 11)
-                || (i === 4 && j === 5)
-                || (i === 4 && j === 6)
-                || (i === 4 && j === 7)
-                || (i === 4 && j === 8)
-                
-                // lower L
-                || (i === 2 && j === 14)
-                || (i === 3 && j === 14)
-                || (i === 4 && j === 14)
-                || (i === 5 && j === 14)
-                || (i === 6 && j === 14)
-                || (i === 7 && j === 14)
-                || (i === 8 && j === 14)
-                || (i === 2 && j === 13)
-                || (i === 2 && j === 12)
-                
-                
-                
-                // crossing
-                || (i === 20 && j === 22)
-                || (i === 21 && j === 23)
-                || (i === 22 && j === 24)
-                || (i === 23 && j === 25)
-                || (i === 24 && j === 26)
-                || (i === 25 && j === 27)
-                || (i === 26 && j === 28)
-                || (i === 27 && j === 29)
-                || (i === 28 && j === 30)
-                || (i === 29 && j === 31)
-
-                || (i === 29 && j === 22)
-                || (i === 28 && j === 23)
-                || (i === 27 && j === 24)
-                || (i === 26 && j === 25)
-                || (i === 25 && j === 26)
-                || (i === 24 && j === 27)
-                || (i === 23 && j === 28)
-                || (i === 22 && j === 29)
-                || (i === 21 && j === 30)
-                || (i === 20 && j === 31)
-
-
-                || (i === 34 && j === 25)
-                || (i === 34 && j === 26)
-                || (i === 34 && j === 27)
-
-                || (i === 7 && j === 42)
-                || (i === 7 && j === 41)
-                || (i === 6 && j === 41)
-                || (i === 7 && j === 43)
-                || (i === 7 && j === 44)
-                || (i === 8 && j === 42)
-
-                || (i === 32 && j === 42) 
-                || (i === 33 && j === 42) 
-                || (i === 34 && j === 42) 
-                || (i === 30 && j === 42) 
-                || (i === 31 && j === 41) 
-                || (i === 34 && j === 42) 
-
-                || (i === 36 && j === 42) 
-                || (i === 36 && j === 41) 
-                || (i === 36 && j === 43) 
-                || (i === 36 && j === 44) 
-                || (i === 36 && j === 46) 
-                || (i === 36 && j === 47) 
-                || (i === 36 && j === 48) 
-                || (i === 36 && j === 49)  
-
-
-
-
-
-                ){
-                ctx.drawImage(AM.getAsset("./img/background/crate.png"),i*w, j*w,w,w);
+            if (
+                (i === 5 && j === 3) ||
+                (i === 5 && j === 4) ||
+                (i === 5 && j === 5) ||
+                (i === 5 && j === 6) ||
+                (i === 5 && j === 7) ||
+                (i === 5 && j === 8) ||
+                (i === 5 && j === 9) ||
+                (i === 5 && j === 10) ||
+                (i === 5 && j === 11) ||
+                (i === 4 && j === 5) ||
+                (i === 4 && j === 6) ||
+                (i === 4 && j === 7) ||
+                (i === 4 && j === 8)
+            ) {
+                ctx.drawImage(
+                    AM.getAsset("./img/background/crate.png"),
+                    i * w,
+                    j * w,
+                    w,
+                    w
+                );
             }
-
-
-
             // drawing tree 2
-            if  ((i === 0 && j == 10)
-                || (i === 21 && j == 26)
-                || (i === 41 && j == 28)
-                || (i === 47 && j === 5)
-                || (i === 48 && j == 36)
-                ) {
-                ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,100,100);
+            if (i === 12 && j === 5) {
+                ctx.drawImage(
+                    AM.getAsset("./img/background/tree2.png"),
+                    i * w,
+                    j * w,
+                    100,
+                    100
+                );
             }
-
-
-
-
             // drawing tree 1
-            if((i === 9 && j === 6)
-                || (i === 11 && j === 40)
-                || (i === 13 && j === 13)
-                || (i === 15 && j === 9)
-                || (i === 42 && j === 21)
-                || (i === 47 && j === 13)
-                || (i === 29 && j === 27)
-            ) {
-                ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
-            }
-            // drawing tree 3
-            if (( i === 0 && j === 49)
-            ||  ( i  === 6 && j === 35 )
-            || ( i === 16 && j === 24)
-            || ( i === 40&& j === 34)
-            || ( i === 44 && j === 47)
-            ) {
-                ctx.drawImage(AM.getAsset("./img/background/tree3.png"),i*w, j*w, 150,150);
+            if (i === 9 && j === 6) {
+                ctx.drawImage(
+                    AM.getAsset("./img/background/tree1.png"),
+                    i * w,
+                    j * w,
+                    100,
+                    100
+                );
             }
 
-
-            // drawing rooftop
-            if ( i === 19 && j === 5) {
-                ctx.drawImage(AM.getAsset("./img/rooftop.png"),i*w, j*w, 250, 250);
-            }
-
-            // drawing roof
-            if ( i === 19 && j === 12) {
-                ctx.drawImage(AM.getAsset("./img/roof.png"),i*w, j*w, 250, 200);
-            }
-
-
-
-
+            // if( i === 10 && j === 10){
+            //     this.animation.drawFrame(this.game.clockTick, ctx, i*w, j*w, 1); //make sure its not this.ctx -> ctx
+            //  }
         }
-    }   
+    }
 }
-
-
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -537,7 +377,7 @@ function Enviornment(game) {
     this.ctx = game.ctx;
 }
 
-Enviornment.prototype.draw = function () {
+Enviornment.prototype.draw = function() {
     this.ctx.drawImage(
         AM.getAsset("./img/Decor_Items/Container_A.png"),
         600,
@@ -547,14 +387,14 @@ Enviornment.prototype.draw = function () {
     this.ctx.drawImage(AM.getAsset("./img/Puddle_01.png"), 700, 220);
 };
 
-Enviornment.prototype.update = function () { };
+Enviornment.prototype.update = function() {};
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function Explosion(game /*spritesheet /*, myX, myY */) {
+function Explosion(game /*spritesheet /*, myX, myY */ ) {
     this.animation = new Animation(
         AM.getAsset("./img/Explosion_A.png"),
         0,
@@ -578,28 +418,30 @@ function Explosion(game /*spritesheet /*, myX, myY */) {
         true,
         false
     );
-
     this.speed = 0;
     this.ctx = game.ctx;
     //console.log(game.entities[2]);
     //console.log("EEEEEE " + this.game.);
     // this.x = this.game.click.x;
-    Entity.call(this, game, 0, 400 /*, myX, myY*/);
+    Entity.call(this, game, 0, 400 /*, myX, myY*/ );
 }
 
 Explosion.prototype = new Entity();
 Explosion.prototype.constructor = Explosion;
 
-Explosion.prototype.update = function () {
-
+Explosion.prototype.update = function() {
     Entity.prototype.update.call(this);
-
 };
 
-Explosion.prototype.draw = function () {
-
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, .3);
-    this.explosionTwoAnimation.drawFrame(this.game.clockTick, this.ctx, this.x + 200, this.y, .3);
+Explosion.prototype.draw = function() {
+    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0.3);
+    this.explosionTwoAnimation.drawFrame(
+        this.game.clockTick,
+        this.ctx,
+        this.x + 200,
+        this.y,
+        0.3
+    );
     Entity.prototype.draw.call(this);
 };
 
@@ -609,6 +451,12 @@ Explosion.prototype.draw = function () {
 //________________________________________________________________________________________________________
 
 function Tank(game, spritesheet) {
+    //Barrell Code
+    //________________________________________________________________________________________________________
+    this.BB = AM.getAsset("./img/tank_red2Barrell.png");
+    this.cursorX;
+    this.cursorY;
+    //_________________________________________________________________________________________________________
 
     this.moveDownAnimation = new Animation(
         AM.getAsset("./img/tank_red.png"),
@@ -716,16 +564,46 @@ function Tank(game, spritesheet) {
 Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
-Tank.prototype.update = function () {
-    if(this.game.click) {
+Tank.prototype.update = function() {
+    var bool = true;
+    //Barrell Code
+    //____________________________________________________________________________________________________
+    if (this.game.mouse) {
+        console.log("fhdfhfdh");
+        var dy = this.y - this.cursorY;
+        var dx = this.x - this.cursorX;
+        var theta = Math.atan2(dy, dx); // range (-PI, PI]
+        //theta *= 180 / Math.PI;
+        this.cursorX = this.game.mouse.x;
+        this.cursorY = this.game.mouse.y;
+        this.BB = this.rotateAndCache(
+            AM.getAsset("./img/tank_red2Barrell.png"),
+            theta
+        );
+        //console.log(this.spritesheet);
+    } else {
+        console.log("fhdfhfdh");
+        var dy = this.y - this.cursorY;
+        var dx = this.x - this.cursorX;
+        var theta = Math.atan2(dy, dx); // range (-PI, PI]
+        //theta *= 180 / Math.PI;
+        //this.cursorX = this.game.mouse.x;
+        //this.cursorY = this.game.mouse.y;
+        this.BB = this.rotateAndCache(
+            AM.getAsset("./img/tank_red2Barrell.png"),
+            theta
+        );
+    }
+    //_____________________________________________________________________________________________________
+
+    if (this.game.click) {
         this.shooting = true;
     }
-    if(this.shooting){
+    if (this.shooting) {
         bullet = new BulletFire(this.game, true, this.x, this.y);
         this.game.addEntity(bullet);
         this.shooting = false;
         //this.bullet.fire = true;
-
     }
     if (this.game.keyboard === 38 || this.game.keyboard === 87) {
         //moving up
@@ -772,7 +650,7 @@ Tank.prototype.update = function () {
     Entity.prototype.update.call(this);
 };
 
-Tank.prototype.draw = function () {
+Tank.prototype.draw = function() {
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpAnimation.drawFrame(
@@ -853,57 +731,16 @@ Tank.prototype.draw = function () {
             );
     }
 
+    //Barrell Code
+    this.ctx.drawImage(this.BB, this.x, this.y);
+
     Entity.prototype.draw.call(this);
 };
 
-
-
-// // Vehicles class
-function Vehicles(game) {
-    console.log("Where is my vehicles");
-    this.firstAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleA.png"), 256, 256, 4, 0.10, 4, true, 1);
-    // this.secondAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleB.png"), 256,256,4,0.1, 4, true,1);
-    // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
-    this.x = 240;
-    this.y = 285;
-    this.speed = 0; 
-    this.game = game;
-    this.ctx = game.ctx;
-
-    // Entity.call(this, game, 240, 285);
-}
-
-Vehicles.prototype.draw = function () {
-    this.firstAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    // this.secondAnimation.drawImage(this.game.clockTick, this.ctx,this.x+100,this.y);
-    // this.thirdAnimation.drawImage(this.game.clockTick,this.ctx, this.x+200, this.y);
-    Entity.prototype.draw.call(this);
-}
-
-Vehicles.prototype.update = function () {
-    if (this.firstAnimation.elapsedTime < this.firstAnimation.totalTime * 8 / 4)
-        this.x += this.game.clockTick * this.speed;
-    if (this.x > 800) this.x = -230;
-    Entity.prototype.update.call(this);
-}
-
-
-
-
-
-
-
-
-
 AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
-
-AM.queueDownload("./img/background/tree1.png");
 AM.queueDownload("./img/background/tree2.png");
-AM.queueDownload("./img/background/tree3.png");
-AM.queueDownload("./img/rooftop.png");
-AM.queueDownload("./img/roof.png");
-
+AM.queueDownload("./img/background/tree1.png");
 AM.queueDownload("./img/background/HP_Bonus.png");
 
 AM.queueDownload("./img/cursor.png");
@@ -918,14 +755,7 @@ AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
 AM.queueDownload("./img/tank_red2Barrell.png");
 
-AM.queueDownload("./img/TankSprites/vehicleA.png")
-AM.queueDownload("./img/TankSprites/vehicleB.png")
-AM.queueDownload("./img/TankSprites/vehicleC.png")
-
-
-
-
-AM.downloadAll(function () {
+AM.downloadAll(function() {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
 
@@ -934,7 +764,7 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
-    var barrell = new Barrell(gameEngine);
+    //var barrell = new Barrell(gameEngine);
     //var bulletfire = new BulletFire(gameEngine);
 
     var desert = new Desert(gameEngine);
@@ -946,25 +776,13 @@ AM.downloadAll(function () {
     var tank = new Tank(gameEngine);
     var enviornment = new Enviornment(gameEngine);
 
-
-    // var vehicle = new Vehicles(gameEngine);
-
     gameEngine.addEntity(desert);
     gameEngine.addEntity(tank);
-
-    gameEngine.addEntity(barrell);
-
-    // gameEngine.addEntity(vehicle);
+    //gameEngine.addEntity(barrell);
     gameEngine.addEntity(enviornment); // block the way
 
-    //var enviornment2 = new Enviornment(gameEngine);
-
-     gameEngine.addEntity(explosion);
-    //  gameEngine.addEntity(bulletfire);
-
-
-
-    
+    gameEngine.addEntity(explosion);
+    //gameEngine.addEntity(bulletfire);
 
     console.log("All Done!");
 });
