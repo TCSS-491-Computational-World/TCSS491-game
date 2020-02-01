@@ -504,8 +504,15 @@ function setUpComponents(ctx) {
                 ctx.drawImage(AM.getAsset("./img/background/tree3.png"),i*w, j*w, 150,150);
             }
 
+
+            // drawing rooftop
             if ( i === 19 && j === 5) {
                 ctx.drawImage(AM.getAsset("./img/rooftop.png"),i*w, j*w, 250, 250);
+            }
+
+            // drawing roof
+            if ( i === 19 && j === 12) {
+                ctx.drawImage(AM.getAsset("./img/roof.png"),i*w, j*w, 250, 200);
             }
 
 
@@ -571,6 +578,7 @@ function Explosion(game /*spritesheet /*, myX, myY */) {
         true,
         false
     );
+
     this.speed = 0;
     this.ctx = game.ctx;
     //console.log(game.entities[2]);
@@ -848,6 +856,43 @@ Tank.prototype.draw = function () {
     Entity.prototype.draw.call(this);
 };
 
+
+
+// // Vehicles class
+function Vehicles(game) {
+    this.firstAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleA.png"), 256, 256, 4, 0.10, 4, true, 1);
+    // this.secondAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleB.png"), 256,256,4,0.1, 4, true,1);
+    // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
+    this.x = 240;
+    this.y = 285;
+    this.speed = 0; 
+    this.game = game;
+    this.ctx = game.ctx;
+
+    Entity.call(this, game, 0, 400 /*, myX, myY*/);
+}
+
+Vehicles.prototype.draw = function () {
+    this.firstAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    // this.secondAnimation.drawImage(this.game.clockTick, this.ctx,this.x+100,this.y);
+    // this.thirdAnimation.drawImage(this.game.clockTick,this.ctx, this.x+200, this.y);
+    Entity.prototype.update.call(this);
+}
+
+Vehicles.prototype.update = function () {
+    // if (this.animation.elapsedTime < this.animation.totalTime * 8 / 4)
+    //     this.x += this.game.clockTick * this.speed;
+    // if (this.x > 800) this.x = -230;
+}
+
+
+
+
+
+
+
+
+
 AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
 
@@ -855,6 +900,7 @@ AM.queueDownload("./img/background/tree1.png");
 AM.queueDownload("./img/background/tree2.png");
 AM.queueDownload("./img/background/tree3.png");
 AM.queueDownload("./img/rooftop.png");
+AM.queueDownload("./img/roof.png");
 
 AM.queueDownload("./img/background/HP_Bonus.png");
 
@@ -869,6 +915,13 @@ AM.queueDownload("./img/bullet_onlyred.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
 AM.queueDownload("./img/tank_red2Barrell.png");
+
+AM.queueDownload("./img/TankSprites/vehicleA.png")
+AM.queueDownload("./img/TankSprites/vehicleB.png")
+AM.queueDownload("./img/TankSprites/vehicleC.png")
+
+
+
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
@@ -891,32 +944,24 @@ AM.downloadAll(function () {
     var tank = new Tank(gameEngine);
     var enviornment = new Enviornment(gameEngine);
 
+
+    var vehicle = new Vehicles(gameEngine);
+
     gameEngine.addEntity(desert);
     gameEngine.addEntity(tank);
+
     gameEngine.addEntity(barrell);
+
+    gameEngine.addEntity(vehicle);
     gameEngine.addEntity(enviornment); // block the way
 
     //var enviornment2 = new Enviornment(gameEngine);
 
-
-     gameEngine.addEntity(desert);
-    //  gameEngine.addEntity(background);
-     gameEngine.addEntity(tank);
-     gameEngine.addEntity(barrell);
-    //  gameEngine.addEntity(enviornment);    // block the way
-     //gameEngine.addEntity(enviornment2); // can cross
      gameEngine.addEntity(explosion);
-     gameEngine.addEntity(bulletfire);
+    //  gameEngine.addEntity(bulletfire);
 
 
-    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/grass.png")));
-    // gameEngine.addEntity(new Tank(gameEngine, AM.getAsset("./img/Tank_fire_red.png")));
-    // gameEngine.addEntity(new BulletFire(gameEngine, AM.getAsset("./img/bullet_red.png"), 800));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Puddle_01.png"), 100, 200));
-    // gameEngine.addEntity(new Enviornment(gameEngine, AM.getAsset("./img/Decor_Items/Container_A.png"), 100, 500));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_A.png"), 0, 400));
-    // gameEngine.addEntity(new Explosion(gameEngine, AM.getAsset("./img/Explosion_C.png"), 150, 400));
-    // console.log(gameEngine.entities[2].x);
+
     
 
     console.log("All Done!");
