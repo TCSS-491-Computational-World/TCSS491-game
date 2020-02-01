@@ -858,32 +858,34 @@ Tank.prototype.draw = function () {
 
 
 
-// // Vehicles class
-function Vehicles(game) {
-    this.firstAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleA.png"), 256, 256, 4, 0.10, 4, true, 1);
-    // this.secondAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleB.png"), 256,256,4,0.1, 4, true,1);
-    // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
-    this.x = 240;
-    this.y = 285;
-    this.speed = 0; 
-    this.game = game;
-    this.ctx = game.ctx;
+// // // Vehicles class
+// function Vehicles(game) {
+//     console.log("Where is my vehicles");
+//     this.firstAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleA.png"), 256, 256, 4, 0.10, 4, true, 1);
+//     // this.secondAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleB.png"), 256,256,4,0.1, 4, true,1);
+//     // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
+//     this.x = 240;
+//     this.y = 285;
+//     this.speed = 0; 
+//     this.game = game;
+//     this.ctx = game.ctx;
 
-    Entity.call(this, game, 0, 400 /*, myX, myY*/);
-}
+//     // Entity.call(this, game, 240, 285);
+// }
 
-Vehicles.prototype.draw = function () {
-    this.firstAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    // this.secondAnimation.drawImage(this.game.clockTick, this.ctx,this.x+100,this.y);
-    // this.thirdAnimation.drawImage(this.game.clockTick,this.ctx, this.x+200, this.y);
-    Entity.prototype.update.call(this);
-}
+// Vehicles.prototype.draw = function () {
+//     this.firstAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+//     // this.secondAnimation.drawImage(this.game.clockTick, this.ctx,this.x+100,this.y);
+//     // this.thirdAnimation.drawImage(this.game.clockTick,this.ctx, this.x+200, this.y);
+//     Entity.prototype.draw.call(this);
+// }
 
-Vehicles.prototype.update = function () {
-    // if (this.animation.elapsedTime < this.animation.totalTime * 8 / 4)
-    //     this.x += this.game.clockTick * this.speed;
-    // if (this.x > 800) this.x = -230;
-}
+// Vehicles.prototype.update = function () {
+//     if (this.firstAnimation.elapsedTime < this.firstAnimation.totalTime * 8 / 4)
+//         this.x += this.game.clockTick * this.speed;
+//     if (this.x > 800) this.x = -230;
+//     Entity.prototype.update.call(this);
+// }
 
 
 
@@ -945,14 +947,14 @@ AM.downloadAll(function () {
     var enviornment = new Enviornment(gameEngine);
 
 
-    var vehicle = new Vehicles(gameEngine);
+    // var vehicle = new Vehicles(gameEngine);
 
     gameEngine.addEntity(desert);
     gameEngine.addEntity(tank);
 
     gameEngine.addEntity(barrell);
 
-    gameEngine.addEntity(vehicle);
+    // gameEngine.addEntity(vehicle);
     gameEngine.addEntity(enviornment); // block the way
 
     //var enviornment2 = new Enviornment(gameEngine);
