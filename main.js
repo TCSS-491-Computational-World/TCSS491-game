@@ -737,6 +737,15 @@ Tank.prototype.draw = function() {
     Entity.prototype.draw.call(this);
 };
 
+
+
+
+
+
+
+
+
+
 AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
 AM.queueDownload("./img/background/tree2.png");
