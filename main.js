@@ -1,5 +1,5 @@
 var AM = new AssetManager();
-var grid = new Array(100); // did a grid helper to see the map.
+var grid = new Array(100);
 
 function Cell(theX, theY, theContain) {
     this.x = theX;
@@ -212,14 +212,17 @@ Barrell.prototype.update = function () {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function BulletFire(game, fire, tankX, tankY) {
+function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation) {
+    this.theta = rotation;
     //this.distance = distance;
-
+    this.targetX = targetX;
+    this.targetY = targetY;
+    this.image = image;
     this.cursorAnimation = new Animation(
         AM.getAsset("./img/cursor.png"),0,0,19,19,20,1,true,false);
     this.tankX = tankX + 25;
     this.tankY = tankY + 25;
-
+    this.rotation = rotation;
     this.fire = false;
     this.speed = 10;
     this.ctx = game.ctx;
@@ -253,15 +256,30 @@ BulletFire.prototype.update = function () {
         //console.log("MY X:" , this.x);
         //this.y = this.game.click.y;
     //}
+
+
+
+    // var targetX = input.mouseX - (this.localX + this.width/2);
+    //  targetY = input.mouseY - (this.localY + this.height/2);
+
+    // this.rotation = Math.atan2(targetY, targetX);
+
+    // velocityInstance.x = Math.cos(this.rotation) * bulletSpeed;
+    // velocityInstance.y = Math.sin(this.rotation) * bulletSpeed;
+
+
     if (this.fire) {
 
-        this.x += this.speed;
-
-        if (this.x > this.ctx.width) {
+        //this.x += this.speed;
+        
+        if (this.x === this.targetX && this.y === this.targetY) {
             this.fire = false;
             this.x = this.tankX;
+            this.y = this.tankY;
         }
-
+        
+        this.x -= Math.cos(this.theta) * 10;
+        this.y -= Math.sin(this.theta) * 10;
     }
 
     if (this.game.mouse) {
@@ -276,15 +294,15 @@ BulletFire.prototype.update = function () {
 BulletFire.prototype.draw = function () {
     if (this.fire) {
         this.ctx.drawImage(
-            AM.getAsset("./img/bullet_onlyred.png"),
+            this.image,
             0,
             0,
-            25,
-            7,
+            33,
+            24,
             this.x,
             this.y,
-            25,
-            7
+            33,
+            24
         );
         //this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         //Entity.prototype.draw.call(this);
@@ -313,8 +331,6 @@ BulletFire.prototype.draw = function () {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-
-// I set the desert map  Jerry
 function Desert(game) {
     this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
     Entity.call(this, game, 0, 400);
@@ -329,6 +345,9 @@ Desert.prototype.update = function () {
 };
 
 Desert.prototype.draw = function (ctx) {
+
+   
+
     grid = new Array(100);
     for (let i = 0; i < 50; i++) {
         grid[i] = new Array(50);
@@ -336,6 +355,8 @@ Desert.prototype.draw = function (ctx) {
             grid[i][j] = new Cell(i, j, 0);
         }
     }
+
+
     // drawing grid in the map. It is easy to look for a position to get the location of the tank.
 
     fillGrid(ctx);
@@ -609,6 +630,7 @@ function Tank(game, spritesheet) {
     //Barrell Code
     //________________________________________________________________________________________________________
     this.BB = AM.getAsset("./img/tank_red2Barrell.png");
+    this.bullet = AM.getAsset("./img/bullet_red_2.png");
     this.cursorX;
     this.cursorY;
     //_________________________________________________________________________________________________________
@@ -702,6 +724,7 @@ function Tank(game, spritesheet) {
         true,
         false
     );
+    //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
     this.up = false;
     this.down = false;
     this.left = false;
@@ -731,6 +754,7 @@ Tank.prototype.update = function() {
         //theta *= 180 / Math.PI;
         this.cursorX = this.game.mouse.x;
         this.cursorY = this.game.mouse.y;
+        this.bullet = this.rotateAndCache(AM.getAsset("./img/bullet_red_2.png"), theta);
         this.BB = this.rotateAndCache(
             AM.getAsset("./img/tank_red2Barrell.png"),
             theta
@@ -755,8 +779,8 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
-        bullet = new BulletFire(this.game, true, this.x, this.y);
-        this.game.addEntity(bullet);
+        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta);
+        this.game.addEntity(bulletShot);
         this.shooting = false;
         //this.bullet.fire = true;
     }
@@ -892,6 +916,244 @@ Tank.prototype.draw = function() {
     Entity.prototype.draw.call(this);
 };
 
+function Enemy(game) {
+
+    this.snowballAnimation = new Animation(AM.getAsset("./img/snowball_01.png"),0 , 0, 512, 386, .05, 6, true, true);
+
+    this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 0, 0, 73, 60, 1, 1, true, false
+    ); //quick note{:}
+    this.moveUpRobotAnimation = new Animation(
+        AM.getAsset("./img/robot.png"),
+        73,
+        0,
+        73,
+        60,
+        1,
+        1,
+        true,
+        false
+    );
+    this.moveRightRobotAnimation = new Animation(
+        AM.getAsset("./img/robot.png"),
+        146,
+        0,
+        73,
+        60,
+        1,
+        1,
+        true,
+        false
+    );
+    this.moveLeftRobotAnimation = new Animation(
+        AM.getAsset("./img/robot.png"),
+        219,
+        0,
+        73,
+        60,
+        1,
+        1,
+        true,
+        false
+    );
+    this.ctx = game.ctx;
+    this.counter = 0;
+    this.up = false;
+    this.down = false;
+    this.left = false;
+    this.right = false;
+    this.lastMove = "none";
+    this.hero = false;
+    this.speed = 2;
+    this.random = this.random = Math.floor(Math.random() * 100);
+    // this.canvasWidth = game.ctx.width;
+    // this.canvasHeight = game.ctx.height;
+    this.x = 100;
+    this.y = 100;
+    this.projectileX = 1000;
+    this.projectileY = 600;
+    this.shooting = false;
+    Entity.call(this, game, 100, 200);
+}
+
+Enemy.prototype = new Entity();
+Enemy.prototype.constructor = Enemy;
+
+Enemy.prototype.update = function () {
+
+    if(this.x >= 999){
+        //this.lastMove = "left";
+        this.random = 76;
+    }
+    if(this.x <= 1){
+        //this.lastMove = "right";
+        this.random = 26;
+    }
+    if(this.y <= 1){
+        //this.lastMove = "down";
+        this.random = 51;
+    }
+    if(this.y >= 799){
+        //this.lastMove = "up";
+        this.random = 1;
+    }
+
+    if (this.random <= 25) {
+        //moving up
+        this.up = true;
+        this.down = false;
+        this.right = false;
+        this.left = false;
+        
+    }
+    if (this.up === true) {
+        this.y -= this.speed;
+    }
+    if (this.random <= 50 && this.random > 25) {
+        //moving right
+
+        this.up = false;
+        this.down = false;
+        this.right = true;
+        this.left = false;
+    }
+    if (this.right === true) {
+        this.x += this.speed;
+    }
+    if (this.random <= 75 && this.random > 50) {
+        //moving down
+        
+        this.up = false;
+        this.down = true;
+        this.right = false;
+        this.left = false;
+    }
+    if (this.down === true) {
+        this.y += this.speed;
+    }
+    if (this.random <= 100 && this.random > 75) {
+        //moving left
+        this.up = false;
+        this.down = false;
+        this.right = false;
+        this.left = true;
+    }
+    if (this.left === true) {
+        
+        this.x -= this.speed;
+    }
+    
+    if(this.projectileX > 0){
+        this.projectileX -= 3;
+    } else {
+        this.projectileX = 1000;
+    }
+    Entity.prototype.update.call(this);
+};
+
+Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
+    //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    if (this.up) {
+        this.moveUpRobotAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.counter ++;
+        if(this.counter === 100){
+            this.up = false;
+            this.counter = 0;
+            this.random = Math.floor(Math.random() * 100);
+        }
+        
+        this.lastMove = "up";
+    }
+    if (this.down) {
+        this.moveDownRobotAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.counter ++;
+        if(this.counter === 100){
+            this.down = false;
+            this.counter = 0;
+            this.random = Math.floor(Math.random() * 100)
+        }
+        this.lastMove = "down";
+    }
+    if (this.right) {
+        this.moveRightRobotAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.counter ++;
+        if(this.counter === 100){
+            this.right = false;
+            this.counter = 0;
+            this.random = Math.floor(Math.random() * 100)
+        }
+        this.lastMove = "right";
+    }
+    if (this.left) {
+        this.moveLeftRobotAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.counter ++;
+        if(this.counter === 100){
+            this.left = false;
+            this.counter = 0;
+            this.random = Math.floor(Math.random() * 100)
+        }
+        this.lastMove = "left";
+    }
+    if (!this.left && !this.right && !this.up && !this.down) {
+        //if tank isnt moving then stay at most recent direction.
+        if (this.lastMove === "left")
+            this.moveLeftRobotAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "right")
+            this.moveRightRobotAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "down")
+            this.moveDownRobotAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "up")
+            this.moveUpRobotAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "none")
+            this.moveUpRobotAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+    }
+    this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.projectileX, this.projectileY, .1);
+    Entity.prototype.draw.call(this);
+};
 
 // // Vehicles class
 function Vehicles(game) {
@@ -948,10 +1210,12 @@ AM.queueDownload("./img/Explosion_C.png");
 AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/Puddle_01.png");
 AM.queueDownload("./img/coin2.png");
-AM.queueDownload("./img/bullet_onlyred.png");
+AM.queueDownload("./img/bullet_red_2.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
 AM.queueDownload("./img/tank_red2Barrell.png");
+AM.queueDownload("./img/snowball_01.png");
+
 
 AM.queueDownload("./img/TankSprites/vehicleA.png")
 AM.queueDownload("./img/TankSprites/vehicleB.png")
@@ -968,8 +1232,8 @@ AM.downloadAll(function () {
     gameEngine.init(ctx);
     gameEngine.start();
 
-    // var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
-    // var barrell = new Barrell(gameEngine);
+    var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
+    var barrell = new Barrell(gameEngine);
     //var bulletfire = new BulletFire(gameEngine);
 
     var desert = new Desert(gameEngine);
@@ -979,6 +1243,7 @@ AM.downloadAll(function () {
     );
 
     var tank = new Tank(gameEngine);
+    var enemy = new Enemy(gameEngine);
     var enviornment = new Enviornment(gameEngine);
 
 
@@ -986,6 +1251,7 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(desert);
     gameEngine.addEntity(tank);
+    gameEngine.addEntity(enemy);
 
     // gameEngine.addEntity(barrell);
 
