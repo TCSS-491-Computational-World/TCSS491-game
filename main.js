@@ -1,5 +1,5 @@
 var AM = new AssetManager();
-var grid = new Array(100);
+var grid = new Array(100); // did a grid helper to see the map.
 
 function Cell(theX, theY, theContain) {
     this.x = theX;
@@ -313,6 +313,8 @@ BulletFire.prototype.draw = function () {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
+
+// I set the desert map  Jerry
 function Desert(game) {
     this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
     Entity.call(this, game, 0, 400);
@@ -327,9 +329,6 @@ Desert.prototype.update = function () {
 };
 
 Desert.prototype.draw = function (ctx) {
-
-   
-
     grid = new Array(100);
     for (let i = 0; i < 50; i++) {
         grid[i] = new Array(50);
@@ -337,8 +336,6 @@ Desert.prototype.draw = function (ctx) {
             grid[i][j] = new Cell(i, j, 0);
         }
     }
-
-
     // drawing grid in the map. It is easy to look for a position to get the location of the tank.
 
     fillGrid(ctx);
@@ -971,8 +968,8 @@ AM.downloadAll(function () {
     gameEngine.init(ctx);
     gameEngine.start();
 
-    var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
-    var barrell = new Barrell(gameEngine);
+    // var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
+    // var barrell = new Barrell(gameEngine);
     //var bulletfire = new BulletFire(gameEngine);
 
     var desert = new Desert(gameEngine);
