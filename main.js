@@ -643,6 +643,7 @@ function Tank(game) {
     this.cursorY;
     //_________________________________________________________________________________________________________
 
+
     this.moveDownAnimation = new Animation(
         AM.getAsset("./img/tank_red.png"),
         0,
@@ -744,6 +745,10 @@ function Tank(game) {
     this.x = 100;
     this.y = 100;
     this.shooting = false;
+    this.maxHealth = 200;
+    this.currentHealth = 200;
+    
+    
     Entity.call(this, game, 300, 300);
 }
 
@@ -838,6 +843,7 @@ Tank.prototype.update = function() {
 };
 
 Tank.prototype.draw = function() {
+    drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpAnimation.drawFrame(
@@ -980,6 +986,8 @@ function Enemy(game) {
     this.projectileX = 1000;
     this.projectileY = 600;
     this.shooting = false;
+    this.maxHealth = 400;
+    this.currentHealth = 200;
     Entity.call(this, game, 100, 200);
 }
 
@@ -1059,6 +1067,7 @@ Enemy.prototype.update = function () {
 };
 
 Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
+    drawHealthBar(this.ctx, this.x+12.5, this.y-5, 50, 5, this.currentHealth, this.maxHealth)
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpRobotAnimation.drawFrame(
