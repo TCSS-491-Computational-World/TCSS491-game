@@ -47,6 +47,7 @@ Tank.prototype.update = function() {
     //Barrell Code
     //____________________________________________________________________________________________________
     if (this.game.mouse) {
+        console.log("fhdfhfdh");
         var dy = this.y - this.cursorY;
         var dx = this.x - this.cursorX;
         var theta = Math.atan2(dy, dx); // range (-PI, PI]
@@ -60,6 +61,7 @@ Tank.prototype.update = function() {
         );
         //console.log(this.spritesheet);
     } else {
+        console.log("fhdfhfdh");
         var dy = this.y - this.cursorY;
         var dx = this.x - this.cursorX;
         var theta = Math.atan2(dy, dx); // range (-PI, PI]
