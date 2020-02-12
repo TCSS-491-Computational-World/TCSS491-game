@@ -363,52 +363,6 @@ BulletFire.prototype.draw = function () {
 //________________________________________________________________________________________________________
 
 
-
-
-
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-
-// Everything are indestructible in this object 
-function Enviornment(game) {
-    //this.x = myX;
-    //this.y = myY;
-    //this.spritesheet = spritesheet;
-    this.game = game;
-    this.ctx = game.ctx;
-}
-
-Enviornment.prototype.draw = function () {
-    // draw a container
-    // this.ctx.drawImage(AM.getAsset("./img/Decor_Items/Container_A.png"),600,380); 
-    
-    // draw a puddle
-    this.ctx.drawImage(AM.getAsset("./img/Puddle_01.png"), 700, 220); 
-
-    // draw a desert tree TYPE 1 
-    // this.ctx.drawImage();
-
-    // // draw a desert tree TYPE 2
-    // this.ctx.drawImage();
-
-    // // draw a desert tree TYPE 3
-    // this.ctx.drawImage();
-
-
-
-
-
-};
-
-Enviornment.prototype.update = function () { };
-
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-
 function Explosion(game, image, fire, targetX, targetY) {
     this.image = image;
     this.fire = false;
