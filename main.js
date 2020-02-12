@@ -1067,7 +1067,7 @@ Enemy.prototype.update = function () {
 };
 
 Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
-    drawHealthBar(this.ctx, this.x+12.5, this.y-5, 50, 5, this.currentHealth, this.maxHealth)
+    drawHealthBar(this.ctx, this.x+12, this.y-5, 40, 5, this.currentHealth, this.maxHealth)
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpRobotAnimation.drawFrame(
