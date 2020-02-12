@@ -999,7 +999,7 @@ function Enemy(game) {
     this.cleanShot = false;
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpRobotAnimation.frameWidth, this.moveUpRobotAnimation.frameHeight);
     this.maxHealth = 400;
-    this.currentHealth = 200;
+    this.currentHealth = 300;
     Entity.call(this, game, 100, 200);
 }
 
@@ -1013,6 +1013,7 @@ Enemy.prototype.update = function () {
     if (this.cleanShot) {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
+        this.currentHealth -= 10;
         this.cleanShot = false;
         //this.bullet.fire = true;
     }
