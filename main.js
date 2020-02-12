@@ -458,33 +458,33 @@ function setUpComponents(ctx) {
                 
                 
                 
-                // crossing
-                || (i === 20 && j === 22)
-                || (i === 21 && j === 23)
-                || (i === 22 && j === 24)
-                || (i === 23 && j === 25)
-                || (i === 24 && j === 26)
-                || (i === 25 && j === 27)
-                || (i === 26 && j === 28)
-                || (i === 27 && j === 29)
-                || (i === 28 && j === 30)
-                || (i === 29 && j === 31)
+                // // crossing
+                // || (i === 20 && j === 22)
+                // || (i === 21 && j === 23)
+                // || (i === 22 && j === 24)
+                // || (i === 23 && j === 25)
+                // || (i === 24 && j === 26)
+                // || (i === 25 && j === 27)
+                // || (i === 26 && j === 28)
+                // || (i === 27 && j === 29)
+                // || (i === 28 && j === 30)
+                // || (i === 29 && j === 31)
 
-                || (i === 29 && j === 22)
-                || (i === 28 && j === 23)
-                || (i === 27 && j === 24)
-                || (i === 26 && j === 25)
-                || (i === 25 && j === 26)
-                || (i === 24 && j === 27)
-                || (i === 23 && j === 28)
-                || (i === 22 && j === 29)
-                || (i === 21 && j === 30)
-                || (i === 20 && j === 31)
+                // || (i === 29 && j === 22)
+                // || (i === 28 && j === 23)
+                // || (i === 27 && j === 24)
+                // || (i === 26 && j === 25)
+                // || (i === 25 && j === 26)
+                // || (i === 24 && j === 27)
+                // || (i === 23 && j === 28)
+                // || (i === 22 && j === 29)
+                // || (i === 21 && j === 30)
+                // || (i === 20 && j === 31)
 
-
-                || (i === 34 && j === 25)
-                || (i === 34 && j === 26)
-                || (i === 34 && j === 27)
+                // // three crates in a row
+                // || (i === 34 && j === 25)
+                // || (i === 34 && j === 26)
+                // || (i === 34 && j === 27)
 
                 || (i === 7 && j === 42)
                 || (i === 7 && j === 41)
@@ -508,61 +508,56 @@ function setUpComponents(ctx) {
                 || (i === 36 && j === 47) 
                 || (i === 36 && j === 48) 
                 || (i === 36 && j === 49)  
-
-
-
-
-
                 ){
                 ctx.drawImage(AM.getAsset("./img/background/crate.png"),i*w, j*w,w,w);
             }
 
 
 
-            // drawing tree 2
-            if  ((i === 0 && j == 10)
-                || (i === 21 && j == 26)
-                || (i === 41 && j == 28)
-                || (i === 47 && j === 5)
-                || (i === 48 && j == 36)
-                ) {
-                ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,100,100);
-            }
+            // // drawing tree 2
+            // if  ((i === 0 && j == 10)
+            //     || (i === 21 && j == 26)
+            //     || (i === 41 && j == 28)
+            //     || (i === 47 && j === 5)
+            //     || (i === 48 && j == 36)
+            //     ) {
+            //     ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,100,100);
+            // }
 
 
 
 
-            // drawing tree 1
-            if((i === 9 && j === 6)
-                || (i === 11 && j === 40)
-                || (i === 13 && j === 13)
-                || (i === 15 && j === 9)
-                || (i === 42 && j === 21)
-                || (i === 47 && j === 13)
-                || (i === 29 && j === 27)
-            ) {
-                ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
-            }
-            // drawing tree 3
-            if (( i === 0 && j === 49)
-            ||  ( i  === 6 && j === 35 )
-            || ( i === 16 && j === 24)
-            || ( i === 40&& j === 34)
-            || ( i === 44 && j === 47)
-            ) {
-                ctx.drawImage(AM.getAsset("./img/background/tree3.png"),i*w, j*w, 150,150);
-            }
+            // // drawing tree 1
+            // if((i === 9 && j === 6)
+            //     || (i === 11 && j === 40)
+            //     || (i === 13 && j === 13)
+            //     || (i === 15 && j === 9)
+            //     || (i === 42 && j === 21)
+            //     || (i === 47 && j === 13)
+            //     || (i === 29 && j === 27)
+            // ) {
+            //     ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
+            // }
+            // // drawing tree 3
+            // if (( i === 0 && j === 49)
+            // ||  ( i  === 6 && j === 35 )
+            // || ( i === 16 && j === 24)
+            // || ( i === 40&& j === 34)
+            // || ( i === 44 && j === 47)
+            // ) {
+            //     ctx.drawImage(AM.getAsset("./img/background/tree3.png"),i*w, j*w, 150,150);
+            // }
 
 
-            // drawing rooftop
-            if ( i === 19 && j === 5) {
-                ctx.drawImage(AM.getAsset("./img/rooftop.png"),i*w, j*w, 250, 250);
-            }
+            // // drawing rooftop
+            // if ( i === 19 && j === 5) {
+            //     ctx.drawImage(AM.getAsset("./img/rooftop.png"),i*w, j*w, 250, 250);
+            // }
 
-            // drawing roof
-            if ( i === 19 && j === 12) {
-                ctx.drawImage(AM.getAsset("./img/roof.png"),i*w, j*w, 250, 200);
-            }
+            // // drawing roof
+            // if ( i === 19 && j === 12) {
+            //     ctx.drawImage(AM.getAsset("./img/roof.png"),i*w, j*w, 250, 200);
+            // }
 
 
 
@@ -578,6 +573,7 @@ function setUpComponents(ctx) {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
+// Everything are indestructible in this object 
 function Enviornment(game) {
     //this.x = myX;
     //this.y = myY;
@@ -587,13 +583,25 @@ function Enviornment(game) {
 }
 
 Enviornment.prototype.draw = function () {
-    this.ctx.drawImage(
-        AM.getAsset("./img/Decor_Items/Container_A.png"),
-        600,
-        380
-    );
+    // draw a container
+    // this.ctx.drawImage(AM.getAsset("./img/Decor_Items/Container_A.png"),600,380); 
+    
+    // draw a puddle
+    this.ctx.drawImage(AM.getAsset("./img/Puddle_01.png"), 700, 220); 
 
-    this.ctx.drawImage(AM.getAsset("./img/Puddle_01.png"), 700, 220);
+    // draw a desert tree TYPE 1 
+    // this.ctx.drawImage();
+
+    // // draw a desert tree TYPE 2
+    // this.ctx.drawImage();
+
+    // // draw a desert tree TYPE 3
+    // this.ctx.drawImage();
+
+
+
+
+
 };
 
 Enviornment.prototype.update = function () { };
@@ -690,7 +698,7 @@ BoundingBox.prototype.collide = function (other) {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function Tank(game, spritesheet) {
+function Tank(game) {
     //Barrell Code
     //________________________________________________________________________________________________________
     this.BB = AM.getAsset("./img/tank_red2Barrell.png");
@@ -724,6 +732,10 @@ function Tank(game, spritesheet) {
     this.shooting = false;
     this.cleanShot = false;
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
+    this.maxHealth = 200;
+    this.currentHealth = 200;
+    
+    
     Entity.call(this, game, 300, 300);
 }
 
@@ -832,6 +844,7 @@ Tank.prototype.update = function() {
 };
 
 Tank.prototype.draw = function() {
+    drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpAnimation.drawFrame(
@@ -985,6 +998,8 @@ function Enemy(game) {
     this.shooting = false;
     this.cleanShot = false;
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpRobotAnimation.frameWidth, this.moveUpRobotAnimation.frameHeight);
+    this.maxHealth = 400;
+    this.currentHealth = 200;
     Entity.call(this, game, 100, 200);
 }
 
@@ -1078,6 +1093,7 @@ Enemy.prototype.update = function () {
 };
 
 Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
+    drawHealthBar(this.ctx, this.x+12.5, this.y-5, 50, 5, this.currentHealth, this.maxHealth)
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpRobotAnimation.drawFrame(
@@ -1269,14 +1285,15 @@ AM.downloadAll(function () {
     var barrell = new Barrell(gameEngine);
     //var bulletfire = new BulletFire(gameEngine);
 
-    var desert = new Desert(gameEngine);
+    var desert = new Desert(gameEngine);                                                  // the map----desert Jerry did
 
-    var explosion = new Explosion(
+    var explosion = new Explosion(                                                        
         gameEngine /*, AM.getAsset("./img/Explosion_A.png") */
     );
-    var tank = new Tank(gameEngine);
-    var enemy = new Enemy(gameEngine);
-    var enviornment = new Enviornment(gameEngine);
+
+    var tank = new Tank(gameEngine);                                                      // the tank Roman and Ross did
+    var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
+    // var enviornment = new Enviornment(gameEngine);
 
 
     // var vehicle = new Vehicles(gameEngine);
@@ -1293,11 +1310,11 @@ AM.downloadAll(function () {
     // gameEngine.addEntity(barrell);
 
     // gameEngine.addEntity(vehicle);
-    gameEngine.addEntity(enviornment); // block the way
+    // gameEngine.addEntity(enviornment); // block the way
 
     //var enviornment2 = new Enviornment(gameEngine);
 
-     gameEngine.addEntity(explosion);
+    //  gameEngine.addEntity(explosion);
     //  gameEngine.addEntity(bulletfire);
 
 
