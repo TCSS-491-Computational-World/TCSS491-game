@@ -1,10 +1,10 @@
-var display = document.getElementById("display").getContext("2d");
+// var display = document.getElementById("display").getContext("2d");
 
-drawHealthBar(display, 10, 10, 40, 4.5, 60, 100);
-drawHealthBar(display, 10, 60, 500, 50, 25, 100);
-drawHealthBar(display, 10, 110, 500, 50, 50, 100);
-drawHealthBar(display, 10, 160, 500, 50, 75, 100);
-drawHealthBar(display, 10, 210, 500, 50, 100, 100);
+// drawHealthBar(display, 10, 10, 40, 4.5, 60, 100);
+// drawHealthBar(display, 10, 60, 500, 50, 25, 100);
+// drawHealthBar(display, 10, 110, 500, 50, 50, 100);
+// drawHealthBar(display, 10, 160, 500, 50, 75, 100);
+// drawHealthBar(display, 10, 210, 500, 50, 100, 100);
 
 function drawHealthBar(canvas, x, y, width, height, health, max_health) {
     if (health >= max_health) {
