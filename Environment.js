@@ -1,12 +1,20 @@
-function Component(decoration,width,height) {
+function Component(game,decoration,width,height) {
     this.decoration = decoration;
     this.width = width; // limit width
     this.height = height;   // limit height
+    this.boundingBox = new BoundingBox();
+    this.removed = false;
+    this.game = game;
+    this.ctx = game.ctx;
 }
 
 Component.prototype.draw = function(){
-    
-}
+    this.ctx.drawImage();
+};
+
+Component.prototype.update = function() {
+
+};
 
 
 // Everything are indestructible in this object 
