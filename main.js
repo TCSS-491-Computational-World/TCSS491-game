@@ -794,51 +794,56 @@ Tank.prototype.update = function() {
         //this.bullet.fire = true;
     }
 
-    if (this.game.keyboard === 38 || this.game.keyboard === 87) {
-        //moving up
-        this.up = true;
-        this.down = false;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.up === true) {
-        this.y -= this.speed;
-        this.boundingbox.y -= this.speed;
-    }
-    if (this.game.keyboard === 39 || this.game.keyboard === 68) {
-        //moving right
+    //if(!this.boundingbox.collide(this.game.tanks[1].boundingbox)){
 
-        this.up = false;
-        this.down = false;
-        this.right = true;
-        this.left = false;
-    }
-    if (this.right === true) {
-        this.x += this.speed;
-        this.boundingbox.x += this.speed;
-    }
-    if (this.game.keyboard === 40 || this.game.keyboard === 83) {
-        //moving down
-        this.up = false;
-        this.down = true;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.down === true) {
-        this.y += this.speed;
-        this.boundingbox.y += this.speed;
-    }
-    if (this.game.keyboard === 37 || this.game.keyboard === 65) {
-        //moving left
-        this.up = false;
-        this.down = false;
-        this.right = false;
-        this.left = true;
-    }
-    if (this.left === true) {
-        this.x -= this.speed;
-        this.boundingbox.x -= this.speed;
-    }
+        if (this.game.keyboard === 38 || this.game.keyboard === 87) {
+            //moving up
+            this.up = true;
+            this.down = false;
+            this.right = false;
+            this.left = false;
+        }
+        if (this.up === true) {
+            this.y -= this.speed;
+            this.boundingbox.y -= this.speed;
+        }
+        if (this.game.keyboard === 39 || this.game.keyboard === 68) {
+            //moving right
+    
+            this.up = false;
+            this.down = false;
+            this.right = true;
+            this.left = false;
+        }
+        if (this.right === true) {
+            this.x += this.speed;
+            this.boundingbox.x += this.speed;
+        }
+        if (this.game.keyboard === 40 || this.game.keyboard === 83) {
+            //moving down
+            this.up = false;
+            this.down = true;
+            this.right = false;
+            this.left = false;
+        }
+        if (this.down === true) {
+            this.y += this.speed;
+            this.boundingbox.y += this.speed;
+        }
+        if (this.game.keyboard === 37 || this.game.keyboard === 65) {
+            //moving left
+            this.up = false;
+            this.down = false;
+            this.right = false;
+            this.left = true;
+        }
+        if (this.left === true) {
+            this.x -= this.speed;
+            this.boundingbox.x -= this.speed;
+        }
+
+    //}
+    
 
     Entity.prototype.update.call(this);
 };
@@ -1010,86 +1015,98 @@ Enemy.prototype.update = function () {
     // this.boundingbox.width = this.moveUpRobotAnimation.frameWidth;
     // this.boundingbox.height = this.moveUpRobotAnimation.frameHeight;
 
+
+    if(!this.boundingbox.collide(this.game.tanks[0].boundingbox)){
+
+        if(this.x >= 999){
+            //this.lastMove = "left";
+            this.random = 76;
+        }
+        if(this.x <= 1){
+            //this.lastMove = "right";
+            this.random = 26;
+        }
+        if(this.y <= 1){
+            //this.lastMove = "down";
+            this.random = 51;
+        }
+        if(this.y >= 799){
+            //this.lastMove = "up";
+            this.random = 1;
+        }
+    
+        if (this.random <= 25) {
+            //moving up
+            this.up = true;
+            this.down = false;
+            this.right = false;
+            this.left = false;
+            
+        }
+        if (this.up === true) {
+            
+            this.y -= this.speed;
+            this.boundingbox.y -= this.speed;
+        }
+        if (this.random <= 50 && this.random > 25) {
+            //moving right
+    
+            this.up = false;
+            this.down = false;
+            this.right = true;
+            this.left = false;
+        }
+        if (this.right === true) {
+            this.x += this.speed;
+            this.boundingbox.x += this.speed;
+        }
+        if (this.random <= 75 && this.random > 50) {
+            //moving down
+            
+            this.up = false;
+            this.down = true;
+            this.right = false;
+            this.left = false;
+        }
+        if (this.down === true) {
+            this.y += this.speed;
+            this.boundingbox.y += this.speed;
+        }
+        if (this.random <= 100 && this.random > 75) {
+            //moving left
+            this.up = false;
+            this.down = false;
+            this.right = false;
+            this.left = true;
+        }
+        if (this.left === true) {
+    
+            this.x -= this.speed;
+            this.boundingbox.x -= this.speed;
+        }
+        
+        if(this.projectileX > 0){
+            this.projectileX -= 3;
+        } else {
+            this.projectileX = 1000;
+        }
+    }
+
     if (this.cleanShot) {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
-        this.currentHealth -= 10;
+        
         this.cleanShot = false;
+
+        if(this.currentHealth === 0){
+            //remove the enemy
+        } else {
+            this.currentHealth -= 10;
+        }
         //this.bullet.fire = true;
     }
 
-    if(this.x >= 999){
-        //this.lastMove = "left";
-        this.random = 76;
-    }
-    if(this.x <= 1){
-        //this.lastMove = "right";
-        this.random = 26;
-    }
-    if(this.y <= 1){
-        //this.lastMove = "down";
-        this.random = 51;
-    }
-    if(this.y >= 799){
-        //this.lastMove = "up";
-        this.random = 1;
-    }
-
-    if (this.random <= 25) {
-        //moving up
-        this.up = true;
-        this.down = false;
-        this.right = false;
-        this.left = false;
-        
-    }
-    if (this.up === true) {
-        
-        this.y -= this.speed;
-        this.boundingbox.y -= this.speed;
-    }
-    if (this.random <= 50 && this.random > 25) {
-        //moving right
-
-        this.up = false;
-        this.down = false;
-        this.right = true;
-        this.left = false;
-    }
-    if (this.right === true) {
-        this.x += this.speed;
-        this.boundingbox.x += this.speed;
-    }
-    if (this.random <= 75 && this.random > 50) {
-        //moving down
-        
-        this.up = false;
-        this.down = true;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.down === true) {
-        this.y += this.speed;
-        this.boundingbox.y += this.speed;
-    }
-    if (this.random <= 100 && this.random > 75) {
-        //moving left
-        this.up = false;
-        this.down = false;
-        this.right = false;
-        this.left = true;
-    }
-    if (this.left === true) {
-
-        this.x -= this.speed;
-        this.boundingbox.x -= this.speed;
-    }
     
-    if(this.projectileX > 0){
-        this.projectileX -= 3;
-    } else {
-        this.projectileX = 1000;
-    }
     Entity.prototype.update.call(this);
 };
 
