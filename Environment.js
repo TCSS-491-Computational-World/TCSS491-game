@@ -8,6 +8,7 @@ function Component(game,decoration,width,height) {
     this.ctx = game.ctx;
 }
 
+// 需要思考下
 Component.prototype.draw = function(){
     this.ctx.drawImage();
 };
