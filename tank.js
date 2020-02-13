@@ -9,20 +9,29 @@ function Tank(game) {
     
     //_________________________________________________________________________________________________________
 
-    this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
-    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_red.png"), 50,0, 50,50,1,1, true,false);
-    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red.png"),100,0,50,50,1,1,true,false);
-    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_red.png"),150,0,50, 50,1,1,true, false);
+    this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),  0, 0, 60, 60, 1,1,true,false);
+    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"), 120,0, 60,60,1,1, true,false);
+    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red8D.png"),240,0,60,60,1,1,true,false);
+    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),360,0,60, 60,1,1,true, false);
+
+    this.moveDownRightAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),  60, 0, 60, 60, 1,1,true,false);
+    this.moveUpRightAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"), 180,0, 60,60,1,1, true,false);
+    this.moveUpLeftAnimation = new Animation(AM.getAsset("./img/tank_red8D.png"),300,0,60,60,1,1,true,false);
+    this.moveDownLeftAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),420,0,60, 60,1,1,true, false);
 
     this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
     this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
     this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
     this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
     //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
-    this.up = false;
-    this.down = false;
-    this.left = false;
-    this.right = false;
+    //this.up = false;
+    //this.down = false;
+    //this.left = false;
+    //this.right = false;
+
+    //TankState 1 = Down, 2 = DownRight, 3 = Right, 4 = UpRight, 5 = Up, 6 = UpRight, 7 = Left, 8 = DownLeft
+    this.TankState = 0;
+
     this.lastMove = "none";
     this.hero = false;
     this.speed = 10;
@@ -39,11 +48,13 @@ function Tank(game) {
     Entity.call(this, game, 300, 300);
 }
 
-Tank.prototype = new Entity();
-Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
     var bool = true;
+
+    //TankState 1 = Down, 2 = DownRight, 3 = Right, 4 = UpRight, 5 = Up, 6 = UpRight, 7 = Left, 8 = DownLeft
+    //var TankState = 0;
+
     //Barrell Code
     //____________________________________________________________________________________________________
     if (this.game.mouse) {
@@ -73,72 +84,50 @@ Tank.prototype.update = function() {
             theta
         );
     }
-    //_____________________________________________________________________________________________________
 
-    if (this.game.click) {
-        this.shooting = true;
-    }
-    if (this.shooting) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta);
-        this.game.addEntity(bulletShot);
-        this.shooting = false;
-        //this.bullet.fire = true;
-    }
 
-    //if(this.boundingbox.collide())
-
-    if (this.cleanShot) {
-        cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
-        this.game.addEntity(cleanshot);
-        this.cleanShot = false;
-        //this.bullet.fire = true;
-    }
-
-    if (this.game.keyboard === 38 || this.game.keyboard === 87) {
+    if (this.game.keyboard === 87) {
         //moving up
-        this.up = true;
-        this.down = false;
-        this.right = false;
-        this.left = false;
+        this.TankState = 5;
     }
-    if (this.up === true) {
+    if (this.TankState == 5) {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
     }
-    if (this.game.keyboard === 39 || this.game.keyboard === 68) {
+    if (this.game.keyboard === 68) {
         //moving right
-
-        this.up = false;
-        this.down = false;
-        this.right = true;
-        this.left = false;
+        this.TankState = 3;
     }
-    if (this.right === true) {
+    if (this.TankState == 3) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
     }
-    if (this.game.keyboard === 40 || this.game.keyboard === 83) {
+    if (this.game.keyboard === 83) {
         //moving down
-        this.up = false;
-        this.down = true;
-        this.right = false;
-        this.left = false;
+        this.TankState = 1;
     }
-    if (this.down === true) {
+    if (this.TankState == 1) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
     }
-    if (this.game.keyboard === 37 || this.game.keyboard === 65) {
+    if (this.game.keyboard === 65) {
         //moving left
-        this.up = false;
-        this.down = false;
-        this.right = false;
-        this.left = true;
+        this.TankState = 7;
     }
-    if (this.left === true) {
+    if (this.TankState == 7) {
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
     }
+
+    //For them wierd Angles...
+    //if (this.game.keyboard === 87) {
+        //moving up
+        //this.TankState = 5;
+    //}
+    //if (this.TankState == 5) {
+        //this.y -= this.speed;
+        //this.boundingbox.y -= this.speed;
+    //}
 
     Entity.prototype.update.call(this);
 };
@@ -146,47 +135,48 @@ Tank.prototype.update = function() {
 Tank.prototype.draw = function() {
     drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    if (this.up) {
+    if (this.TankState == 5) {
         this.moveUpAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
             this.x,
             this.y
         );
-        this.up = false;
+        this.TankState == 0;
         this.lastMove = "up";
     }
-    if (this.down) {
+    if (this.TankState == 1) {
         this.moveDownAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
             this.x,
             this.y
         );
-        this.down = false;
+        this.TankState == 0;
         this.lastMove = "down";
     }
-    if (this.right) {
+    if (this.TankState == 3) {
         this.moveRightAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
             this.x,
             this.y
         );
-        this.right = false;
+        this.TankState == 0;
         this.lastMove = "right";
     }
-    if (this.left) {
+    if (this.TankState == 7) {
         this.moveLeftAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
             this.x,
             this.y
         );
-        this.left = false;
+        this.TankState == 0;
         this.lastMove = "left";
     }
-    if (!this.left && !this.right && !this.up && !this.down) {
+    this.TankState = 0;
+    if (this.TankState == 0) {
         //if tank isnt moving then stay at most recent direction.
         if (this.lastMove === "left")
             this.moveLeftAnimation.drawFrame(

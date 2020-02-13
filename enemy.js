@@ -1,3 +1,6 @@
+
+
+
 function Enemy(game) {
 
     this.explosionA = AM.getAsset("./img/Explosion_A.png")
@@ -58,7 +61,7 @@ function Enemy(game) {
     this.cleanShot = false;
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpRobotAnimation.frameWidth, this.moveUpRobotAnimation.frameHeight);
     this.maxHealth = 400;
-    this.currentHealth = 200;
+    this.currentHealth = 300;
     Entity.call(this, game, 100, 200);
 }
 
@@ -72,6 +75,7 @@ Enemy.prototype.update = function () {
     if (this.cleanShot) {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
+        this.currentHealth -= 10;
         this.cleanShot = false;
         //this.bullet.fire = true;
     }
@@ -152,7 +156,7 @@ Enemy.prototype.update = function () {
 };
 
 Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
-    drawHealthBar(this.ctx, this.x+12, this.y-5, 40, 5, this.currentHealth, this.maxHealth) // 我要改掉， 不好，不好
+    drawHealthBar(this.ctx, this.x+12.5, this.y-5, 50, 5, this.currentHealth, this.maxHealth)
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpRobotAnimation.drawFrame(
@@ -257,7 +261,7 @@ Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR T
 
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "blue";
+    this.ctx.strokeStyle = "red";
     this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
     this.ctx.stroke();
 
