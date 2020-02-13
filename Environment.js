@@ -4,8 +4,6 @@ function Component(game,decoration,width,height) {
     this.height = height;   // limit height
     this.boundingBox = new BoundingBox();
     this.removed = false;
-    this.game = game;
-    this.ctx = game.ctx;
 }
 
 // 需要思考下
