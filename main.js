@@ -419,537 +419,289 @@ Explosion.prototype.draw = function () {
 
 
 
+
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function Tank(game) {
-    //Barrell Code
-    //________________________________________________________________________________________________________
-    this.BB = AM.getAsset("./img/tank_red2Barrell.png");
-    this.bullet = AM.getAsset("./img/bullet_red_2.png");
-    this.explosionA = AM.getAsset("./img/Explosion_A.png")
-    this.cursorX;
-    this.cursorY;
+// function Tank(game) {
+//     //Barrell Code
+//     //________________________________________________________________________________________________________
+//     this.BB = AM.getAsset("./img/tank_red2Barrell.png");
+//     this.bullet = AM.getAsset("./img/bullet_red_2.png");
+//     this.explosionA = AM.getAsset("./img/Explosion_A.png")
+//     this.cursorX;
+//     this.cursorY;
     
-    //_________________________________________________________________________________________________________
+//     //_________________________________________________________________________________________________________
 
-    this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),  0, 0, 60, 60, 1,1,true,false);
-    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"), 120,0, 60,60,1,1, true,false);
-    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red8D.png"),240,0,60,60,1,1,true,false);
-    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),360,0,60, 60,1,1,true, false);
+//     this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
+//     this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_red.png"), 50,0, 50,50,1,1, true,false);
+//     this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red.png"),100,0,50,50,1,1,true,false);
+//     this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_red.png"),150,0,50, 50,1,1,true, false);
 
-    this.moveDownRightAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),  60, 0, 60, 60, 1,1,true,false);
-    this.moveUpRightAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"), 180,0, 60,60,1,1, true,false);
-    this.moveUpLeftAnimation = new Animation(AM.getAsset("./img/tank_red8D.png"),300,0,60,60,1,1,true,false);
-    this.moveDownLeftAnimation = new Animation( AM.getAsset("./img/tank_red8D.png"),420,0,60, 60,1,1,true, false);
-
-    this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
-    this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
-    this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
-    this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
-    //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
-    //this.up = false;
-    //this.down = false;
-    //this.left = false;
-    //this.right = false;
-
-    //TankState 1 = Down, 2 = DownRight, 3 = Right, 4 = UpRight, 5 = Up, 6 = UpRight, 7 = Left, 8 = DownLeft
-    this.TankState = 0;
-
-    this.lastMove = "none";
-    this.hero = false;
-    this.speed = 10;
-    this.ctx = game.ctx;
-    this.x = 300;
-    this.y = 300;
-    this.shooting = false;
-    this.cleanShot = false;
-    this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
-    this.maxHealth = 200;
-    this.currentHealth = 200;
+//     this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
+//     this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
+//     this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
+//     this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
+//     //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
+//     this.up = false;
+//     this.down = false;
+//     this.left = false;
+//     this.right = false;
+//     this.lastMove = "none";
+//     this.hero = false;
+//     this.speed = 10;
+//     this.ctx = game.ctx;
+//     this.x = 300;
+//     this.y = 300;
+//     this.shooting = false;
+//     this.cleanShot = false;
+//     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
+//     this.maxHealth = 200;
+//     this.currentHealth = 200;
     
     
-    Entity.call(this, game, 300, 300);
-}
+//     Entity.call(this, game, 300, 300);
+// }
 
+// Tank.prototype = new Entity();
+// Tank.prototype.constructor = Tank;
 
-Tank.prototype.update = function() {
-    var bool = true;
+// Tank.prototype.update = function() {
+//     var bool = true;
+//     //Barrell Code
+//     //____________________________________________________________________________________________________
+//     if (this.game.mouse) {
+//         //console.log("fhdfhfdh");
+//         var dy = this.y - this.cursorY;
+//         var dx = this.x - this.cursorX;
+//         var theta = Math.atan2(dy, dx); // range (-PI, PI]
+//         //theta *= 180 / Math.PI;
+//         this.cursorX = this.game.mouse.x;
+//         this.cursorY = this.game.mouse.y;
+//         this.bullet = this.rotateAndCache(AM.getAsset("./img/bullet_red_2.png"), theta);
+//         this.BB = this.rotateAndCache(
+//             AM.getAsset("./img/tank_red2Barrell.png"),
+//             theta
+//         );
+//         //console.log(this.spritesheet);
+//     } else {
+//         //console.log("fhdfhfdh");
+//         var dy = this.y - this.cursorY;
+//         var dx = this.x - this.cursorX;
+//         var theta = Math.atan2(dy, dx); // range (-PI, PI]
+//         //theta *= 180 / Math.PI;
+//         //this.cursorX = this.game.mouse.x;
+//         //this.cursorY = this.game.mouse.y;
+//         this.BB = this.rotateAndCache(
+//             AM.getAsset("./img/tank_red2Barrell.png"),
+//             theta
+//         );
+//     }
+//     //_____________________________________________________________________________________________________
 
-    //TankState 1 = Down, 2 = DownRight, 3 = Right, 4 = UpRight, 5 = Up, 6 = UpRight, 7 = Left, 8 = DownLeft
-    //var TankState = 0;
+//     if (this.game.click) {
+//         this.shooting = true;
+//     }
+//     if (this.shooting) {
+//         bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta);
+//         this.game.addEntity(bulletShot);
+//         this.shooting = false;
+//         //this.bullet.fire = true;
+//     }
 
-    //Barrell Code
-    //____________________________________________________________________________________________________
-    if (this.game.mouse) {
-        console.log("fhdfhfdh");
-        var dy = this.y - this.cursorY;
-        var dx = this.x - this.cursorX;
-        var theta = Math.atan2(dy, dx); // range (-PI, PI]
-        //theta *= 180 / Math.PI;
-        this.cursorX = this.game.mouse.x;
-        this.cursorY = this.game.mouse.y;
-        this.bullet = this.rotateAndCache(AM.getAsset("./img/bullet_red_2.png"), theta);
-        this.BB = this.rotateAndCache(
-            AM.getAsset("./img/tank_red2Barrell.png"),
-            theta
-        );
-        //console.log(this.spritesheet);
-    } else {
-        console.log("fhdfhfdh");
-        var dy = this.y - this.cursorY;
-        var dx = this.x - this.cursorX;
-        var theta = Math.atan2(dy, dx); // range (-PI, PI]
-        //theta *= 180 / Math.PI;
-        //this.cursorX = this.game.mouse.x;
-        //this.cursorY = this.game.mouse.y;
-        this.BB = this.rotateAndCache(
-            AM.getAsset("./img/tank_red2Barrell.png"),
-            theta
-        );
-    }
+//     //if(this.boundingbox.collide())
 
+//     if (this.cleanShot) {
+//         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
+//         this.game.addEntity(cleanshot);
+//         this.cleanShot = false;
+//         //this.bullet.fire = true;
+//     }
 
-    if (this.game.keyboard === 87) {
-        //moving up
-        this.TankState = 5;
-    }
-    if (this.TankState == 5) {
-        this.y -= this.speed;
-        this.boundingbox.y -= this.speed;
-    }
-    if (this.game.keyboard === 68) {
-        //moving right
-        this.TankState = 3;
-    }
-    if (this.TankState == 3) {
-        this.x += this.speed;
-        this.boundingbox.x += this.speed;
-    }
-    if (this.game.keyboard === 83) {
-        //moving down
-        this.TankState = 1;
-    }
-    if (this.TankState == 1) {
-        this.y += this.speed;
-        this.boundingbox.y += this.speed;
-    }
-    if (this.game.keyboard === 65) {
-        //moving left
-        this.TankState = 7;
-    }
-    if (this.TankState == 7) {
-        this.x -= this.speed;
-        this.boundingbox.x -= this.speed;
-    }
+//     //if(!this.boundingbox.collide(this.game.tanks[1].boundingbox)){
 
-    //For them wierd Angles...
-    //if (this.game.keyboard === 87) {
-        //moving up
-        //this.TankState = 5;
-    //}
-    //if (this.TankState == 5) {
-        //this.y -= this.speed;
-        //this.boundingbox.y -= this.speed;
-    //}
-
-    Entity.prototype.update.call(this);
-};
-
-Tank.prototype.draw = function() {
-    drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
-    //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    if (this.TankState == 5) {
-        this.moveUpAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.TankState == 0;
-        this.lastMove = "up";
-    }
-    if (this.TankState == 1) {
-        this.moveDownAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.TankState == 0;
-        this.lastMove = "down";
-    }
-    if (this.TankState == 3) {
-        this.moveRightAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.TankState == 0;
-        this.lastMove = "right";
-    }
-    if (this.TankState == 7) {
-        this.moveLeftAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.TankState == 0;
-        this.lastMove = "left";
-    }
-    this.TankState = 0;
-    if (this.TankState == 0) {
-        //if tank isnt moving then stay at most recent direction.
-        if (this.lastMove === "left")
-            this.moveLeftAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "right")
-            this.moveRightAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "down")
-            this.moveDownAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "up")
-            this.moveUpAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "none")
-            this.moveUpAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-    }
-
-    //Barrell Code
-    this.ctx.drawImage(this.BB, this.x, this.y);
-
-
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-    this.ctx.stroke();
-
-
-    Entity.prototype.draw.call(this);
-};
-
-function Enemy(game) {
-
-    this.explosionA = AM.getAsset("./img/Explosion_A.png")
-    this.snowballAnimation = new Animation(AM.getAsset("./img/snowball_01.png"),0 , 0, 512, 386, .05, 6, true, true);
-
-    this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 0, 0, 73, 60, 1, 1, true, false
-    ); //quick note{:}
-    this.moveUpRobotAnimation = new Animation(
-        AM.getAsset("./img/robot.png"),
-        73,
-        0,
-        73,
-        60,
-        1,
-        1,
-        true,
-        false
-    );
-    this.moveRightRobotAnimation = new Animation(
-        AM.getAsset("./img/robot.png"),
-        146,
-        0,
-        73,
-        60,
-        1,
-        1,
-        true,
-        false
-    );
-    this.moveLeftRobotAnimation = new Animation(
-        AM.getAsset("./img/robot.png"),
-        219,
-        0,
-        73,
-        60,
-        1,
-        1,
-        true,
-        false
-    );
-    this.ctx = game.ctx;
-    this.counter = 0;
-    this.up = false;
-    this.down = false;
-    this.left = false;
-    this.right = false;
-    this.lastMove = "none";
-    this.hero = false;
-    this.speed = 2;
-    this.random = this.random = Math.floor(Math.random() * 100);
-    // this.canvasWidth = game.ctx.width;
-    // this.canvasHeight = game.ctx.height;
-    this.x = 100;
-    this.y = 200;
-    this.projectileX = 1000;
-    this.projectileY = 600;
-    this.shooting = false;
-    this.cleanShot = false;
-    this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpRobotAnimation.frameWidth, this.moveUpRobotAnimation.frameHeight);
-    this.maxHealth = 400;
-    this.currentHealth = 300;
-    Entity.call(this, game, 100, 200);
-}
-
-Enemy.prototype = new Entity();
-Enemy.prototype.constructor = Enemy;
-
-Enemy.prototype.update = function () {
-    // this.boundingbox.width = this.moveUpRobotAnimation.frameWidth;
-    // this.boundingbox.height = this.moveUpRobotAnimation.frameHeight;
-
-    if (this.cleanShot) {
-        cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
-        this.game.addEntity(cleanshot);
-        this.currentHealth -= 10;
-        this.cleanShot = false;
-        //this.bullet.fire = true;
-    }
-
-    if(this.x >= 999){
-        //this.lastMove = "left";
-        this.random = 76;
-    }
-    if(this.x <= 1){
-        //this.lastMove = "right";
-        this.random = 26;
-    }
-    if(this.y <= 1){
-        //this.lastMove = "down";
-        this.random = 51;
-    }
-    if(this.y >= 799){
-        //this.lastMove = "up";
-        this.random = 1;
-    }
-
-    if (this.random <= 25) {
-        //moving up
-        this.up = true;
-        this.down = false;
-        this.right = false;
-        this.left = false;
-        
-    }
-    if (this.up === true) {
-        
-        this.y -= this.speed;
-        this.boundingbox.y -= this.speed;
-    }
-    if (this.random <= 50 && this.random > 25) {
-        //moving right
-
-        this.up = false;
-        this.down = false;
-        this.right = true;
-        this.left = false;
-    }
-    if (this.right === true) {
-        this.x += this.speed;
-        this.boundingbox.x += this.speed;
-    }
-    if (this.random <= 75 && this.random > 50) {
-        //moving down
-        
-        this.up = false;
-        this.down = true;
-        this.right = false;
-        this.left = false;
-    }
-    if (this.down === true) {
-        this.y += this.speed;
-        this.boundingbox.y += this.speed;
-    }
-    if (this.random <= 100 && this.random > 75) {
-        //moving left
-        this.up = false;
-        this.down = false;
-        this.right = false;
-        this.left = true;
-    }
-    if (this.left === true) {
-
-        this.x -= this.speed;
-        this.boundingbox.x -= this.speed;
-    }
+//         if (this.game.keyboard === 38 || this.game.keyboard === 87) {
+//             //moving up
+//             this.up = true;
+//             this.down = false;
+//             this.right = false;
+//             this.left = false;
+//         }
+//         if (this.up === true) {
+//             this.y -= this.speed;
+//             this.boundingbox.y -= this.speed;
+//         }
+//         if (this.game.keyboard === 39 || this.game.keyboard === 68) {
+//             //moving right
     
-    if(this.projectileX > 0){
-        this.projectileX -= 3;
-    } else {
-        this.projectileX = 1000;
-    }
-    Entity.prototype.update.call(this);
-};
+//             this.up = false;
+//             this.down = false;
+//             this.right = true;
+//             this.left = false;
+//         }
+//         if (this.right === true) {
+//             this.x += this.speed;
+//             this.boundingbox.x += this.speed;
+//         }
+//         if (this.game.keyboard === 40 || this.game.keyboard === 83) {
+//             //moving down
+//             this.up = false;
+//             this.down = true;
+//             this.right = false;
+//             this.left = false;
+//         }
+//         if (this.down === true) {
+//             this.y += this.speed;
+//             this.boundingbox.y += this.speed;
+//         }
+//         if (this.game.keyboard === 37 || this.game.keyboard === 65) {
+//             //moving left
+//             this.up = false;
+//             this.down = false;
+//             this.right = false;
+//             this.left = true;
+//         }
+//         if (this.left === true) {
+//             this.x -= this.speed;
+//             this.boundingbox.x -= this.speed;
+//         }
 
-Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
-    drawHealthBar(this.ctx, this.x+12.5, this.y-5, 50, 5, this.currentHealth, this.maxHealth)
-    //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    if (this.up) {
-        this.moveUpRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.up = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100);
-        }
-        
-        this.lastMove = "up";
-    }
-    if (this.down) {
-        this.moveDownRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.down = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100)
-        }
-        this.lastMove = "down";
-    }
-    if (this.right) {
-        this.moveRightRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.right = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100)
-        }
-        this.lastMove = "right";
-    }
-    if (this.left) {
-        this.moveLeftRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.left = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100)
-        }
-        this.lastMove = "left";
-    }
-    if (!this.left && !this.right && !this.up && !this.down) {
-        //if tank isnt moving then stay at most recent direction.
-        if (this.lastMove === "left")
-            this.moveLeftRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "right")
-            this.moveRightRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "down")
-            this.moveDownRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "up")
-            this.moveUpRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "none")
-            this.moveUpRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-    }
-    this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.projectileX, this.projectileY, .1);
+//     //}
+    
 
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-    this.ctx.stroke();
+//     Entity.prototype.update.call(this);
+// };
 
-    Entity.prototype.draw.call(this);
-};
+// Tank.prototype.draw = function() {
+//     drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
+//     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+//     if (this.up) {
+//         this.moveUpAnimation.drawFrame(
+//             this.game.clockTick,
+//             this.ctx,
+//             this.x,
+//             this.y
+//         );
+//         this.up = false;
+//         this.lastMove = "up";
+//     }
+//     if (this.down) {
+//         this.moveDownAnimation.drawFrame(
+//             this.game.clockTick,
+//             this.ctx,
+//             this.x,
+//             this.y
+//         );
+//         this.down = false;
+//         this.lastMove = "down";
+//     }
+//     if (this.right) {
+//         this.moveRightAnimation.drawFrame(
+//             this.game.clockTick,
+//             this.ctx,
+//             this.x,
+//             this.y
+//         );
+//         this.right = false;
+//         this.lastMove = "right";
+//     }
+//     if (this.left) {
+//         this.moveLeftAnimation.drawFrame(
+//             this.game.clockTick,
+//             this.ctx,
+//             this.x,
+//             this.y
+//         );
+//         this.left = false;
+//         this.lastMove = "left";
+//     }
+//     if (!this.left && !this.right && !this.up && !this.down) {
+//         //if tank isnt moving then stay at most recent direction.
+//         if (this.lastMove === "left")
+//             this.moveLeftAnimation.drawFrame(
+//                 this.game.clockTick,
+//                 this.ctx,
+//                 this.x,
+//                 this.y
+//             );
+//         if (this.lastMove === "right")
+//             this.moveRightAnimation.drawFrame(
+//                 this.game.clockTick,
+//                 this.ctx,
+//                 this.x,
+//                 this.y
+//             );
+//         if (this.lastMove === "down")
+//             this.moveDownAnimation.drawFrame(
+//                 this.game.clockTick,
+//                 this.ctx,
+//                 this.x,
+//                 this.y
+//             );
+//         if (this.lastMove === "up")
+//             this.moveUpAnimation.drawFrame(
+//                 this.game.clockTick,
+//                 this.ctx,
+//                 this.x,
+//                 this.y
+//             );
+//         if (this.lastMove === "none")
+//             this.moveUpAnimation.drawFrame(
+//                 this.game.clockTick,
+//                 this.ctx,
+//                 this.x,
+//                 this.y
+//             );
+//     }
 
-// // Vehicles class
-function Vehicles(game) {
-    console.log("Where is my vehicles");
-    this.firstAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleA.png"), 256, 256, 4, 0.10, 4, true, 1);
-    // this.secondAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleB.png"), 256,256,4,0.1, 4, true,1);
-    // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
-    this.x = 240;
-    this.y = 285;
-    this.speed = 0; 
-    this.game = game;
-    this.ctx = game.ctx;
+//     //Barrell Code
+//     this.ctx.drawImage(this.BB, this.x, this.y);
 
-    // Entity.call(this, game, 240, 285);
-}
 
-Vehicles.prototype.draw = function () {
-    this.firstAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    // this.secondAnimation.drawImage(this.game.clockTick, this.ctx,this.x+100,this.y);
-    // this.thirdAnimation.drawImage(this.game.clockTick,this.ctx, this.x+200, this.y);
-    Entity.prototype.draw.call(this);
-}
+//     this.ctx.beginPath();
+//     this.ctx.lineWidth = "2";
+//     this.ctx.strokeStyle = "red";
+//     this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+//     this.ctx.stroke();
 
-Vehicles.prototype.update = function () {
-    if (this.firstAnimation.elapsedTime < this.firstAnimation.totalTime * 8 / 4)
-        this.x += this.game.clockTick * this.speed;
-    if (this.x > 800) this.x = -230;
-    Entity.prototype.update.call(this);
-}
+
+//     Entity.prototype.draw.call(this);
+// };
+
+
+
+
+// // // Vehicles class
+// function Vehicles(game) {
+//     console.log("Where is my vehicles");
+//     this.firstAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleA.png"), 256, 256, 4, 0.10, 4, true, 1);
+//     // this.secondAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleB.png"), 256,256,4,0.1, 4, true,1);
+//     // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
+//     this.x = 240;
+//     this.y = 285;
+//     this.speed = 0; 
+//     this.game = game;
+//     this.ctx = game.ctx;
+
+//     // Entity.call(this, game, 240, 285);
+// }
+
+// Vehicles.prototype.draw = function () {
+//     this.firstAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+//     // this.secondAnimation.drawImage(this.game.clockTick, this.ctx,this.x+100,this.y);
+//     // this.thirdAnimation.drawImage(this.game.clockTick,this.ctx, this.x+200, this.y);
+//     Entity.prototype.draw.call(this);
+// }
+
+// Vehicles.prototype.update = function () {
+//     if (this.firstAnimation.elapsedTime < this.firstAnimation.totalTime * 8 / 4)
+//         this.x += this.game.clockTick * this.speed;
+//     if (this.x > 800) this.x = -230;
+//     Entity.prototype.update.call(this);
+// }
 
 
 
@@ -974,7 +726,7 @@ AM.queueDownload("./img/cursor.png");
 AM.queueDownload("./img/grass.png");
 AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
-AM.queueDownload("./img/tank_red8D.png");
+AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/Puddle_01.png");
 AM.queueDownload("./img/coin2.png");
 AM.queueDownload("./img/bullet_red_2.png");
