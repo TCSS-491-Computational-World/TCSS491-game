@@ -731,6 +731,7 @@ function Tank(game) {
 
     //TankState 1 = Down, 2 = DownRight, 3 = Right, 4 = UpRight, 5 = Up, 6 = UpRight, 7 = Left, 8 = DownLeft
     this.TankState = 0;
+    this.keyboardInputArray = [];
 
     this.lastMove = "none";
     this.hero = false;
@@ -807,7 +808,19 @@ Tank.prototype.update = function() {
         //this.bullet.fire = true;
     }
 
-    if (this.game.keyboard === 87) {
+    //For them wierd Angles...
+    if (this.game.keyboard.includes(87) && this.game.keyboard.includes(68)) {
+        //moving up and right
+        this.TankState = 6;
+    }
+    if (this.TankState == 6) {
+        this.y -= this.speed;
+        this.boundingbox.y += this.speed;
+        this.x -= this.speed;
+        this.boundingbox.x += this.speed;
+    }
+
+    if (this.game.keyboard.includes(87)) {
         //moving up
         this.TankState = 5;
     }
@@ -815,7 +828,7 @@ Tank.prototype.update = function() {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
     }
-    if (this.game.keyboard === 68) {
+    if (this.game.keyboard.includes(68)) {
         //moving right
         this.TankState = 3;
     }
@@ -823,7 +836,7 @@ Tank.prototype.update = function() {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
     }
-    if (this.game.keyboard === 83) {
+    if (this.game.keyboard.includes(83)) {
         //moving down
         this.TankState = 1;
     }
@@ -831,7 +844,7 @@ Tank.prototype.update = function() {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
     }
-    if (this.game.keyboard === 65) {
+    if (this.game.keyboard.includes(65)) {
         //moving left
         this.TankState = 7;
     }
@@ -840,15 +853,6 @@ Tank.prototype.update = function() {
         this.boundingbox.x -= this.speed;
     }
 
-    //For them wierd Angles...
-    //if (this.game.keyboard === 87) {
-        //moving up
-        //this.TankState = 5;
-    //}
-    //if (this.TankState == 5) {
-        //this.y -= this.speed;
-        //this.boundingbox.y -= this.speed;
-    //}
 
     Entity.prototype.update.call(this);
 };

@@ -18,7 +18,8 @@ function GameEngine() {
     this.click = null;
     this.mouse = null;
     this.rightclick = null;
-    this.keyboard = null;
+    //this.keyboard = null;
+    this.keyboard = []
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -97,7 +98,7 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keydown", function (e) {
         console.log(e);
         console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
-        that.keyboard = e.keyCode;
+        that.keyboard.push(e.keyCode);
         e.preventDefault();
     }, false);
 
@@ -111,6 +112,10 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keyup", function (e) {
         console.log(e);
         console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
+        const index = keyboard.indexOf(e.keyCode);
+        if (index > -1) {
+        keyboard.splice(index, 1);
+        }
     }, false);
 
     console.log('Input started');
@@ -159,7 +164,7 @@ GameEngine.prototype.loop = function () {
     this.click = null;
     this.rightclick = null;
     this.mouse = null;
-    this.keyboard = null;
+    this.keyboard = [];
 }
 
 function Timer() {
