@@ -809,7 +809,11 @@ Tank.prototype.update = function() {
     }
 
     //For them wierd Angles...
-    if (this.game.keyboard.includes(87) && this.game.keyboard.includes(68)) {
+<<<<<<< Updated upstream
+    if (this.game.keyboard[0] === true && this.game.keyboard[3] === true) {
+=======
+    /*if (this.game.keyboard.includes(87) && this.game.keyboard.includes(68)) {
+>>>>>>> Stashed changes
         //moving up and right
         this.TankState = 6;
     }
@@ -818,9 +822,13 @@ Tank.prototype.update = function() {
         this.boundingbox.y += this.speed;
         this.x -= this.speed;
         this.boundingbox.x += this.speed;
-    }
+    }*/
 
-    if (this.game.keyboard.includes(87)) {
+<<<<<<< Updated upstream
+    if (this.game.keyboard[0] === true) {
+=======
+    if (this.game.keyboard[0] == true) {
+>>>>>>> Stashed changes
         //moving up
         this.TankState = 5;
     }
@@ -828,7 +836,7 @@ Tank.prototype.update = function() {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
     }
-    if (this.game.keyboard.includes(68)) {
+    if (this.game.keyboard[3] === true) {
         //moving right
         this.TankState = 3;
     }
@@ -836,7 +844,7 @@ Tank.prototype.update = function() {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
     }
-    if (this.game.keyboard.includes(83)) {
+    if (this.game.keyboard[2] === true) {
         //moving down
         this.TankState = 1;
     }
@@ -844,7 +852,7 @@ Tank.prototype.update = function() {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
     }
-    if (this.game.keyboard.includes(65)) {
+    if (this.game.keyboard[1] === true) {
         //moving left
         this.TankState = 7;
     }
