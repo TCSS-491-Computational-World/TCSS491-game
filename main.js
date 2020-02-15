@@ -809,11 +809,7 @@ Tank.prototype.update = function() {
     }
 
     //For them wierd Angles...
-<<<<<<< Updated upstream
     if (this.game.keyboard[0] === true && this.game.keyboard[3] === true) {
-=======
-    /*if (this.game.keyboard.includes(87) && this.game.keyboard.includes(68)) {
->>>>>>> Stashed changes
         //moving up and right
         this.TankState = 6;
     }
@@ -822,13 +818,9 @@ Tank.prototype.update = function() {
         this.boundingbox.y += this.speed;
         this.x -= this.speed;
         this.boundingbox.x += this.speed;
-    }*/
+    }
 
-<<<<<<< Updated upstream
     if (this.game.keyboard[0] === true) {
-=======
-    if (this.game.keyboard[0] == true) {
->>>>>>> Stashed changes
         //moving up
         this.TankState = 5;
     }

@@ -19,11 +19,7 @@ function GameEngine() {
     this.mouse = null;
     this.rightclick = null;
     //this.keyboard = null;
-<<<<<<< Updated upstream
     this.keyboard = [W = false,A = false,S = false,D = false]
-=======
-    this.keyboard = [W,A,S,D]
->>>>>>> Stashed changes
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -102,7 +98,6 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keydown", function (e) {
         console.log(e);
         console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
-<<<<<<< Updated upstream
         if(e.keyCode === 87){ //up
             that.keyboard[0] = true;
         }
@@ -114,10 +109,6 @@ GameEngine.prototype.startInput = function () {
         }
         if(e.keyCode === 65){//left
             that.keyboard[1] = true;
-=======
-        if(e.keyCode === 87){
-        that.keyboard[0] = true;
->>>>>>> Stashed changes
         }
         e.preventDefault();
     }, false);
@@ -131,17 +122,7 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("keyup", function (e) {
         //console.log(e);
-<<<<<<< Updated upstream
        // console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
-=======
-        console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
-        //const index = that.keyboard.indexOf(e.keyCode);
-        //console.log("Prerelease: " + that.keyboard);
-        //if (index > -1) {
-        //that.keyboard.splice(index, 1);
-        //console.log("After Release:" + that.keyboard);
-        }
->>>>>>> Stashed changes
     }, false);
 
     console.log('Input started');
