@@ -451,21 +451,13 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     var tanks = [];
-    var background = new Background(gameEngine, AM.getAsset("./img/grass.png"));
-    var barrell = new Barrell(gameEngine);
-    //var bulletfire = new BulletFire(gameEngine);
 
     var desert = new Desert(gameEngine);                                                  // the map----desert Jerry did
 
-    var explosion = new Explosion(                                                        
-        gameEngine /*, AM.getAsset("./img/Explosion_A.png") */
-    );
 
     var tank = new Tank(gameEngine);                                                      // the tank Roman and Ross did
     var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
-    // var enviornment = new Enviornment(gameEngine);
-
-    // var vehicle = new Vehicles(gameEngine);
+    var enviornment = new Enviornment(gameEngine);
 
     gameEngine.addEntity(desert);
     gameEngine.addEntity(tank);
@@ -477,7 +469,8 @@ AM.downloadAll(function () {
     // gameEngine.addEntity(barrell);
 
     // gameEngine.addEntity(vehicle);
-    // gameEngine.addEntity(enviornment); // block the way
+    gameEngine.addEntity(enviornment); // block the way
+ 
 
     //var enviornment2 = new Enviornment(gameEngine);
 

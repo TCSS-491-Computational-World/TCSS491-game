@@ -57,8 +57,9 @@ function Enemy(game) {
     this.shooting = false;
     this.cleanShot = false;
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpRobotAnimation.frameWidth, this.moveUpRobotAnimation.frameHeight);
+    this.removed = false;
     this.maxHealth = 400;
-    this.currentHealth = 300;
+    this.currentHealth = 200;
     Entity.call(this, game, 100, 200);
 }
 
@@ -68,11 +69,14 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function () {
     // this.boundingbox.width = this.moveUpRobotAnimation.frameWidth;
     // this.boundingbox.height = this.moveUpRobotAnimation.frameHeight;
+    if (this.currentHealth <= 0) {
+        this.removed = true;
+    }
 
     if (this.cleanShot) {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
-        this.currentHealth -= 10;
+        this.currentHealth -= 20;
         this.cleanShot = false;
         //this.bullet.fire = true;
     }
@@ -153,116 +157,10 @@ Enemy.prototype.update = function () {
 };
 
 Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
-    drawHealthBar(this.ctx, this.x+12.5, this.y-5, 50, 5, this.currentHealth, this.maxHealth)
-    //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    if (this.up) {
-        this.moveUpRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.up = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100);
-        }
-        
-        this.lastMove = "up";
-    }
-    if (this.down) {
-        this.moveDownRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.down = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100)
-        }
-        this.lastMove = "down";
-    }
-    if (this.right) {
-        this.moveRightRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.right = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100)
-        }
-        this.lastMove = "right";
-    }
-    if (this.left) {
-        this.moveLeftRobotAnimation.drawFrame(
-            this.game.clockTick,
-            this.ctx,
-            this.x,
-            this.y
-        );
-        this.counter ++;
-        if(this.counter === 100){
-            this.left = false;
-            this.counter = 0;
-            this.random = Math.floor(Math.random() * 100)
-        }
-        this.lastMove = "left";
-    }
-    if (!this.left && !this.right && !this.up && !this.down) {
-        //if tank isnt moving then stay at most recent direction.
-        if (this.lastMove === "left")
-            this.moveLeftRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "right")
-            this.moveRightRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "down")
-            this.moveDownRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "up")
-            this.moveUpRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-        if (this.lastMove === "none")
-            this.moveUpRobotAnimation.drawFrame(
-                this.game.clockTick,
-                this.ctx,
-                this.x,
-                this.y
-            );
-    }
-    this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.projectileX, this.projectileY, .1);
+    if (this.removed) {
 
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-    this.ctx.stroke();
-
-    Entity.prototype.draw.call(this);
+    }
+ 
 };
 
 
