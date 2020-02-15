@@ -270,7 +270,7 @@ BulletFire.prototype.update = function () {
     // velocityInstance.y = Math.sin(this.rotation) * bulletSpeed;
 
     if(this.boundingbox.collide(this.game.tanks[1].boundingbox)){
-        console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
+        //console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
         this.game.tanks[1].cleanShot = true;
         this.fire = false;
         this.x = this.tankX;
@@ -775,7 +775,7 @@ Tank.prototype.update = function() {
         );
         //console.log(this.spritesheet);
     } else {
-        console.log("fhdfhfdh");
+        //console.log("fhdfhfdh");
         var dy = this.y - this.cursorY;
         var dx = this.x - this.cursorX;
         var theta = Math.atan2(dy, dx); // range (-PI, PI]

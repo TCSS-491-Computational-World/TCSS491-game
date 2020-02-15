@@ -112,9 +112,11 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keyup", function (e) {
         console.log(e);
         console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
-        const index = keyboard.indexOf(e.keyCode);
+        const index = that.keyboard.indexOf(e.keyCode);
+        console.log("Prerelease: " + that.keyboard);
         if (index > -1) {
-        keyboard.splice(index, 1);
+        that.keyboard.splice(index, 1);
+        console.log("After Release:" + that.keyboard);
         }
     }, false);
 
