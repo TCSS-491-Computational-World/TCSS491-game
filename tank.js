@@ -61,7 +61,7 @@ Tank.prototype.update = function() {
         );
         //console.log(this.spritesheet);
     } else {
-        console.log("fhdfhfdh");
+
         var dy = this.y - this.cursorY;
         var dx = this.x - this.cursorX;
         var theta = Math.atan2(dy, dx); // range (-PI, PI]

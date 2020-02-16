@@ -15,7 +15,6 @@ function setUp() {
         }
     }
 }
-
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -457,9 +456,10 @@ AM.downloadAll(function () {
 
     var tank = new Tank(gameEngine);                                                      // the tank Roman and Ross did
     var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
-    var enviornment = new Enviornment(gameEngine);
+    // var enviornment = new Enviornment(gameEngine);
 
     gameEngine.addEntity(desert);
+    // gameEngine.addEntity(enviornment); // block the way
     gameEngine.addEntity(tank);
     tanks.push(tank);
     gameEngine.addEntity(enemy);
@@ -469,7 +469,7 @@ AM.downloadAll(function () {
     // gameEngine.addEntity(barrell);
 
     // gameEngine.addEntity(vehicle);
-    gameEngine.addEntity(enviornment); // block the way
+
  
 
     //var enviornment2 = new Enviornment(gameEngine);
