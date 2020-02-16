@@ -100,16 +100,16 @@ GameEngine.prototype.startInput = function () {
         console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
         if(e.keyCode === 87){ //up
             that.keyboard[0] = true;
-        }
+        } else that.keyboard[0] = false;
         if(e.keyCode === 68){ //right
             that.keyboard[3] = true;
-        }
+        } else that.keyboard[3] = false;
         if(e.keyCode === 83){ //down
             that.keyboard[2] = true;
-        }
+        } else that.keyboard[2] = false;
         if(e.keyCode === 65){//left
             that.keyboard[1] = true;
-        }
+        } else that.keyboard[1] = false;
         e.preventDefault();
     }, false);
 
@@ -171,7 +171,7 @@ GameEngine.prototype.loop = function () {
     this.click = null;
     this.rightclick = null;
     this.mouse = null;
-    this.keyboard = [];
+    this.keyboard = [this.keyboard[0], this.keyboard[1], this.keyboard[2], this.keyboard[3]];
 }
 
 function Timer() {

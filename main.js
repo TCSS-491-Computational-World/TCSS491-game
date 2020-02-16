@@ -808,6 +808,8 @@ Tank.prototype.update = function() {
         //this.bullet.fire = true;
     }
 
+    console.log("WASD: " + this.game.keyboard);
+
     //For them wierd Angles...
     if (this.game.keyboard[0] === true && this.game.keyboard[3] === true) {
         //moving up and right
@@ -900,9 +902,30 @@ Tank.prototype.draw = function() {
         this.TankState == 0;
         this.lastMove = "left";
     }
+
+    //Diagnol Movements
+    if (this.TankState == 4) {
+        this.moveUpRightAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.TankState == 0;
+        this.lastMove = "UpRight";
+    }
+
+
     this.TankState = 0;
     if (this.TankState == 0) {
         //if tank isnt moving then stay at most recent direction.
+        if (this.lastMove === "UpRight")
+            this.moveUpRightAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
         if (this.lastMove === "left")
             this.moveLeftAnimation.drawFrame(
                 this.game.clockTick,
