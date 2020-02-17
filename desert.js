@@ -7,12 +7,15 @@ function Cell(theX, theY, theContain) {
     this.contains = theContain;
 }
 //地图设置
-Dersert.prototype.setUp = function() {
+function setUp() {
+    this.wall = AM.getAsset("./img/background/crate.png");
+    this.roofFirst = AM.getAsset("./img/rooftop.png");    // 第一个roofTop
+    this.roofSecond = AM.getAsset("./img/roof.png");      // 第二个roof
     var w = 50;
-    var grid = new Array(100);
-    for (let i = 0; i < 100; i++) {
-        grid[i] = new Array(100);
-        for (let j = 0; j < 100; j++) {
+    var grid = new Array(50);
+    for (let i = 0; i < 50; i++) {
+        grid[i] = new Array(50);
+        for (let j = 0; j < 50; j++) {
             if (      
                 (i === 5 && j === 3) 
             ||  (i === 5 && j === 4) 
@@ -42,7 +45,23 @@ Dersert.prototype.setUp = function() {
     return grid;
 }
 
-//环境上的零件
+// check where is path
+function checkPath(grid) {
+    // console.log(grid);
+    var path = [];
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            // console.log(grid[i][j].contains);
+            if (grid[i][j].contains === 0) {
+                path.push(grid[i][j]);
+            }
+        }
+    }
+    // console.log(path.length);
+    return path;
+}
+
+// component on map
 function Component(image,x,y,width,height) {
     this.image = image;
     this.x = x;
@@ -59,29 +78,17 @@ Component.prototype.constructor = Component;
 
 
 
-
-
-
-
-
-
-
-
+// Desert object
 function Desert(game) {
   // this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
-  this.wall = AM.getAsset("./img/background/crate.png");
-  this.roofFirst = AM.getAsset("./img/rooftop.png");    // 第一个roofTop
-  this.roofSecond = AM.getAsset("./img/roof.png");      // 第二个roof
+
   this.desertTile = AM.getAsset("./img/background/desertTile.png");
   this.radius = 200;
   this.game = game;
   this.ctx = game.ctx
-  this.grid = this.setUp(); //要不要就在这里都把所有的东西都设置好呢？
-
-  this.game.path = this.grid;
-
-
+  this.grid = setUp();
 //   console.log(this.grid);
+  this.game.path = checkPath(this.grid); // the path of the tank
 
   Entity.call(this, game, 0, 400);
 
@@ -89,7 +96,7 @@ function Desert(game) {
 
 Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
-//更新
+//更新 update
 Desert.prototype.update = function () { 
     if (this.cleanShot) {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
@@ -104,24 +111,17 @@ Desert.prototype.update = function () {
 
 
 Desert.prototype.draw = function () {
-//   grid = new Array(100);
-//   for (let i = 0; i < 50; i++) {
-//       grid[i] = new Array(50);
-//       for (let j = 0; j < 50; j++) {
-//           grid[i][j] = new Cell(i, j, 0);
-//       }
-//   }
-
   var w = 50;
   for (let i = 0; i < 50; i++) {
       for (let j = 0; j < 50; j++) {
           this.ctx.drawImage(this.desertTile, i * w, j * w, w, w);
       }
-  }
+  };
+
   for (let i = 0; i < 50; i++) {
       for (let j = 0; j < 50; j++) {
-        if (this.grid[i][j].contains !== 0) {
-            this.ctx.drawImage(this.grid[i][j].image, i * w, j * w, w, w);
+        if (this.grid[i][j].contains !== 0 && !(this.grid[i][j].contains.removed)) {
+            this.ctx.drawImage(this.grid[i][j].contains.image, i * w, j * w, w, w);
         }
       }
   }
@@ -131,6 +131,35 @@ Desert.prototype.draw = function () {
   // this.coinAnimation.drawFrame(this.game.clockTick, ctx, 100, 100, 1);
   Entity.prototype.draw.call(this);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 就是设置地图上的所有的东西
 Desert.prototype.setUpComponents = function () {
@@ -272,7 +301,7 @@ Desert.prototype.setUpComponents = function () {
               // || (i === 36 && j === 49)  
               ){
               
-              this.ctx.drawImage(this.wall.image,i*w, j*w,w,w);
+              this.ctx.drawImage(this.wall,i*w, j*w,w,w);
               grid[i][j].contains = 'w';
           }
 

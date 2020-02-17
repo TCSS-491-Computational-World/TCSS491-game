@@ -450,6 +450,7 @@ AM.downloadAll(function () {
     gameEngine.addEntity(enemy);
     tanks.push(enemy);
     gameEngine.tanks = tanks;
+    // console.log(gameEngine.path.length);
 
     // gameEngine.addEntity(barrell);
 
