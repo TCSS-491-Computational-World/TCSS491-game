@@ -810,19 +810,58 @@ Tank.prototype.update = function() {
 
     console.log("WASD: " + this.game.keyboard);
 
+    var diagnol = false
+
     //For them wierd Angles...
     if (this.game.keyboard[0] === true && this.game.keyboard[3] === true) {
         //moving up and right
-        this.TankState = 6;
+        this.TankState = 4;
+        diagnol = true;
     }
-    if (this.TankState == 6) {
+    if (this.TankState == 4) {
         this.y -= this.speed;
-        this.boundingbox.y += this.speed;
-        this.x -= this.speed;
+        this.boundingbox.y -= this.speed;
+        this.x += this.speed;
         this.boundingbox.x += this.speed;
     }
 
-    if (this.game.keyboard[0] === true) {
+    if (this.game.keyboard[0] === true && this.game.keyboard[1] === true) {
+        //moving up and left
+        this.TankState = 6;
+        diagnol = true;
+    }
+    if (this.TankState == 6) {
+        this.y -= this.speed;
+        this.boundingbox.y -= this.speed;
+        this.x -= this.speed;
+        this.boundingbox.x -= this.speed;
+    }
+
+    if (this.game.keyboard[1] === true && this.game.keyboard[2] === true) {
+        //moving down and left
+        this.TankState = 8;
+        diagnol = true;
+    }
+    if (this.TankState == 8) {
+        this.y += this.speed;
+        this.boundingbox.y += this.speed;
+        this.x -= this.speed;
+        this.boundingbox.x -= this.speed;
+    }
+
+    if (this.game.keyboard[2] === true && this.game.keyboard[3] === true) {
+        //moving down and right
+        this.TankState = 2;
+        diagnol = true;
+    }
+    if (this.TankState == 2) {
+        this.y += this.speed;
+        this.boundingbox.y += this.speed;
+        this.x += this.speed;
+        this.boundingbox.x += this.speed;
+    }
+
+    if (this.game.keyboard[0] === true  && diagnol==false) {
         //moving up
         this.TankState = 5;
     }
@@ -830,7 +869,7 @@ Tank.prototype.update = function() {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
     }
-    if (this.game.keyboard[3] === true) {
+    if (this.game.keyboard[3] === true && diagnol==false) {
         //moving right
         this.TankState = 3;
     }
@@ -838,7 +877,7 @@ Tank.prototype.update = function() {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
     }
-    if (this.game.keyboard[2] === true) {
+    if (this.game.keyboard[2] === true && diagnol==false) {
         //moving down
         this.TankState = 1;
     }
@@ -846,7 +885,7 @@ Tank.prototype.update = function() {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
     }
-    if (this.game.keyboard[1] === true) {
+    if (this.game.keyboard[1] === true && diagnol==false) {
         //moving left
         this.TankState = 7;
     }
@@ -861,6 +900,9 @@ Tank.prototype.update = function() {
 
 Tank.prototype.draw = function() {
     drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
+    if(this.TankState != 0){
+        console.log("TankState: " + this.TankState);
+    }
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.TankState == 5) {
         this.moveUpAnimation.drawFrame(
@@ -915,12 +957,66 @@ Tank.prototype.draw = function() {
         this.lastMove = "UpRight";
     }
 
+    if (this.TankState == 6) {
+        this.moveUpLeftAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.TankState == 0;
+        this.lastMove = "UpLeft";
+    }
+
+    if (this.TankState == 8) {
+        this.moveUpLeftAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.TankState == 0;
+        this.lastMove = "DownLeft";
+    }
+
+    if (this.TankState == 2) {
+        this.moveUpLeftAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.TankState == 0;
+        this.lastMove = "DownRight";
+    }
+
 
     this.TankState = 0;
     if (this.TankState == 0) {
         //if tank isnt moving then stay at most recent direction.
+        if (this.lastMove === "DownRight")
+            this.moveDownRightAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
         if (this.lastMove === "UpRight")
             this.moveUpRightAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "UpLeft")
+            this.moveUpLeftAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "DownLeft")
+            this.moveDownLeftAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
                 this.x,
