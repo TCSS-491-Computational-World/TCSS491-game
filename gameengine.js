@@ -19,6 +19,7 @@ function GameEngine() {
     this.mouse = null;
     this.rightclick = null;
     this.keyboard = null;
+    this.path = null
 }
 
 GameEngine.prototype.init = function (ctx) {

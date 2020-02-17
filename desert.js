@@ -1,81 +1,133 @@
-function Component(image,width,height) {
+// var grid = new Array(100);
+
+//尝试知道每个格子都有什么
+function Cell(theX, theY, theContain) {
+    this.x = theX;
+    this.y = theY;
+    this.contains = theContain;
+}
+//地图设置
+Dersert.prototype.setUp = function() {
+    var w = 50;
+    var grid = new Array(100);
+    for (let i = 0; i < 100; i++) {
+        grid[i] = new Array(100);
+        for (let j = 0; j < 100; j++) {
+            if (      
+                (i === 5 && j === 3) 
+            ||  (i === 5 && j === 4) 
+            ||  (i === 5 && j === 5)
+            ||  (i === 5 && j === 6)
+            ||  (i === 5 && j === 7)
+            ||  (i === 5 && j === 8)
+            ||  (i === 5 && j === 9)
+            ||  (i === 5 && j === 10)
+            ||  (i === 5 && j === 11)
+            ||  (i === 4 && j === 5)
+            ||  (i === 4 && j === 6)
+            ||  (i === 4 && j === 7)
+            ||  (i === 4 && j === 8)) {
+                grid[i][j] = new Cell(i,j,new Component(this.wall,i*w, j*w, 50,50));
+
+            }
+
+            else {
+                grid[i][j] = new Cell(i, j, 0);
+            }
+            
+        }
+    }
+
+    
+    return grid;
+}
+
+//环境上的零件
+function Component(image,x,y,width,height) {
     this.image = image;
+    this.x = x;
+    this.y = y;
     this.width = width; // limit width
     this.height = height;   // limit height
-    // this.boundingBox = new BoundingBox(this.x,this.y,this.width,this.height);
+    this.boundingBox = new BoundingBox(this.x,this.y,this.width,this.height);
     this.cleanShot = false;
     this.removed = false;
 }
 Component.prototype = new Entity();
 Component.prototype.constructor = Component;
 
-Component.prototype.update = function() {
 
-}
+
+
+
+
+
+
+
+
+
 
 function Desert(game) {
   // this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
-  this.wall = new Component(AM.getAsset("./img/background/crate.png"), 50,50);
-  this.roofFirst = new Component(AM.getAsset("./img/rooftop.png"), 250,250);    // 第一个roofTop
-  this.roofSecond = new Component(AM.getAsset("./img/roof.png"),250, 200);      // 第二个roof
-
-
-
-  Entity.call(this, game, 0, 400);
+  this.wall = AM.getAsset("./img/background/crate.png");
+  this.roofFirst = AM.getAsset("./img/rooftop.png");    // 第一个roofTop
+  this.roofSecond = AM.getAsset("./img/roof.png");      // 第二个roof
+  this.desertTile = AM.getAsset("./img/background/desertTile.png");
   this.radius = 200;
   this.game = game;
   this.ctx = game.ctx
+  this.grid = this.setUp(); //要不要就在这里都把所有的东西都设置好呢？
+
+  this.game.path = this.grid;
+
+
+//   console.log(this.grid);
+
+  Entity.call(this, game, 0, 400);
+
 }
 
 Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
-
+//更新
 Desert.prototype.update = function () { 
+    if (this.cleanShot) {
+        cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
+        this.game.addEntity(cleanshot);
+        this.cleanShot = false;
+        //this.bullet.fire = true;
+    }
+
+
   Entity.prototype.update.call(this);
 };
 
+
 Desert.prototype.draw = function () {
-  grid = new Array(100);
-  for (let i = 0; i < 50; i++) {
-      grid[i] = new Array(50);
-      for (let j = 0; j < 50; j++) {
-          grid[i][j] = new Cell(i, j, 0);
-      }
-  }
+//   grid = new Array(100);
+//   for (let i = 0; i < 50; i++) {
+//       grid[i] = new Array(50);
+//       for (let j = 0; j < 50; j++) {
+//           grid[i][j] = new Cell(i, j, 0);
+//       }
+//   }
 
   var w = 50;
-  var img = AM.getAsset("./img/background/desertTile.png");
   for (let i = 0; i < 50; i++) {
       for (let j = 0; j < 50; j++) {
-          this.ctx.drawImage(img, i * w, j * w, w, w);
+          this.ctx.drawImage(this.desertTile, i * w, j * w, w, w);
+      }
+  }
+  for (let i = 0; i < 50; i++) {
+      for (let j = 0; j < 50; j++) {
+        if (this.grid[i][j].contains !== 0) {
+            this.ctx.drawImage(this.grid[i][j].image, i * w, j * w, w, w);
+        }
       }
   }
 
-
-  this.ctx.drawImage(this.wall.image, 0,0, 50,50);
-  var b1 = new BoundingBox(0,0, 50,50);
-  this.ctx.beginPath();
-  this.ctx.lineWidth = "2";
-  this.ctx.strokeStyle = "red";
-  this.ctx.rect(b1.x, b1.y, b1.width, b1.height);
-  this.ctx.stroke();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // drawGrid();
-  // this.setUpComponents(); // It should install in environment.
+//   this.setUpComponents(); // It should install in environment.
   // this.coinAnimation.drawFrame(this.game.clockTick, ctx, 100, 100, 1);
   Entity.prototype.draw.call(this);
 };
@@ -221,6 +273,7 @@ Desert.prototype.setUpComponents = function () {
               ){
               
               this.ctx.drawImage(this.wall.image,i*w, j*w,w,w);
+              grid[i][j].contains = 'w';
           }
 
 
@@ -274,7 +327,9 @@ Desert.prototype.setUpComponents = function () {
 
 
       }
-  }   
+  }
+//   console.log(grid);
+//   debugger;
 };
 
 
