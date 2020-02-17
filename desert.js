@@ -75,6 +75,23 @@ function Component(image,x,y,width,height) {
 Component.prototype = new Entity();
 Component.prototype.constructor = Component;
 
+Component.prototype.draw = function () {
+
+};
+
+Component.prototype.update = function () {
+
+};
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,6 +106,7 @@ function Desert(game) {
   this.grid = setUp();
 //   console.log(this.grid);
   this.game.path = checkPath(this.grid); // the path of the tank
+  this.game.map = this.grid;
 
   Entity.call(this, game, 0, 400);
 

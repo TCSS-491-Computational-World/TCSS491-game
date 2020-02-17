@@ -443,13 +443,14 @@ AM.downloadAll(function () {
     var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
     // var enviornment = new Enviornment(gameEngine);
 
-    gameEngine.addEntity(desert);
+    gameEngine.addEntity(desert);                                                           // desert map Jerry did
     // gameEngine.addEntity(enviornment); // block the way
     gameEngine.addEntity(tank);
     tanks.push(tank);
     gameEngine.addEntity(enemy);
     tanks.push(enemy);
     gameEngine.tanks = tanks;
+    console.log(gameEngine.map);                                                          // checked map in gameEngine Jerry did
     // console.log(gameEngine.path.length);
 
     // gameEngine.addEntity(barrell);

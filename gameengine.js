@@ -19,7 +19,8 @@ function GameEngine() {
     this.mouse = null;
     this.rightclick = null;
     this.keyboard = null;
-    this.path = null
+    this.path = null           // path for all tanks or enemy vehicles
+    this.map = null;
 }
 
 GameEngine.prototype.init = function (ctx) {
