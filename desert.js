@@ -45,7 +45,7 @@ function setUp() {
     return grid;
 }
 
-// check where is path
+// check where is path only for the buildings or walls
 function checkPath(grid) {
     // console.log(grid);
     var path = [];
@@ -68,7 +68,7 @@ function Component(image,x,y,width,height) {
     this.y = y;
     this.width = width; // limit width
     this.height = height;   // limit height
-    this.boundingBox = new BoundingBox(this.x,this.y,this.width,this.height);
+    this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);
     this.cleanShot = false;
     this.removed = false;
 }
@@ -107,7 +107,7 @@ function Desert(game) {
 //   console.log(this.grid);
   this.game.path = checkPath(this.grid); // the path of the tank
   this.game.map = this.grid;
-
+//   console.log(this.game.map);
   Entity.call(this, game, 0, 400);
 
 }
@@ -115,13 +115,19 @@ function Desert(game) {
 Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
 //更新 update
-Desert.prototype.update = function () { 
-    if (this.cleanShot) {
-        cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
-        this.game.addEntity(cleanshot);
-        this.cleanShot = false;
-        //this.bullet.fire = true;
-    }
+Desert.prototype.update = function () {
+    for (let i = 0; i < this.grid.length; i++) {
+        for (let j = 0; j < this.grid[i].length; j++) {
+            if (this.grid[i][j].cleanShot) {
+                this.grid[i][j].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, i * 50, j * 50);
+                this.game.addEntity(cleanshot);
+                this.grid[i][j].cleanShot = false;
+                this.grid[i][j].removed = true;
+                //this.bullet.fire = true;
+            }
+        }
+    } 
+
 
 
   Entity.prototype.update.call(this);

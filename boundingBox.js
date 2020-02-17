@@ -13,6 +13,7 @@ function BoundingBox(x, y, width, height) {
 }
 
 BoundingBox.prototype.collide = function (other) {
+    // console.log(other.x);
     if (this.x < other.x + other.width 
         && this.x + this.width > other.x
          && this.y < other.y + other.height 

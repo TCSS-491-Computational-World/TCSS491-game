@@ -436,11 +436,14 @@ AM.downloadAll(function () {
 
     var tanks = [];
 
-    var desert = new Desert(gameEngine);                                                  // the map----desert Jerry did
+
 
 
     var tank = new Tank(gameEngine);                                                      // the tank Roman and Ross did
     var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
+    var desert = new Desert(gameEngine);                                                  // the map----desert Jerry did
+    gameEngine.map = desert.grid;
+    // console.log(desert.grid);
     // var enviornment = new Enviornment(gameEngine);
 
     gameEngine.addEntity(desert);                                                           // desert map Jerry did
@@ -450,7 +453,7 @@ AM.downloadAll(function () {
     gameEngine.addEntity(enemy);
     tanks.push(enemy);
     gameEngine.tanks = tanks;
-    console.log(gameEngine.map);                                                          // checked map in gameEngine Jerry did
+    // console.log(gameEngine.map.length);                                                          // checked map in gameEngine Jerry did
     // console.log(gameEngine.path.length);
 
     // gameEngine.addEntity(barrell);

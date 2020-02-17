@@ -65,6 +65,35 @@ BulletFire.prototype.update = function () {
         this.boundingbox.y = this.tankY;
     }
 
+
+
+    // if(this.boundingbox.collide(this.game.tanks[1].boundingbox)){
+    //     console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
+    //     this.game.tanks[1].cleanShot = true;
+    //     this.fire = false;
+    //     this.x = this.tankX;
+    //     this.y = this.tankY;
+    //     this.boundingbox.x = this.tankX;
+    //     this.boundingbox.y = this.tankY;
+    // }
+
+    console.log(this.game.map[4][5].contains.boundingbox);
+    // console.log(this.game.map[4][5].boundingbox);            // checked
+    // for (let i = 0; i < this.game.map.length; i++) {
+    //     for (let j = 0; j < this.game.map[i].length; j++) {
+    //         console.log(this.game.map[i][j].boundingbox);
+    //         // if(this.boundingbox.collide(this.game.map[i][j].boundingbox)){
+    //         //     // console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
+    //         //     this.game.map[i][j].cleanShot = true;
+    //         //     this.fire = false;
+    //         //     this.x = this.game.map[i][j].x;
+    //         //     this.y = this.game.map[i][j].y;
+    //         //     this.boundingbox.x = this.game.map[i][j].x;
+    //         //     this.boundingbox.y = this.game.map[i][j].y;
+    //         // }
+    //     }
+    // }
+
     if (this.x > this.tankX + 10000|| this.y > this.tankY + 10000 || this.x < this.tankX - 10000 || this.y < this.tankY - 10000) {
         //console.log("IS ANYTHING HAPPENING HERE!??!?");
         this.fire = false;
