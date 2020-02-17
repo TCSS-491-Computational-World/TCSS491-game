@@ -950,101 +950,101 @@ Enemy.prototype.update = function () {
     Entity.prototype.update.call(this);
 };
 
-// Tank.prototype.draw = function() {
-//     drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
-//     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-//     if (this.up) {
-//         this.moveUpAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.up = false;
-//         this.lastMove = "up";
-//     }
-//     if (this.down) {
-//         this.moveDownAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.down = false;
-//         this.lastMove = "down";
-//     }
-//     if (this.right) {
-//         this.moveRightAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.right = false;
-//         this.lastMove = "right";
-//     }
-//     if (this.left) {
-//         this.moveLeftAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.left = false;
-//         this.lastMove = "left";
-//     }
-//     if (!this.left && !this.right && !this.up && !this.down) {
-//         //if tank isnt moving then stay at most recent direction.
-//         if (this.lastMove === "left")
-//             this.moveLeftAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "right")
-//             this.moveRightAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "down")
-//             this.moveDownAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "up")
-//             this.moveUpAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "none")
-//             this.moveUpAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//     }
+Tank.prototype.draw = function() {
+    drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
+    //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    if (this.up) {
+        this.moveUpAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.up = false;
+        this.lastMove = "up";
+    }
+    if (this.down) {
+        this.moveDownAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.down = false;
+        this.lastMove = "down";
+    }
+    if (this.right) {
+        this.moveRightAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.right = false;
+        this.lastMove = "right";
+    }
+    if (this.left) {
+        this.moveLeftAnimation.drawFrame(
+            this.game.clockTick,
+            this.ctx,
+            this.x,
+            this.y
+        );
+        this.left = false;
+        this.lastMove = "left";
+    }
+    if (!this.left && !this.right && !this.up && !this.down) {
+        //if tank isnt moving then stay at most recent direction.
+        if (this.lastMove === "left")
+            this.moveLeftAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "right")
+            this.moveRightAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "down")
+            this.moveDownAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "up")
+            this.moveUpAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+        if (this.lastMove === "none")
+            this.moveUpAnimation.drawFrame(
+                this.game.clockTick,
+                this.ctx,
+                this.x,
+                this.y
+            );
+    }
 
-//     //Barrell Code
-//     this.ctx.drawImage(this.BB, this.x, this.y);
-
-
-//     this.ctx.beginPath();
-//     this.ctx.lineWidth = "2";
-//     this.ctx.strokeStyle = "red";
-//     this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-//     this.ctx.stroke();
+    //Barrell Code
+    this.ctx.drawImage(this.BB, this.x, this.y);
 
 
-//     Entity.prototype.draw.call(this);
-// };
+    this.ctx.beginPath();
+    this.ctx.lineWidth = "2";
+    this.ctx.strokeStyle = "red";
+    this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    this.ctx.stroke();
+
+
+    Entity.prototype.draw.call(this);
+};
 
 
 
