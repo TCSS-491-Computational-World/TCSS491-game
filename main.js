@@ -947,8 +947,8 @@ Enemy.prototype.update = function () {
     }
     
 
-//     Entity.prototype.update.call(this);
-// };
+    Entity.prototype.update.call(this);
+};
 
 // Tank.prototype.draw = function() {
 //     drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
