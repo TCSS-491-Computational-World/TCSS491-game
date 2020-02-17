@@ -18,7 +18,8 @@ function GameEngine() {
     this.click = null;
     this.mouse = null;
     this.rightclick = null;
-    this.keyboard = null;
+    //this.keyboard = null;
+    this.keyboard = [W = false,A = false,S = false,D = false]
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -95,9 +96,20 @@ GameEngine.prototype.startInput = function () {
     }, false);
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
-        //console.log(e);
-        //console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
-        that.keyboard = e.keyCode;
+        console.log(e);
+        console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
+        if(e.keyCode === 87){ //up
+            that.keyboard[0] = true;
+        } 
+        if(e.keyCode === 68){ //right
+            that.keyboard[3] = true;
+        } 
+        if(e.keyCode === 83){ //down
+            that.keyboard[2] = true;
+        } 
+        if(e.keyCode === 65){//left
+            that.keyboard[1] = true;
+        } 
         e.preventDefault();
     }, false);
 
@@ -109,8 +121,21 @@ GameEngine.prototype.startInput = function () {
     }, false);
 
     this.ctx.canvas.addEventListener("keyup", function (e) {
-        //console.log(e);
-       // console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
+        console.log(e);
+        console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
+        if(e.keyCode === 87){ //up
+            that.keyboard[0] = false;
+        }
+        if(e.keyCode === 68){ //right
+            that.keyboard[3] = false;
+        }
+        if(e.keyCode === 83){ //down
+            that.keyboard[2] = false;
+        }
+        if(e.keyCode === 65){//left
+            that.keyboard[1] = false;
+        }
+        e.preventDefault();
     }, false);
 
     console.log('Input started');
@@ -165,7 +190,7 @@ GameEngine.prototype.loop = function () {
     this.click = null;
     this.rightclick = null;
     this.mouse = null;
-    this.keyboard = null;
+    this.keyboard = [this.keyboard[0], this.keyboard[1], this.keyboard[2], this.keyboard[3]];
 }
 
 function Timer() {
