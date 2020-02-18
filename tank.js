@@ -105,7 +105,7 @@ Tank.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.up === true && this.y >= 2) {
+    if (this.up === true && this.y >= 2 ) {                                  // 有些地方走不了，比如建筑
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
     }
