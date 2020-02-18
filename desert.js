@@ -72,13 +72,18 @@ function checkWalls(game){
 
 function removeWalls(game){
     var next = [];
+    var newPath = game.path;
+    // console.log("Before "+ game.path.length);
     for (let i = 0; i < game.walls.length; i++) {
         // console.log(game.walls[i] === wall);
         if (!game.walls[i].contains.removed) {
             next.push(game.walls[i]);
         }
+        else {
+            newPath.push(new Cell(game.walls[i].x,game.walls[i].y,0));
+        }
     }
-    return next;
+    return {walls:next,path:newPath};
 }
 
 
@@ -152,7 +157,10 @@ Desert.prototype.update = function () {
                 //this.bullet.fire = true;
         }       
     }
-    this.game.walls = removeWalls(this.game);
+    var temp = removeWalls(this.game);
+    // console.log(temp);                       // checked
+    this.game.walls = temp.walls;               // this method will remove wall from walls list 
+    this.game.path  = temp.path;                // add it to path list.
   Entity.prototype.update.call(this);
 };
 
