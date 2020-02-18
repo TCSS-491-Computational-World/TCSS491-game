@@ -212,12 +212,15 @@ Barrell.prototype.update = function () {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation, index) {
+function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation, index, type) {
     this.theta = rotation;
     //this.distance = distance;
+    this.type = type;
     this.targetX = targetX;
     this.targetY = targetY;
     this.image = image;
+    this.snowball = AM.getAsset("./img/snowball_01.png");
+    this.snowballAnimation = new Animation(this.snowball,0 , 0, 512, 386, .05, 6, true, false);
     this.cursorAnimation = new Animation(
         AM.getAsset("./img/cursor.png"),0,0,19,19,20,1,true,false);
     this.tankX = tankX + 25;
@@ -330,7 +333,7 @@ BulletFire.prototype.update = function () {
 
 BulletFire.prototype.draw = function () {
 
-    if (this.fire) {
+    if (this.fire && this.type != "snowball") {
 
         
         this.ctx.beginPath();
@@ -351,6 +354,35 @@ BulletFire.prototype.draw = function () {
             33,
             24
         );
+
+        
+        //this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+        //Entity.prototype.draw.call(this);
+    }
+
+    if (this.fire && this.type === "snowball") {
+
+        
+        this.ctx.beginPath();
+        this.ctx.lineWidth = "1";
+        this.ctx.strokeStyle = "red";
+        this.ctx.rect(this.boundingbox.x, this.boundingbox.y, 33, 24);
+        this.ctx.stroke();
+
+        this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, .1);
+
+
+        // this.ctx.drawImage(
+        //     this.image,
+        //     0,
+        //     0,
+        //     33,
+        //     24,
+        //     this.x,
+        //     this.y,
+        //     33,
+        //     24
+        // );
 
         
         //this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
@@ -788,7 +820,8 @@ AM.downloadAll(function () {
     var tank = new Tank(gameEngine);
     var enemytank1 = new EnemyTank(gameEngine, 700, 700);
     var enemytank2 = new EnemyTank(gameEngine , 500, 500);
-    var enemytank3 = new EnemyTank(gameEngine , 300, 300);                                               // the tank Roman and Ross did
+    var enemytank3 = new EnemyTank(gameEngine , 300, 300);  
+    var enemyRobot = new Robot(gameEngine, 400, 400);                                           // the tank Roman and Ross did
     // var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
     // var enviornment = new Enviornment(gameEngine);
 
@@ -801,12 +834,14 @@ AM.downloadAll(function () {
     gameEngine.addEntity(enemytank1);
     gameEngine.addEntity(enemytank2);
     gameEngine.addEntity(enemytank3);
+    gameEngine.addEntity(enemyRobot);
 
     tanks.push(tank);
     
     tanks.push(enemytank1);
     tanks.push(enemytank2);
     tanks.push(enemytank3);
+    tanks.push(enemyRobot);
     // gameEngine.addEntity(enemy);
     // tanks.push(enemy);
     gameEngine.tanks = tanks;

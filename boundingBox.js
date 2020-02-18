@@ -18,6 +18,7 @@ function BoundingBox(x, y, width, height) {
 }
 
 BoundingBox.prototype.collide = function (other) {
+    
     if (this.x < other.x + other.width 
         && this.x + this.width > other.x
          && this.y < other.y + other.height 
@@ -35,7 +36,7 @@ BoundingBox.prototype.collide = function (other) {
             this.topCollision = true;
         }
         if (bCollision < tCollision && bCollision < lCollision && tCollision < rCollision ) {  
-            console.log("BOT COLLISION");
+            //console.log("BOT COLLISION");
             this.botCollision = true;
         }
         if (lCollision < rCollision && lCollision < tCollision && lCollision < bCollision ) {  

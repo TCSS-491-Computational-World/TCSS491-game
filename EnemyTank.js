@@ -97,7 +97,7 @@ EnemyTank.prototype.update = function() {
     this.distance = Math.sqrt(Math.pow((this.triggerbox.midpointx - this.game.tanks[0].triggerbox.midpointx), 2) +
                              Math.pow((this.triggerbox.midpointy - this.game.tanks[0].triggerbox.midpointy), 2));
 
-    if (this.distance < 500) {
+    if (this.distance < 350) {
         //console.log("fhdfhfdh");
         var dy = this.y - this.game.tanks[0].y;
         var dx = this.x - this.game.tanks[0].x;
@@ -129,7 +129,7 @@ EnemyTank.prototype.update = function() {
     //_____________________________________________________________________________________________________
 
     if (this.shooting && this.cooldown === 200 ) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex);
+        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex, null);
         this.game.addEntity(bulletShot);
         this.shooting = false;
         //this.bullet.fire = true;
@@ -386,10 +386,10 @@ EnemyTank.prototype.draw = function() {
     this.ctx.stroke();
 
     this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
+    this.ctx.lineWidth = "1";
     //if(this == this.game.tanks[this.distance])
-    this.ctx.strokeStyle = "blue";
-    this.ctx.rect(this.triggerbox.x - 50, this.triggerbox.y - 50 , this.triggerbox.width + 100, this.triggerbox.height + 100);
+    this.ctx.strokeStyle = "white";
+    this.ctx.rect(this.triggerbox.x - 250, this.triggerbox.y - 250 , this.triggerbox.width + 500, this.triggerbox.height + 500);
     this.ctx.stroke();
 
     
