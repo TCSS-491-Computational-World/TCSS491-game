@@ -126,8 +126,9 @@ Desert.prototype.update = function () {
                                                         this.game.walls[i].x * 50, 
                                                         this.game.walls[i].y * 50);
             this.game.addEntity(this.game.walls[i].cleanShot);
-            this.game.walls[i].cleanShot = false;
-            this.game.walls[i].removed = true;
+            this.game.walls[i].contains.cleanShot = false;
+            console.log("I changed");
+            this.game.walls[i].contains.removed = true;
                 //this.bullet.fire = true;
         }
     } // 需要测试射击的爆炸
