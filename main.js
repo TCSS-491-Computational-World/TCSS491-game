@@ -453,6 +453,8 @@ AM.downloadAll(function () {
     gameEngine.addEntity(enemy);
     tanks.push(enemy);
     gameEngine.tanks = tanks;
+
+    // console.log(gameEngine.wall.length);                                                            // checked the amount of walls 
     // console.log(gameEngine.map.length);                                                          // checked map in gameEngine Jerry did
     // console.log(gameEngine.path.length);
 

@@ -21,9 +21,8 @@ function GameEngine() {
     this.keyboard = null;
 
     this.path = null            // path for all tanks or enemy vehicles and the path only stop when meeting buildings,trees, or walls, not all vehicles.
-
-    this.map = null;            // the whole map
-    this.walls = null           // the walls' location
+    this.map = null;            // the whole map   Jerry did
+    this.walls = null           // the walls' location  Jerry did
 }
 
 GameEngine.prototype.init = function (ctx) {

@@ -1,7 +1,7 @@
 function Enemy(game) {
 
     this.explosionA = AM.getAsset("./img/Explosion_A.png")
-    this.snowballAnimation = new Animation(AM.getAsset("./img/snowball_01.png"),0 , 0, 512, 386, .05, 6, true, true);
+    // this.snowballAnimation = new Animation(AM.getAsset("./img/snowball_01.png"),0 , 0, 512, 386, .05, 6, true, true);
 
     this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 0, 0, 73, 60, 1, 1, true, false
     ); //quick note{:}
@@ -258,7 +258,7 @@ Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR T
                 this.y
             );
     }
-    this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.projectileX, this.projectileY, .1);
+    // this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.projectileX, this.projectileY, .1);
 
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";

@@ -6,7 +6,8 @@ function Cell(theX, theY, theContain) {
     this.y = theY;
     this.contains = theContain;
 }
-//地图设置
+
+// Map setting
 function setUp() {
     this.wall = AM.getAsset("./img/background/crate.png");
     this.roofFirst = AM.getAsset("./img/rooftop.png");    // 第一个roofTop
@@ -16,24 +17,16 @@ function setUp() {
     for (let i = 0; i < 50; i++) {
         grid[i] = new Array(50);
         for (let j = 0; j < 50; j++) {
+            // In this if statement, it will set all walls and create a new componet with 'w' as signal for wall
             if (      
-                (i === 5 && j === 3) 
-            ||  (i === 5 && j === 4) 
+                (i === 5 && j === 4) 
             ||  (i === 5 && j === 5)
-            ||  (i === 5 && j === 6)
-            ||  (i === 5 && j === 7)
-            ||  (i === 5 && j === 8)
-            ||  (i === 5 && j === 9)
-            ||  (i === 5 && j === 10)
-            ||  (i === 5 && j === 11)
-            ||  (i === 4 && j === 5)
-            ||  (i === 4 && j === 6)
-            ||  (i === 4 && j === 7)
-            ||  (i === 4 && j === 8)) {
-                grid[i][j] = new Cell(i,j,new Component(this.wall,i*w, j*w, 50,50));
-
+                ) {
+                grid[i][j] = new Cell(i,j,new Component(this.wall,i*w, j*w, 50,50,'w'));
             }
+            // else if () {
 
+            // }
             else {
                 grid[i][j] = new Cell(i, j, 0);
             }
@@ -62,16 +55,33 @@ function checkPath(game) {
     return path;
 }
 
+
+function checkWalls(game){
+    var walls = [];
+    for (let i = 0; i < game.map.length; i++) {
+        for (let j = 0; j < game.map[i].length; j++) {
+            // console.log(grid[i][j].contains);
+            if (game.map[i][j].contains.type === 'w') {
+                walls.push(game.map[i][j]);
+            }
+        }
+    }
+    // console.log(walls.length);                                           // double checked the amount of walls
+    return walls;
+}
+
 // component on map
-function Component(image,x,y,width,height) {
+function Component(image,x,y,width,height,type) {
     this.image = image;
     this.x = x;
     this.y = y;
     this.width = width; // limit width
     this.height = height;   // limit height
-    this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);
-    this.cleanShot = false;
-    this.removed = false;
+    this.type = type;   // check the type of the component, like wall, building or tree etc.
+
+    this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);   // bounding box
+    this.cleanShot = false;                                                     // working for bullet fire
+    this.removed = false;                                                       // check if it needs to draw on the map
 }
 Component.prototype = new Entity();
 Component.prototype.constructor = Component;
@@ -98,9 +108,9 @@ function Desert(game) {
   this.grid = setUp();
 //   console.log(this.grid);
 
-  this.game.map = this.grid;
+  this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
   this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
-  this.game.wall = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
+  this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
 //   console.log(this.game.map);
   Entity.call(this, game, 0, 400);
 
@@ -110,15 +120,19 @@ Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
 //更新 update
 Desert.prototype.update = function () {
-    for (let i = 0; i < this.game.wall.length; i++) {
-        if (this.grid[i].cleanShot) {
-            this.grid[i].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, i * 50, j * 50);
-            this.game.addEntity(cleanshot);
-            this.grid[i].cleanShot = false;
-            this.grid[i].removed = true;
+    for (let i = 0; i < this.game.walls.length; i++) {
+        if (this.game.walls[i].cleanShot) {
+            this.game.walls[i].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, 
+                                                        this.game.walls[i].x * 50, 
+                                                        this.game.walls[i].y * 50);
+            this.game.addEntity(this.game.walls[i].cleanShot);
+            this.game.walls[i].cleanShot = false;
+            this.game.walls[i].removed = true;
                 //this.bullet.fire = true;
         }
-    }
+    } // 需要测试射击的爆炸
+
+
     // for (let i = 0; i < this.grid.length; i++) {
     //     for (let j = 0; j < this.grid[i].length; j++) {
     //         if (this.grid[i][j].cleanShot) {
@@ -139,19 +153,39 @@ Desert.prototype.update = function () {
 
 Desert.prototype.draw = function () {
   var w = 50;
+  /* Draw all tiles on the map.
+  */
   for (let i = 0; i < 50; i++) {
       for (let j = 0; j < 50; j++) {
           this.ctx.drawImage(this.desertTile, i * w, j * w, w, w);
       }
   };
 
-  for (let i = 0; i < 50; i++) {
-      for (let j = 0; j < 50; j++) {
-        if (this.grid[i][j].contains !== 0 && !(this.grid[i][j].contains.removed)) {
-            this.ctx.drawImage(this.grid[i][j].contains.image, i * w, j * w, w, w);
-        }
-      }
-  }
+    /* 
+    *  Draw all components on the map 
+    */
+
+  // 就差remove掉了
+   for (let i = 0; i < this.game.walls.length; i++) {
+       if (this.game.walls[i].contains !== 0 && !(this.game.walls[i].contains.removed)){
+            this.ctx.drawImage(this.game.walls[i].contains.image, this.game.walls[i].contains.x, 
+                this.game.walls[i].contains.y, 
+                this.game.walls[i].contains.width,
+                this.game.walls[i].contains.height);
+       }
+
+   }
+
+
+
+    // Using for loop.
+//   for (let i = 0; i < 50; i++) {
+//       for (let j = 0; j < 50; j++) {
+//         if (this.grid[i][j].contains !== 0 && !(this.grid[i][j].contains.removed)) {
+//             this.ctx.drawImage(this.grid[i][j].contains.image, i * w, j * w, w, w);
+//         }
+//       }
+//   }
 
   // drawGrid();
 //   this.setUpComponents(); // It should install in environment.
