@@ -69,8 +69,8 @@ BulletFire.prototype.update = function () {
     // console.log(this.game.walls[0].contains.boundingbox);
     for (let i = 0; i < this.game.walls.length; i++) {
         if(this.boundingbox.collide(this.game.walls[i].contains.boundingbox)){
-            console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
-            this.game.walls[i].cleanShot = true;
+
+            this.game.walls[i].contains.cleanShot = true;
             this.fire = false;
             this.x = this.game.walls[i].x;
             this.y = this.game.walls[i].y;

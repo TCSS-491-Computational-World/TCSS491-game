@@ -121,14 +121,15 @@ Desert.prototype.constructor = Desert;
 //更新 update
 Desert.prototype.update = function () {
     for (let i = 0; i < this.game.walls.length; i++) {
-        if (this.game.walls[i].cleanShot) {
-            this.game.walls[i].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, 
+        if (this.game.walls[i].contains.cleanShot) {
+            this.game.walls[i].contains.cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, 
                                                         this.game.walls[i].x * 50, 
                                                         this.game.walls[i].y * 50);
-            this.game.addEntity(this.game.walls[i].cleanShot);
+            this.game.addEntity(this.game.walls[i].contains.cleanShot);
             this.game.walls[i].contains.cleanShot = false;
-            console.log("I changed");
+            // console.log("I changed");
             this.game.walls[i].contains.removed = true;
+            
                 //this.bullet.fire = true;
         }
     } // 需要测试射击的爆炸
