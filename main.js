@@ -212,7 +212,7 @@ Barrell.prototype.update = function () {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation) {
+function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation, index) {
     this.theta = rotation;
     //this.distance = distance;
     this.targetX = targetX;
@@ -223,7 +223,7 @@ function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation)
     this.tankX = tankX + 25;
     this.tankY = tankY + 25;
     this.rotation = rotation;
-    this.fire = false;
+    this.fire = fire;
     this.speed = 10;
     this.ctx = game.ctx;
     this.fire = fire;
@@ -234,6 +234,7 @@ function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation)
     this.endX = 500;
     this.endY = 0;
     this.cleanShot = false;
+    this.tankIndex = index;
     this.boundingbox = new BoundingBox(this.tankX, this.tankY, 33, 24);
     Entity.call(this, game, this.tankX, this.tankY);
 }
@@ -269,23 +270,38 @@ BulletFire.prototype.update = function () {
     // velocityInstance.x = Math.cos(this.rotation) * bulletSpeed;
     // velocityInstance.y = Math.sin(this.rotation) * bulletSpeed;
 
-    if(this.boundingbox.collide(this.game.tanks[1].boundingbox)){
-        //console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
-        this.game.tanks[1].cleanShot = true;
-        this.fire = false;
-        this.x = this.tankX;
-        this.y = this.tankY;
-        this.boundingbox.x = this.tankX;
-        this.boundingbox.y = this.tankY;
-    }
 
-    if (this.x > this.tankX + 10000|| this.y > this.tankY + 10000 || this.x < this.tankX - 10000 || this.y < this.tankY - 10000) {
+
+
+// EDDDDDDIT THIS LATTTTER!!!
+
+    for(i = 0; i < this.game.tanks.length; i++){
+
+        if(i != this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
+            //console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
+            this.game.tanks[i].cleanShot = true;
+            this.fire = false;
+            this.x = this.tankX;
+            this.y = this.tankY;
+            this.boundingbox.x = this.tankX;
+            this.boundingbox.y = this.tankY;
+            this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
+        }
+    }
+    
+
+    if (this.x > this.tankX + 2000|| this.y > this.tankY + 2000 || this.x < this.tankX - 2000 || this.y < this.tankY - 2000) {
         //console.log("IS ANYTHING HAPPENING HERE!??!?");
+
+        this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
         this.fire = false;
         this.x = this.tankX;
         this.y = this.tankY;
         this.boundingbox.x = this.tankX;
         this.boundingbox.y = this.tankY;
+        this.cleanShot = false;
+        
+
     }
 
     //console.log(this.boundingbox.x);
@@ -312,6 +328,7 @@ BulletFire.prototype.update = function () {
 };
 
 BulletFire.prototype.draw = function () {
+
     if (this.fire) {
 
         
@@ -365,7 +382,7 @@ BulletFire.prototype.draw = function () {
 
 function Explosion(game, image, fire, targetX, targetY) {
     this.image = image;
-    this.fire = false;
+    //this.fire = false;
     this.fire = fire;
     this.targetX = targetX;
     this.targetY = targetY;
@@ -404,11 +421,11 @@ function Explosion(game, image, fire, targetX, targetY) {
 Explosion.prototype = new Entity();
 Explosion.prototype.constructor = Explosion;
 
-Explosion.prototype.update = function () {
+// Explosion.prototype.update = function () {
 
-    Entity.prototype.update.call(this);
+//     Entity.prototype.update.call(this);
 
-};
+// };
 
 Explosion.prototype.draw = function () {
 
@@ -729,6 +746,7 @@ AM.queueDownload("./img/grass.png");
 AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
 AM.queueDownload("./img/tank_red8D.png");
+AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/tank_green8D.png");
 AM.queueDownload("./img/Puddle_01.png");
 AM.queueDownload("./img/coin2.png");
@@ -760,21 +778,34 @@ AM.downloadAll(function () {
 
     var desert = new Desert(gameEngine);                                                  // the map----desert Jerry did
 
-    var explosion = new Explosion(                                                        
-        gameEngine /*, AM.getAsset("./img/Explosion_A.png") */
-    );
+    // var explosion = new Explosion(                                                        
+    //     gameEngine /*, AM.getAsset("./img/Explosion_A.png") */
+    // );
 
-    var tank = new Tank(gameEngine);                                                      // the tank Roman and Ross did
-    var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
+    var tank = new Tank(gameEngine);
+    var enemytank1 = new EnemyTank(gameEngine, 700, 700);
+    var enemytank2 = new EnemyTank(gameEngine , 500, 500);
+    var enemytank3 = new EnemyTank(gameEngine , 300, 300);                                               // the tank Roman and Ross did
+    // var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
     // var enviornment = new Enviornment(gameEngine);
 
     // var vehicle = new Vehicles(gameEngine);
 
     gameEngine.addEntity(desert);
+
     gameEngine.addEntity(tank);
+
+    gameEngine.addEntity(enemytank1);
+    gameEngine.addEntity(enemytank2);
+    gameEngine.addEntity(enemytank3);
+
     tanks.push(tank);
-    gameEngine.addEntity(enemy);
-    tanks.push(enemy);
+    
+    tanks.push(enemytank1);
+    tanks.push(enemytank2);
+    tanks.push(enemytank3);
+    // gameEngine.addEntity(enemy);
+    // tanks.push(enemy);
     gameEngine.tanks = tanks;
 
     // gameEngine.addEntity(barrell);

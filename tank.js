@@ -39,10 +39,10 @@ function Tank(game) {
     this.cooldown = 200;
     this.lastMove = "none";
     this.hero = false;
-    this.speed = 10;
+    this.speed = 5;
     this.ctx = game.ctx;
-    this.x = 300;
-    this.y = 300;
+    this.x = 250;
+    this.y = 450;
     this.counter = 0;
     this.random = this.random = Math.floor(Math.random() * 100);
     this.shooting = false;
@@ -52,6 +52,10 @@ function Tank(game) {
     this.distance = 1;
     this.maxHealth = 200;
     this.currentHealth = 200;
+    this.collision;
+    this.tankIndex;
+    this.tempList;
+    this.lastState;
     
     
     Entity.call(this, game, this.x, this.y);
@@ -62,6 +66,14 @@ Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
     var bool = true;
+
+    this.tempList = this.game.tanks;
+    for(j = 0; j < this.game.tanks.length; j++){
+        if(this.tempList[j].x === this.x){
+            this.tankIndex = j;
+            //this.tempList.splice(this.tankIndex, 1);
+        }
+    }
 
     //TankState 1 = Down, 2 = DownRight, 3 = Right, 4 = UpRight, 5 = Up, 6 = UpRight, 7 = Left, 8 = DownLeft
     //var TankState = 0;
@@ -101,7 +113,7 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta);
+        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex);
         this.game.addEntity(bulletShot);
         this.shooting = false;
         //this.bullet.fire = true;
@@ -113,10 +125,31 @@ Tank.prototype.update = function() {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
         this.cleanShot = false;
+        this.currentHealth -= 10;
+        
+        if(this.currentHealth === 0){
+
+            this.game.tanks[this.tankIndex].removeFromWorld = true;
+
+        }
         //this.bullet.fire = true;
     }
 
     console.log("WASD: " + this.game.keyboard);
+
+    this.collision = false;
+    for(i = 0; i < this.game.tanks.length; i++){
+
+        if(i != this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
+            this.collision = true;
+        } 
+    }
+
+    if(this.collision === false){
+        //do nothing
+    } else {
+        this.speed *= -1;
+    }
 
     var diagnol = false
 
@@ -124,9 +157,11 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[0] === true && this.game.keyboard[3] === true) {
         //moving up and right
         this.TankState = 4;
+        this.lastState = 4;
         diagnol = true;
     }
     if (this.TankState == 4) {
+
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
         this.triggerbox.y -= this.speed;
@@ -142,6 +177,7 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[0] === true && this.game.keyboard[1] === true) {
         //moving up and left
         this.TankState = 6;
+        this.lastState = 6;
         diagnol = true;
     }
     if (this.TankState == 6) {
@@ -160,6 +196,7 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[1] === true && this.game.keyboard[2] === true) {
         //moving down and left
         this.TankState = 8;
+        this.lastState = 8;
         diagnol = true;
     }
     if (this.TankState == 8) {
@@ -178,6 +215,7 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[2] === true && this.game.keyboard[3] === true) {
         //moving down and right
         this.TankState = 2;
+        this.lastState = 2;
         diagnol = true;
     }
     if (this.TankState == 2) {
@@ -196,6 +234,7 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[0] === true  && diagnol==false) {
         //moving up
         this.TankState = 5;
+        this.lastState = 5;
     }
     if (this.TankState == 5) {
         this.y -= this.speed;
@@ -207,6 +246,7 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[3] === true && diagnol==false) {
         //moving right
         this.TankState = 3;
+        this.lastState = 3;
     }
     if (this.TankState == 3) {
         this.x += this.speed;
@@ -218,6 +258,7 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[2] === true && diagnol==false) {
         //moving down
         this.TankState = 1;
+        this.lastState = 1;
     }
     if (this.TankState == 1) {
         this.y += this.speed;
@@ -229,6 +270,7 @@ Tank.prototype.update = function() {
     if (this.game.keyboard[1] === true && diagnol==false) {
         //moving left
         this.TankState = 7;
+        this.lastState = 7;
     }
     if (this.TankState == 7) {
         this.x -= this.speed;
@@ -238,7 +280,7 @@ Tank.prototype.update = function() {
         this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
     }
 
-
+    this.speed = 5;
     Entity.prototype.update.call(this);
 };
 

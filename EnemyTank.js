@@ -41,6 +41,10 @@ function EnemyTank(game, x, y) {
     this.distance = 1;
     this.maxHealth = 200;
     this.currentHealth = 200;
+    this.collision;
+    this.tankIndex;
+    this.tempList;
+
     
     
     Entity.call(this, game, x, y);
@@ -50,6 +54,17 @@ EnemyTank.prototype = new Entity();
 EnemyTank.prototype.constructor = Tank;
 
 EnemyTank.prototype.update = function() {
+
+    this.tempList = this.game.tanks;
+    for(j = 0; j < this.game.tanks.length; j++){
+        if(this.tempList[j].x === this.x){
+            this.tankIndex = j;
+            //this.tempList.splice(this.tankIndex, 1);
+        }
+    }
+    //console.log("MY TANKK INDEX:    " + this.tankIndex);
+
+
     var bool = true;
     //Barrell Code
     
@@ -98,7 +113,7 @@ EnemyTank.prototype.update = function() {
         this.shooting = true;
         //console.log(this.spritesheet);
      } else {
-         console.log("fhdfhfdh");
+         //console.log("fhdfhfdh");
          var dy = this.y;
          var dx = this.x;
          var theta = Math.atan2(dy, dx); // range (-PI, PI]
@@ -113,11 +128,8 @@ EnemyTank.prototype.update = function() {
      }
     //_____________________________________________________________________________________________________
 
-    // if (this.game.click) {
-    //     this.shooting = true;
-    // }
     if (this.shooting && this.cooldown === 200 ) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta);
+        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex);
         this.game.addEntity(bulletShot);
         this.shooting = false;
         //this.bullet.fire = true;
@@ -131,9 +143,17 @@ EnemyTank.prototype.update = function() {
 
 
     if (this.cleanShot) {
-        //cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
-       // this.game.addEntity(cleanshot);
+        cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
+        this.game.addEntity(cleanshot);
         this.cleanShot = false;
+        this.currentHealth -= 10;
+
+        if(this.currentHealth === 0){
+
+            this.game.tanks[this.tankIndex].removeFromWorld = true;
+            
+        }
+        
         //this.bullet.fire = true;
     }
 
@@ -162,6 +182,25 @@ EnemyTank.prototype.update = function() {
         this.left = false;
         
     }
+
+    this.collision = false;
+
+    
+
+    for(i = 0; i < this.game.tanks.length; i++){
+
+        if(i != this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
+            this.collision = true;
+        } 
+    }
+
+    if(this.collision === false){
+        //do nothing
+    } else {
+        this.speed *= -1;
+    }
+
+
     if (this.up === true) {
         
         this.y -= this.speed;
@@ -220,7 +259,7 @@ EnemyTank.prototype.update = function() {
 
 
     //this.distance = new findClosestTank(this.game.tanks).closestTank;
-    console.log("CLOSEST TANK IS AT INDEX:   " + closestTank);
+    //console.log("CLOSEST TANK IS AT INDEX:   " + closestTank);
     Entity.prototype.update.call(this);
 };
 
