@@ -148,6 +148,8 @@ EnemyTank.prototype.update = function() {
         this.cleanShot = false;
         this.currentHealth -= 10;
 
+       // this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
+        
         if(this.currentHealth === 0){
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
@@ -174,14 +176,6 @@ EnemyTank.prototype.update = function() {
         this.random = 1;
     }
 
-    if (this.random <= 25) {
-        //moving up
-        this.up = true;
-        this.down = false;
-        this.right = false;
-        this.left = false;
-        
-    }
 
     this.collision = false;
 
@@ -196,8 +190,17 @@ EnemyTank.prototype.update = function() {
 
     if(this.collision === false){
         //do nothing
+        //this.speed = 1;
     } else {
         this.speed *= -1;
+    }
+    if (this.random <= 25) {
+        //moving up
+        this.up = true;
+        this.down = false;
+        this.right = false;
+        this.left = false;
+        
     }
 
 

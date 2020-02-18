@@ -286,6 +286,7 @@ BulletFire.prototype.update = function () {
             this.boundingbox.x = this.tankX;
             this.boundingbox.y = this.tankY;
             this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
+            
         }
     }
     
@@ -370,7 +371,9 @@ BulletFire.prototype.draw = function () {
         );
         // Entity.prototype.draw.call(this);
     }
+    
     Entity.prototype.draw.call(this);
+    //this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
 };
 
 

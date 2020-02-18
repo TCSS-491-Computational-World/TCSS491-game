@@ -113,24 +113,27 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
+
         bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex);
         this.game.addEntity(bulletShot);
         this.shooting = false;
+        
         //this.bullet.fire = true;
     }
 
-    //if(this.boundingbox.collide())
-
     if (this.cleanShot) {
+        //this.shooting = false;
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
         this.cleanShot = false;
         this.currentHealth -= 10;
-        
+
+        //this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
+
         if(this.currentHealth === 0){
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
-
+            
         }
         //this.bullet.fire = true;
     }
@@ -148,7 +151,7 @@ Tank.prototype.update = function() {
     if(this.collision === false){
         //do nothing
     } else {
-        this.speed *= -1;
+        //this.speed *= -1;
     }
 
     var diagnol = false
