@@ -46,17 +46,18 @@ function setUp() {
 }
 
 // check where is path only for the buildings or walls
-function checkPath(grid) {
+function checkPath(game) {
     // console.log(grid);
     var path = [];
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[i].length; j++) {
+    for (let i = 0; i < game.map.length; i++) {
+        for (let j = 0; j < game.map[i].length; j++) {
             // console.log(grid[i][j].contains);
-            if (grid[i][j].contains === 0) {
-                path.push(grid[i][j]);
+            if (game.map[i][j].contains === 0) {
+                path.push(game.map[i][j]);
             }
         }
     }
+
     // console.log(path.length);
     return path;
 }
@@ -86,15 +87,6 @@ Component.prototype.update = function () {
 
 
 
-
-
-
-
-
-
-
-
-
 // Desert object
 function Desert(game) {
   // this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
@@ -105,8 +97,10 @@ function Desert(game) {
   this.ctx = game.ctx
   this.grid = setUp();
 //   console.log(this.grid);
-  this.game.path = checkPath(this.grid); // the path of the tank
+
   this.game.map = this.grid;
+  this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
+  this.game.wall = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
 //   console.log(this.game.map);
   Entity.call(this, game, 0, 400);
 
@@ -116,17 +110,26 @@ Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
 //更新 update
 Desert.prototype.update = function () {
-    for (let i = 0; i < this.grid.length; i++) {
-        for (let j = 0; j < this.grid[i].length; j++) {
-            if (this.grid[i][j].cleanShot) {
-                this.grid[i][j].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, i * 50, j * 50);
-                this.game.addEntity(cleanshot);
-                this.grid[i][j].cleanShot = false;
-                this.grid[i][j].removed = true;
+    for (let i = 0; i < this.game.wall.length; i++) {
+        if (this.grid[i].cleanShot) {
+            this.grid[i].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, i * 50, j * 50);
+            this.game.addEntity(cleanshot);
+            this.grid[i].cleanShot = false;
+            this.grid[i].removed = true;
                 //this.bullet.fire = true;
-            }
         }
-    } 
+    }
+    // for (let i = 0; i < this.grid.length; i++) {
+    //     for (let j = 0; j < this.grid[i].length; j++) {
+    //         if (this.grid[i][j].cleanShot) {
+    //             this.grid[i][j].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, i * 50, j * 50);
+    //             this.game.addEntity(cleanshot);
+    //             this.grid[i][j].cleanShot = false;
+    //             this.grid[i][j].removed = true;
+    //             //this.bullet.fire = true;
+    //         }
+    //     }
+    // } 
 
 
 
@@ -185,7 +188,7 @@ Desert.prototype.draw = function () {
 
 
 
-// 就是设置地图上的所有的东西
+// setting everything on the map
 Desert.prototype.setUpComponents = function () {
   var w = 50;
   for (let i = 0; i < 50; i++) {

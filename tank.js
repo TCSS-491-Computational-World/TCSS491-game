@@ -113,7 +113,7 @@ Tank.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true && this.x <= 2498) {
+    if (this.right === true && this.x <= 2448) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
     }
@@ -124,7 +124,7 @@ Tank.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true && this.y <= 2498) {
+    if (this.down === true && this.y <= 2448) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
     }
