@@ -47,7 +47,6 @@ BoundingBox.prototype.collide = function (other) {
             this.rigCollision = true;
         }
 
-
         return true;
 
     } else {
