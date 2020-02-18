@@ -20,6 +20,7 @@ function GameEngine() {
     this.rightclick = null;
     //this.keyboard = null;
     this.keyboard = [W = false,A = false,S = false,D = false]
+    
 }
 
 GameEngine.prototype.init = function (ctx) {

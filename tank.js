@@ -125,6 +125,8 @@ Tank.prototype.update = function() {
     }
     //_____________________________________________________________________________________________________
 
+    var mySound = new Audio("./Sounds/TankFiringSound.mp3");
+
     if (this.game.click) {
         this.shooting = true;
     }
@@ -132,6 +134,7 @@ Tank.prototype.update = function() {
 
         bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex, null);
         this.game.addEntity(bulletShot);
+        mySound.play();
         this.shooting = false;
         
         //this.bullet.fire = true;
