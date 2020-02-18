@@ -41,6 +41,7 @@ function setUp() {
 // check where is path only for the buildings or walls
 function checkPath(game) {
     // console.log(grid);
+    // console.log(game.map.length);
     var path = [];
     for (let i = 0; i < game.map.length; i++) {
         for (let j = 0; j < game.map[i].length; j++) {

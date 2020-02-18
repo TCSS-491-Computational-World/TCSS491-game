@@ -26,6 +26,7 @@ function Tank(game) {
     this.lastMove = "none";
     this.hero = false;
     this.speed = 10;
+    this.game = game;
     this.ctx = game.ctx;
     this.x = 300;
     this.y = 300;
@@ -43,6 +44,9 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
+    // console.log("My tank Path: " + this.game.path.length); // current path is updated after removing a wall. Jerry did.
+    // console.log(checkPath(this.game));
+    // checkPath(this.game);
     var bool = true;
     //Barrell Code
     //____________________________________________________________________________________________________
@@ -238,3 +242,22 @@ Tank.prototype.draw = function() {
 
     Entity.prototype.draw.call(this);
 };
+
+
+
+
+
+
+
+
+
+
+
+// function checkPath(game) {
+//     // console.log(game.path);
+//     for (let i = 0; i< game.path.length; i++) {
+//         return false;
+//     }
+//     return true;
+
+// }
