@@ -70,6 +70,22 @@ function checkWalls(game){
     return walls;
 }
 
+function removeWalls(game){
+    var next = [];
+    for (let i = 0; i < game.walls.length; i++) {
+        // console.log(game.walls[i] === wall);
+        if (!game.walls[i].contains.removed) {
+            next.push(game.walls[i]);
+        }
+    }
+    return next;
+}
+
+
+
+
+
+
 // component on map
 function Component(image,x,y,width,height,type) {
     this.image = image;
@@ -120,6 +136,7 @@ Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
 //更新 update
 Desert.prototype.update = function () {
+    // var deleteElement;
     for (let i = 0; i < this.game.walls.length; i++) {
         if (this.game.walls[i].contains.cleanShot) {
             this.game.walls[i].contains.cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, 
@@ -129,26 +146,13 @@ Desert.prototype.update = function () {
             this.game.walls[i].contains.cleanShot = false;
             // console.log("I changed");
             this.game.walls[i].contains.removed = true;
-            
+            // deleteElement = this.game.walls[i];
+
+
                 //this.bullet.fire = true;
-        }
-    } // 需要测试射击的爆炸
-
-
-    // for (let i = 0; i < this.grid.length; i++) {
-    //     for (let j = 0; j < this.grid[i].length; j++) {
-    //         if (this.grid[i][j].cleanShot) {
-    //             this.grid[i][j].cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, i * 50, j * 50);
-    //             this.game.addEntity(cleanshot);
-    //             this.grid[i][j].cleanShot = false;
-    //             this.grid[i][j].removed = true;
-    //             //this.bullet.fire = true;
-    //         }
-    //     }
-    // } 
-
-
-
+        }       
+    }
+    this.game.walls = removeWalls(this.game);
   Entity.prototype.update.call(this);
 };
 
