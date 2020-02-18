@@ -139,6 +139,7 @@ function Desert(game) {
 
 Desert.prototype = new Entity();
 Desert.prototype.constructor = Desert;
+
 //更新 update
 Desert.prototype.update = function () {
     // var deleteElement;
@@ -165,6 +166,7 @@ Desert.prototype.update = function () {
 };
 
 
+// draw the map
 Desert.prototype.draw = function () {
   var w = 50;
   /* Draw all tiles on the map.
