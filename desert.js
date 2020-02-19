@@ -10,8 +10,9 @@ function Cell(theX, theY, theContain) {
 // Map setting
 function setUp() {
     this.wall = AM.getAsset("./img/background/crate.png");
-    this.roofFirst = AM.getAsset("./img/rooftop.png");    // 第一个roofTop
-    this.roofSecond = AM.getAsset("./img/roof.png");      // 第二个roof
+    this.roofFirst = AM.getAsset("./img/rooftop.png");    // first roofTop
+    this.roofSecond = AM.getAsset("./img/roof.png");      // second roof
+    this.tree = AM.getAsset("./img/background/tree1.png");           // first tree     
     var w = 50;
     var grid = new Array(50);
     for (let i = 0; i < 50; i++) {
@@ -123,13 +124,83 @@ function setUp() {
             ||  (i === 33 && j === 2)
 
 
+            // fifth part
+            ||  (i === 8 && j === 37)
+            ||  (i === 8 && j === 38)
+            ||  (i === 8 && j === 39)
+            ||  (i === 9 && j === 37)
+            ||  (i === 9 && j === 38)
+            ||  (i === 9 && j === 39)
+            ||  (i === 10 && j === 38)
+            ||  (i === 10 && j === 37)
+            ||  (i === 11 && j === 37)
+
+            ||  (i === 41 && j === 12)
+            ||  (i === 41 && j === 11)
+            ||  (i === 41 && j === 10)
+            ||  (i === 40 && j === 12)
+            ||  (i === 40 && j === 11)
+            ||  (i === 40 && j === 10)
+            ||  (i === 39 && j === 11)
+            ||  (i === 39 && j === 10)
+            ||  (i === 38 && j === 10)
+
+            // sixth part
+            ||  (i === 28 && j === 26)
+            ||  (i === 28 && j === 27)
+            ||  (i === 29 && j === 26)
+            ||  (i === 29 && j === 27)
+
+            ||  (i === 18 && j === 20)
+            ||  (i === 18 && j === 21)
+            ||  (i === 19 && j === 20)
+            ||  (i === 19 && j === 21)
 
                 ) {
                 grid[i][j] = new Cell(i,j,new Component(this.wall,i*w, j*w, 50,50,'w'));
             }
-            // else if () {
 
-            // }
+            else if ( // draw a roof
+                (i === 13 && j === 44)
+            ) {
+                grid[i][j] = new Cell(i,j,new Component(this.roofFirst, i* w, j *w+25, 250,250,'r'));
+            }   
+            else if ( // draw a roof
+                (i === 34 && j === 1)
+            ) {
+                grid[i][j] = new Cell(i,j,new Component(this.roofFirst, i* w, j *w-25, 250,250,'r'));
+            }
+            else if (
+                (i === 18 && j === 16) 
+            ||  (i === 20 && j === 16)
+            ||  (i === 22 && j === 16)
+            ||  (i === 24 && j === 16)
+            ||  (i === 26 && j === 16)
+            ||  (i === 28 && j === 16)
+            ||  (i === 28 && j === 18)
+            ||  (i === 28 && j === 20)
+            ||  (i === 28 && j === 22)
+            ||  (i === 28 && j === 24)
+            // ||  (i === 28 && j === 26)
+            ||  (i === 28 && j === 28)
+            ||  (i === 28 && j === 30)
+            ||  (i === 26 && j === 30)
+            ||  (i === 24 && j === 30)
+            ||  (i === 22 && j === 30)
+            ||  (i === 20 && j === 30)
+            ||  (i === 18 && j === 30)
+            ||  (i === 18 && j === 28)
+            ||  (i === 18 && j === 26)
+            ||  (i === 18 && j === 24)
+            ||  (i === 18 && j === 22)
+            // ||  (i === 18 && j === 20)
+            ||  (i === 18 && j === 18)
+            ||  (i === 18 && j === 16)
+
+            ) {
+                grid[i][j] = new Cell(i,j, new Component(this.tree,i*w,j*w, 100,100,'t'));
+            }
+
             else {
                 grid[i][j] = new Cell(i, j, 0);
             }
@@ -191,6 +262,21 @@ function removeWalls(game){
 }
 
 
+function checkBuilding(game) {
+    var buildings = [];
+    for (let i = 0; i < game.map.length; i++) {
+        for (let j = 0; j < game.map[i].length; j++) {
+            // console.log(grid[i][j].contains);
+            if (game.map[i][j].contains.type === 'r' || game.map[i][j].contains.type === 't') {
+                buildings.push(game.map[i][j]);
+            }
+        }
+    }
+    console.log(buildings);
+    return buildings;
+}
+
+
 
 
 
@@ -236,7 +322,8 @@ function Desert(game) {
   this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
   this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
   this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
-//   console.log(this.game.map);
+
+  this.game.buildings = checkBuilding(game);
   Entity.call(this, game, 0, 400);
 
 }
@@ -247,6 +334,7 @@ Desert.prototype.constructor = Desert;
 //更新 update
 Desert.prototype.update = function () {
     // var deleteElement;
+    // walls removed and animation
     for (let i = 0; i < this.game.walls.length; i++) {
         if (this.game.walls[i].contains.cleanShot) {
             this.game.walls[i].contains.cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, 
@@ -256,12 +344,26 @@ Desert.prototype.update = function () {
             this.game.walls[i].contains.cleanShot = false;
             // console.log("I changed");
             this.game.walls[i].contains.removed = true;
-            // deleteElement = this.game.walls[i];
-
-
-                //this.bullet.fire = true;
         }       
     }
+    // buildings explosion // Something wrong
+    for (let i = 0; i < this.game.buildings.length; i++) {
+        if (this.game.buildings[i].contains.cleanShot) {
+            this.game.buildings[i].contains.cleanShot = new Explosion(this.game,AM.getAsset("./img/Explosion_A.png"), true, 
+                                                        this.game.buildings[i].x * 50, 
+                                                        this.game.buildings[i].y * 50);
+            this.game.addEntity(this.game.buildings[i].contains.cleanShot);
+            this.game.buildings[i].contains.cleanShot = false;
+            // console.log("I changed");
+        }       
+    }
+
+
+
+
+
+
+
     var temp = removeWalls(this.game);
     // console.log(temp);                       // checked
     this.game.walls = temp.walls;               // this method will remove wall from walls list 
@@ -285,7 +387,7 @@ Desert.prototype.draw = function () {
     *  Draw all components on the map 
     */
 
-  // 就差remove掉了
+  // draw walls
    for (let i = 0; i < this.game.walls.length; i++) {
        if (this.game.walls[i].contains !== 0 && !(this.game.walls[i].contains.removed)){
             this.ctx.drawImage(this.game.walls[i].contains.image, this.game.walls[i].contains.x, 
@@ -295,6 +397,22 @@ Desert.prototype.draw = function () {
        }
 
    }
+   // draw buildings and trees
+   for (let i = 0; i < this.game.buildings.length; i++) {
+        if (this.game.buildings[i].contains !== 0 && this.game.buildings[i].contains.type === 'r'){
+            this.ctx.drawImage(this.game.buildings[i].contains.image, this.game.buildings[i].contains.x, 
+             this.game.buildings[i].contains.y, 
+             this.game.buildings[i].contains.width,
+             this.game.buildings[i].contains.height);
+        }
+        else if (this.game.buildings[i].contains !== 0 && this.game.buildings[i].contains.type === 't'){
+            this.ctx.drawImage(this.game.buildings[i].contains.image, this.game.buildings[i].contains.x, 
+            this.game.buildings[i].contains.y, 
+            this.game.buildings[i].contains.width,
+            this.game.buildings[i].contains.height);
+        }
+
+    }
 
 
 
