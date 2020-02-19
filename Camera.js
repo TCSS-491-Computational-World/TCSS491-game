@@ -3,7 +3,18 @@ function Camera(game, tank_x, tank_y, width, height) {
     // console.log("ddd");
     this.game = game;
     this.ctx = game.ctx;
-    this.x = tank_x - width / 2; // the start x-coordinate
+
+    if (tank_x < 300) {
+        this.x = 0;
+    }
+    else if (tank_x > 2000) {
+        this.x = 2000;
+    }
+    else {
+        this.x = tank_x - width / 2; // the start x-coordinate
+    }
+    
+
     // this.endX = tank_x + width / 2; // the start x-coordinate
     this.y = tank_y - height / 2; // the end x-coordinate
     // this.endY = tank_y + height / 2; // the end y-coordinate
@@ -18,7 +29,7 @@ Camera.prototype = new Entity();
 Camera.prototype.constructor = Camera;
 
 Camera.prototype.draw = function() {
-    // console.log(this.game.tanks[0].x);
+    // console.log(this.game.tanks[0].y);
 
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
@@ -37,11 +48,31 @@ Camera.prototype.draw = function() {
 };
 
 Camera.prototype.update = function() {
-    this.x = this.game.tanks[0].x - this.width / 2;
+    if ((this.game.tanks[0].x < 500 || this.game.tanks[0].x > 2000) && 
+        (this.game.tanks[0].y < 300 || this.game.tanks[0].y > 2200)) {
+            this.x = this.x;
+            this.y = this.y;
+    }
+    else if (this.game.tanks[0].x < 500 || this.game.tanks[0].x > 2000) {
+        this.y = this.game.tanks[0].y - this.height / 2;
+    }
+    else if (this.game.tanks[0].y < 300 || this.game.tanks[0].y > 2200) {
+        this.x = this.game.tanks[0].x - this.width / 2;
+    }
+    else {
+        this.x = this.game.tanks[0].x - this.width / 2;
+        this.y = this.game.tanks[0].y - this.height / 2;
+    }
+
+
+
+
     // this.endX = this.game.tanks[0].x + this.width / 2;
-    this.y = this.game.tanks[0].y - this.height / 2;
+    
     // this.endY = this.game.tanks[0].y + this.height / 2;
     //this.x = Entity.prototype.update.call(this);
+
+
 
     Entity.prototype.update.call(this);
 };

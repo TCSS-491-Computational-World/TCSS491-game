@@ -47,7 +47,7 @@ Explosion.prototype.update = function () {
 
 Explosion.prototype.draw = function () {
 
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.targetX, this.targetY, .3);
+    this.animation.drawFrame(this.game.clockTick, this.ctx, this.targetX -this.game.camera.x, this.targetY - this.game.camera.y, .3);
     //this.explosionTwoAnimation.drawFrame(this.game.clockTick, this.ctx, this.x + 200, this.y, .3);
     Entity.prototype.draw.call(this);
 };

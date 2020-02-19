@@ -441,8 +441,8 @@ AM.downloadAll(function () {
 
     var tank = new Tank(gameEngine);                                                      // the tank Roman and Ross did
     var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
-    var desert = new Desert(gameEngine);                                                  // the map----desert Jerry did
-    gameEngine.map = desert.grid;
+
+
 
 
 
@@ -454,6 +454,8 @@ AM.downloadAll(function () {
     gameEngine.tanks = tanks;
 
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
+    var desert = new Desert(gameEngine);      
+    gameEngine.map = desert.grid;                                            // the map----desert Jerry did
     gameEngine.camera = camera;
 
     gameEngine.addEntity(desert);                                                           // desert map Jerry did

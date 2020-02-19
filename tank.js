@@ -12,10 +12,10 @@ function Tank(game) {
     
     //_________________________________________________________________________________________________________
 
-    this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
-    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_red.png"), 50,0, 50,50,1,1, true,false);
+    this.moveDownAnimation = new Animation(AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
+    this.moveRightAnimation = new Animation(AM.getAsset("./img/tank_red.png"), 50,0, 50,50,1,1, true,false);
     this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red.png"),100,0,50,50,1,1,true,false);
-    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_red.png"),150,0,50, 50,1,1,true, false);
+    this.moveLeftAnimation = new Animation(AM.getAsset("./img/tank_red.png"),150,0,50, 50,1,1,true, false);
 
     this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
     this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
@@ -156,7 +156,7 @@ Tank.prototype.draw = function() {
         this.moveUpAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x, - this.game.camera.x,
+            this.x - this.game.camera.x,
             this.y - this.game.camera.y
         );
         this.up = false;
@@ -166,8 +166,8 @@ Tank.prototype.draw = function() {
         this.moveDownAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x, - this.game.camera.x,
-            this.y, - this.game.camera.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.down = false;
         this.lastMove = "down";
@@ -176,7 +176,7 @@ Tank.prototype.draw = function() {
         this.moveRightAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x, - this.game.camera.x,
+            this.x - this.game.camera.x,
             this.y - this.game.camera.y
         );
         this.right = false;
@@ -186,7 +186,7 @@ Tank.prototype.draw = function() {
         this.moveLeftAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,  - this.game.camera.x,
+            this.x  - this.game.camera.x,
             this.y   - this.game.camera.y
         );
         this.left = false;
@@ -246,37 +246,4 @@ Tank.prototype.draw = function() {
 
     Entity.prototype.draw.call(this);
 };
-
-
-
-// // // check if tank is on the path.
-// function checkValid(game, positionX, positionY) {
-// 	// for (var i = 0; i < game.path.length; i++) { 
-        
-//     //     var startX = game.path[i].x * 50;
-        
-//     //     var startY = game.path[i].y * 50;
-
-
-// 	// 	var endX = game.path[i].x * 50 + 50;
-// 	// 	var endY = game.path[i].y * 50 + 50;
-//     //     // console.log(positionX + " " + positionY );
-        
-// 	// 	if ((positionX) >= startX && (positionX <= endX) && positionY >= startY && (positionY <= endY)) { 
-// 	// 		return true;
-// 	// 	}
-//     // }
-//     // console.log(game.path[50]);
-//    	for (var i = 0; i < game.path.length; i++) { 
-//         var startX = game.path[i].x * 50;
-//         var endX = (game.path[i].x * 50) + 50;
-
-//         if (100 >= startX && 100 <= endX) {
-//             return true;
-//         }
-        
-//     }
-//     return false;
-// 	// return false;
-// }
 

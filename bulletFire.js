@@ -131,7 +131,7 @@ BulletFire.prototype.draw = function () {
         this.ctx.beginPath();
         this.ctx.lineWidth = "1";
         this.ctx.strokeStyle = "red";
-        this.ctx.rect(this.boundingbox.x, this.boundingbox.y, 33, 24);
+        this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y- this.game.camera.y, 33, 24);
         this.ctx.stroke();
 
 
@@ -141,8 +141,8 @@ BulletFire.prototype.draw = function () {
             0,
             33,
             24,
-            this.x,
-            this.y,
+            this.x -this.game.camera.x,
+            this.y  - this.game.camera.y,
             33,
             24
         );
@@ -159,8 +159,8 @@ BulletFire.prototype.draw = function () {
             0,
             19,
             19,
-            this.cursorX,
-            this.cursorY,
+            this.cursorX - this.game.camera.x,
+            this.cursorY - this.game.camera.y,
             19,
             19
         );
