@@ -47,7 +47,7 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
-    console.log(checkValid(this.game, this.x, this.y));
+    // console.log(checkValid(this.game, this.x, this.y));
     var bool = true;
     //Barrell Code
     //____________________________________________________________________________________________________
@@ -249,25 +249,34 @@ Tank.prototype.draw = function() {
 
 
 
-// // check if tank is on the path.
-function checkValid(game, positionX, positionY) {
-    // console.log(positionX);
-	for (var i = 0; i < game.path.length; i++) { 
+// // // check if tank is on the path.
+// function checkValid(game, positionX, positionY) {
+// 	// for (var i = 0; i < game.path.length; i++) { 
         
-        var startX = game.path[i].x * 50;
-        console.log(startX);
+//     //     var startX = game.path[i].x * 50;
         
-        var startY = game.path[i].y * 50;
-        // console.log(startY);
-        debugger;
-		var endX = game.path[i].x * 50 + 50;
-		var endY = game.path[i].y * 50 + 50;
+//     //     var startY = game.path[i].y * 50;
 
-		if ((positionX) >= startX && (positionX+50 <= endX) && positionY >= startY && (positionY+50 <= endY)) { 
-			return true;
-		}
-	}
-	
-	return false;
-}
+
+// 	// 	var endX = game.path[i].x * 50 + 50;
+// 	// 	var endY = game.path[i].y * 50 + 50;
+//     //     // console.log(positionX + " " + positionY );
+        
+// 	// 	if ((positionX) >= startX && (positionX <= endX) && positionY >= startY && (positionY <= endY)) { 
+// 	// 		return true;
+// 	// 	}
+//     // }
+//     // console.log(game.path[50]);
+//    	for (var i = 0; i < game.path.length; i++) { 
+//         var startX = game.path[i].x * 50;
+//         var endX = (game.path[i].x * 50) + 50;
+
+//         if (100 >= startX && 100 <= endX) {
+//             return true;
+//         }
+        
+//     }
+//     return false;
+// 	// return false;
+// }
 
