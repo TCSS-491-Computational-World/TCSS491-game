@@ -381,7 +381,10 @@ Desert.prototype.draw = function () {
   */
   for (let i = 0; i < 50; i++) {
       for (let j = 0; j < 50; j++) {
-          this.ctx.drawImage(this.desertTile, i * w, j * w, w, w);
+          this.ctx.drawImage(this.desertTile, 
+            i * w - this.game.camera.x, 
+            j * w - this.game.camera.y,
+             w, w);
       }
   };
 
@@ -392,8 +395,8 @@ Desert.prototype.draw = function () {
   // draw walls
    for (let i = 0; i < this.game.walls.length; i++) {
        if (this.game.walls[i].contains !== 0 && !(this.game.walls[i].contains.removed)){
-            this.ctx.drawImage(this.game.walls[i].contains.image, this.game.walls[i].contains.x, 
-                this.game.walls[i].contains.y, 
+            this.ctx.drawImage(this.game.walls[i].contains.image, this.game.walls[i].contains.x - this.game.camera.x, 
+                this.game.walls[i].contains.y - this.game.camera.y, 
                 this.game.walls[i].contains.width,
                 this.game.walls[i].contains.height);
        }
@@ -402,14 +405,14 @@ Desert.prototype.draw = function () {
    // draw buildings and trees
    for (let i = 0; i < this.game.buildings.length; i++) {
         if (this.game.buildings[i].contains !== 0 && this.game.buildings[i].contains.type === 'r'){
-            this.ctx.drawImage(this.game.buildings[i].contains.image, this.game.buildings[i].contains.x, 
-             this.game.buildings[i].contains.y, 
+            this.ctx.drawImage(this.game.buildings[i].contains.image, this.game.buildings[i].contains.x- this.game.camera.x, 
+             this.game.buildings[i].contains.y- this.game.camera.y, 
              this.game.buildings[i].contains.width,
              this.game.buildings[i].contains.height);
         }
         else if (this.game.buildings[i].contains !== 0 && this.game.buildings[i].contains.type === 't'){
-            this.ctx.drawImage(this.game.buildings[i].contains.image, this.game.buildings[i].contains.x, 
-            this.game.buildings[i].contains.y, 
+            this.ctx.drawImage(this.game.buildings[i].contains.image, this.game.buildings[i].contains.x- this.game.camera.x, 
+            this.game.buildings[i].contains.y- this.game.camera.y, 
             this.game.buildings[i].contains.width,
             this.game.buildings[i].contains.height);
         }

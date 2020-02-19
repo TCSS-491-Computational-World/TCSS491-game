@@ -184,8 +184,8 @@ Enemy.prototype.draw = function() {
     //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
     drawHealthBar(
         this.ctx,
-        this.x + 12,// - this.game.camera.x,
-        this.y - 5,// - this.game.camera.y,
+        this.x + 12 - this.game.camera.x,
+        this.y - 5 - this.game.camera.y,
         40,
         5,
         this.currentHealth,
@@ -196,8 +196,8 @@ Enemy.prototype.draw = function() {
         this.moveUpRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,// - this.game.camera.x,
-            this.y //- this.game.camera.y
+            this.x  - this.game.camera.x,
+            this.y  - this.game.camera.y
         );
         this.counter++;
         if (this.counter === 100) {
@@ -212,8 +212,8 @@ Enemy.prototype.draw = function() {
         this.moveDownRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,// - this.game.camera.x,
-            this.y// - this.game.camera.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.counter++;
         if (this.counter === 100) {
@@ -227,8 +227,8 @@ Enemy.prototype.draw = function() {
         this.moveRightRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,// - this.game.camera.x,
-            this.y// - this.game.camera.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.counter++;
         if (this.counter === 100) {
@@ -242,8 +242,8 @@ Enemy.prototype.draw = function() {
         this.moveLeftRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,// - this.game.camera.x,
-            this.y// - this.game.camera.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.counter++;
         if (this.counter === 100) {
@@ -259,36 +259,36 @@ Enemy.prototype.draw = function() {
             this.moveLeftRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,// - this.game.camera.x,
-                this.y// - this.game.camera.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "right")
             this.moveRightRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,// - this.game.camera.x,
-                this.y// - this.game.camera.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "down")
             this.moveDownRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,// - this.game.camera.x,
-                this.y // - this.game.camera.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "up")
             this.moveUpRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,// - this.game.camera.x,
-                this.y // - this.game.camera.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "none")
             this.moveUpRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,// - this.game.camera.x,
-                this.y // - this.game.camera.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
     }
     // this.snowballAnimation.drawFrame(
@@ -303,8 +303,8 @@ Enemy.prototype.draw = function() {
     this.ctx.lineWidth = "2";
     this.ctx.strokeStyle = "blue";
     this.ctx.rect(
-        this.boundingbox.x,// - this.game.camera.x,
-        this.boundingbox.y,// - this.game.camera.y,
+        this.boundingbox.x - this.game.camera.x,
+        this.boundingbox.y - this.game.camera.y,
         this.boundingbox.width,
         this.boundingbox.height
     );

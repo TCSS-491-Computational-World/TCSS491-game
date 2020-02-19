@@ -150,14 +150,14 @@ Tank.prototype.update = function() {
 };
 
 Tank.prototype.draw = function() {
-    drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
+    drawHealthBar(this.ctx, this.x+5 -this.game.camera.x, this.y-5 - this.game.camera.y, 40, 4, this.currentHealth, this.maxHealth);
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x, //- this.game.camera.x,
-            this.y,//- this.game.camera.y
+            this.x, - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.up = false;
         this.lastMove = "up";
@@ -166,8 +166,8 @@ Tank.prototype.draw = function() {
         this.moveDownAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,// - this.game.camera.x,
-            this.y,// - this.game.camera.y
+            this.x, - this.game.camera.x,
+            this.y, - this.game.camera.y
         );
         this.down = false;
         this.lastMove = "down";
@@ -176,8 +176,8 @@ Tank.prototype.draw = function() {
         this.moveRightAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,// - this.game.camera.x,
-            this.y,// - this.game.camera.y
+            this.x, - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.right = false;
         this.lastMove = "right";
@@ -186,8 +186,8 @@ Tank.prototype.draw = function() {
         this.moveLeftAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,// - this.game.camera.x,
-            this.y,// - this.game.camera.y
+            this.x,  - this.game.camera.x,
+            this.y   - this.game.camera.y
         );
         this.left = false;
         this.lastMove = "left";
@@ -198,48 +198,48 @@ Tank.prototype.draw = function() {
             this.moveLeftAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,// - this.game.camera.x,
-                this.y,// - this.game.camera.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "right")
             this.moveRightAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x, //- this.game.camera.x,
-                this.y 
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "down")
             this.moveDownAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "up")
             this.moveUpAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "none")
             this.moveUpAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
     }
 
     //Barrell Code
-    this.ctx.drawImage(this.BB, this.x, this.y);
+    this.ctx.drawImage(this.BB, this.x - this.game.camera.x, this.y- this.game.camera.y);
 
 
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
     this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x,
-                     this.boundingbox.y, 
+    this.ctx.rect(this.boundingbox.x - this.game.camera.x,
+                     this.boundingbox.y - this.game.camera.y, 
                      this.boundingbox.width, this.boundingbox.height);
     this.ctx.stroke();
 

@@ -447,16 +447,19 @@ AM.downloadAll(function () {
 
 
 
-    gameEngine.addEntity(desert);                                                           // desert map Jerry did
-    gameEngine.addEntity(tank);
+
     tanks.push(tank);
-    gameEngine.addEntity(enemy);
+
     tanks.push(enemy);
     gameEngine.tanks = tanks;
 
-    var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // carmer on our tank
+    var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
     gameEngine.camera = camera;
 
+    gameEngine.addEntity(desert);                                                           // desert map Jerry did
+    gameEngine.addEntity(tank);
+    gameEngine.addEntity(enemy);
+    gameEngine.addEntity(camera);
 
 
 
