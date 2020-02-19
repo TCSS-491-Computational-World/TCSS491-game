@@ -219,9 +219,10 @@ function checkPath(game) {
     var path = [];
     for (let i = 0; i < game.map.length; i++) {
         for (let j = 0; j < game.map[i].length; j++) {
-            // console.log(grid[i][j].contains);
+            // console.log(game.map[i][j]);
             if (game.map[i][j].contains === 0) {
                 path.push(game.map[i][j]);
+                // console.log(game.map[i][j]);
             }
         }
     }
@@ -272,7 +273,7 @@ function checkBuilding(game) {
             }
         }
     }
-    console.log(buildings);
+    // console.log(buildings);
     return buildings;
 }
 
@@ -333,6 +334,7 @@ Desert.prototype.constructor = Desert;
 
 //更新 update
 Desert.prototype.update = function () {
+    // console.log(this.game.path.length);
     // var deleteElement;
     // walls removed and animation
     for (let i = 0; i < this.game.walls.length; i++) {

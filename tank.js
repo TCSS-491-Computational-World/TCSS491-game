@@ -1,3 +1,6 @@
+
+
+
 function Tank(game) {
     //Barrell Code
     //________________________________________________________________________________________________________
@@ -44,9 +47,7 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
-    // console.log("My tank Path: " + this.game.path.length); // current path is updated after removing a wall. Jerry did.
-    // console.log(checkPath(this.game));
-    // checkPath(this.game);
+    console.log(checkValid(this.game, this.x, this.y));
     var bool = true;
     //Barrell Code
     //____________________________________________________________________________________________________
@@ -97,6 +98,7 @@ Tank.prototype.update = function() {
         this.cleanShot = false;
         //this.bullet.fire = true;
     }
+
 
     if (this.game.keyboard === 38 || this.game.keyboard === 87) {
         //moving up
@@ -247,19 +249,25 @@ Tank.prototype.draw = function() {
 
 
 
+// // check if tank is on the path.
+function checkValid(game, positionX, positionY) {
+    // console.log(positionX);
+	for (var i = 0; i < game.path.length; i++) { 
+        
+        var startX = game.path[i].x * 50;
+        console.log(startX);
+        
+        var startY = game.path[i].y * 50;
+        // console.log(startY);
+        debugger;
+		var endX = game.path[i].x * 50 + 50;
+		var endY = game.path[i].y * 50 + 50;
 
+		if ((positionX) >= startX && (positionX+50 <= endX) && positionY >= startY && (positionY+50 <= endY)) { 
+			return true;
+		}
+	}
+	
+	return false;
+}
 
-
-
-
-
-
-
-// function checkPath(game) {
-//     // console.log(game.path);
-//     for (let i = 0; i< game.path.length; i++) {
-//         return false;
-//     }
-//     return true;
-
-// }
