@@ -3,26 +3,28 @@ function Camera(game, tank_x, tank_y, width, height) {
     // console.log("ddd");
     this.game = game;
     this.ctx = game.ctx;
+    this.x = 0;
+    this.y = 0;
 
-    if (tank_x < 300) {
-        this.x = 0;
-    }
-    else if (tank_x > 2000) {
-        this.x = 2000;
-    }
-    else {
-        this.x = tank_x - width / 2; // the start x-coordinate
-    }
+    // if (tank_x < 300) {
+    //     this.x = 0;
+    // }
+    // else if (tank_x > 2000) {
+    //     this.x = 2000;
+    // }
+    // else {
+    //     this.x = tank_x - width / 2; // the start x-coordinate
+    // }
 
-    if (tank_y < 300) {
-        this.y = 0;
-    }
-    else if (tank_y > 2200) {
-        this.y = 2200;
-    }
-    else {
-        this.y = tank_y - height / 2; // the start x-coordinate
-    }
+    // if (tank_y < 300) {
+    //     this.y = 0;
+    // }
+    // else if (tank_y > 2200) {
+    //     this.y = 2200;
+    // }
+    // else {
+    //     this.y = tank_y - height / 2; // the start x-coordinate
+    // }
 
     
 
