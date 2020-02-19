@@ -373,8 +373,6 @@ EnemyTank.prototype.draw = function() {
     }
 
 
-
-
     //Barrell Code
     this.ctx.drawImage(this.BB, this.x, this.y);
 
