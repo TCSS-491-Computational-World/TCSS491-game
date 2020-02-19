@@ -13,10 +13,22 @@ function Camera(game, tank_x, tank_y, width, height) {
     else {
         this.x = tank_x - width / 2; // the start x-coordinate
     }
+
+    if (tank_y < 300) {
+        this.y = 0;
+    }
+    else if (tank_y > 2200) {
+        this.y = 2200;
+    }
+    else {
+        this.y = tank_y - height / 2; // the start x-coordinate
+    }
+
     
 
+
     // this.endX = tank_x + width / 2; // the start x-coordinate
-    this.y = tank_y - height / 2; // the end x-coordinate
+    // this.y = tank_y - height / 2; // the end x-coordinate
     // this.endY = tank_y + height / 2; // the end y-coordinate
     this.width = width; // the end x-coordinate
     this.height = height; // the end y-coordinate
