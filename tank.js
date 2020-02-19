@@ -154,8 +154,8 @@ Tank.prototype.draw = function() {
         this.moveUpAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x, //- this.game.camera.x,
+            this.y,//- this.game.camera.y
         );
         this.up = false;
         this.lastMove = "up";
@@ -164,8 +164,8 @@ Tank.prototype.draw = function() {
         this.moveDownAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x,// - this.game.camera.x,
+            this.y,// - this.game.camera.y
         );
         this.down = false;
         this.lastMove = "down";
@@ -174,8 +174,8 @@ Tank.prototype.draw = function() {
         this.moveRightAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x,// - this.game.camera.x,
+            this.y,// - this.game.camera.y
         );
         this.right = false;
         this.lastMove = "right";
@@ -184,8 +184,8 @@ Tank.prototype.draw = function() {
         this.moveLeftAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x,// - this.game.camera.x,
+            this.y,// - this.game.camera.y
         );
         this.left = false;
         this.lastMove = "left";
@@ -196,15 +196,15 @@ Tank.prototype.draw = function() {
             this.moveLeftAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x,// - this.game.camera.x,
+                this.y,// - this.game.camera.y
             );
         if (this.lastMove === "right")
             this.moveRightAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x, //- this.game.camera.x,
+                this.y 
             );
         if (this.lastMove === "down")
             this.moveDownAnimation.drawFrame(
@@ -236,7 +236,9 @@ Tank.prototype.draw = function() {
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
     this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    this.ctx.rect(this.boundingbox.x,
+                     this.boundingbox.y, 
+                     this.boundingbox.width, this.boundingbox.height);
     this.ctx.stroke();
 
 

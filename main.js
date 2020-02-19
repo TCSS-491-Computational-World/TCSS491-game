@@ -443,31 +443,19 @@ AM.downloadAll(function () {
     var enemy = new Enemy(gameEngine);                                                    // the enemy robot Roman did
     var desert = new Desert(gameEngine);                                                  // the map----desert Jerry did
     gameEngine.map = desert.grid;
-    // console.log(desert.grid);
-    // var enviornment = new Enviornment(gameEngine);
+
+
+
 
     gameEngine.addEntity(desert);                                                           // desert map Jerry did
-    // gameEngine.addEntity(enviornment); // block the way
     gameEngine.addEntity(tank);
     tanks.push(tank);
     gameEngine.addEntity(enemy);
     tanks.push(enemy);
     gameEngine.tanks = tanks;
+    var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);
+    gameEngine.camera = camera;
 
-    // console.log(gameEngine.wall.length);                                                            // checked the amount of walls 
-    // console.log(gameEngine.map.length);                                                          // checked map in gameEngine Jerry did
-    // console.log(gameEngine.path.length);
-
-    // gameEngine.addEntity(barrell);
-
-    // gameEngine.addEntity(vehicle);
-
- 
-
-    //var enviornment2 = new Enviornment(gameEngine);
-
-    //  gameEngine.addEntity(explosion);
-    //  gameEngine.addEntity(bulletfire);
 
 
 
