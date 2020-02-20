@@ -209,7 +209,7 @@ Robot.prototype.update = function() {
     }
 
 
-    if (this.up === true) {
+    if (this.up === true    && this.y >=0) {
         
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -225,7 +225,7 @@ Robot.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true) {
+    if (this.right === true     && this.x <=2500) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -240,7 +240,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true) {
+    if (this.down === true  &&  this.y <=2500) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -254,7 +254,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = true;
     }
-    if (this.left === true) {
+    if (this.left === true  && this.x >=0) {
 
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;

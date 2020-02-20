@@ -136,7 +136,7 @@ Tank.prototype.update = function() {
         this.cursorY = this.game.mouse.y;
         this.bullet = this.rotateAndCache(AM.getAsset("./img/bullet_red_2.png"), theta);
         this.BB = this.rotateAndCache(
-            AM.getAsset("./img/tank_red2Barrell.png"),
+            AM.getAsset("./img/tank_green2Barrell.png"),
             theta
         );
         //console.log(this.spritesheet);
@@ -149,7 +149,7 @@ Tank.prototype.update = function() {
         //this.cursorX = this.game.mouse.x;
         //this.cursorY = this.game.mouse.y;
         this.BB = this.rotateAndCache(
-            AM.getAsset("./img/tank_red2Barrell.png"),
+            AM.getAsset("./img/tank_green2Barrell.png"),
             theta
         );
     }
@@ -184,8 +184,9 @@ Tank.prototype.update = function() {
         }
     }
 
-    console.log("WASD: " + this.game.keyboard);for(i = 0; i < this.game.tanks.length; i++){
+    console.log("WASD: " + this.game.keyboard);
 
+    for(i = 0; i < this.game.tanks.length; i++){
         if(i != this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
             this.collision = true;
             if(this.lastMove === "down"){
@@ -252,7 +253,7 @@ Tank.prototype.update = function() {
         this.lastState = 4;
         diagnol = true;
     }
-    if (this.TankState == 4) {
+    if (this.TankState == 4  && this.x <= 2450 && this.y >=0) {
 
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -272,7 +273,7 @@ Tank.prototype.update = function() {
         this.lastState = 6;
         diagnol = true;
     }
-    if (this.TankState == 6) {
+    if (this.TankState == 6   && this.x >=0 && this.y >=0) {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
         this.triggerbox.y -= this.speed;
@@ -291,7 +292,7 @@ Tank.prototype.update = function() {
         this.lastState = 8;
         diagnol = true;
     }
-    if (this.TankState == 8) {
+    if (this.TankState == 8  && this.x >= 0 && this.y <= 2450) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -310,7 +311,7 @@ Tank.prototype.update = function() {
         this.lastState = 2;
         diagnol = true;
     }
-    if (this.TankState == 2) {
+    if (this.TankState == 2  && this.x <= 2450 && this.y <= 2450) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -328,7 +329,7 @@ Tank.prototype.update = function() {
         this.TankState = 5;
         this.lastState = 5;
     }
-    if (this.TankState == 5) {
+    if (this.TankState == 5  && this.y >=0) {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
         this.triggerbox.y -= this.speed;
@@ -340,7 +341,7 @@ Tank.prototype.update = function() {
         this.TankState = 3;
         this.lastState = 3;
     }
-    if (this.TankState == 3) {
+    if (this.TankState == 3    && this.x <= 2450) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -352,7 +353,7 @@ Tank.prototype.update = function() {
         this.TankState = 1;
         this.lastState = 1;
     }
-    if (this.TankState == 1) {
+    if (this.TankState == 1  && this.y <=2450) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -364,7 +365,7 @@ Tank.prototype.update = function() {
         this.TankState = 7;
         this.lastState = 7;
     }
-    if (this.TankState == 7) {
+    if (this.TankState == 7   && this.x >=0) {
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
         this.triggerbox.x -= this.speed;

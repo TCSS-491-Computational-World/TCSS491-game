@@ -1,4 +1,4 @@
-// var grid = new Array(100);
+// var grid = new Array(50);
 
 //尝试知道每个格子都有什么 contains for each c
 function Cell(theX, theY, theContain) {

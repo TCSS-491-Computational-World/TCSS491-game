@@ -1,35 +1,36 @@
 //create camera for the scrolling feature.
 function Camera(game, tank_x, tank_y, width, height) {
     // console.log("ddd");
+    // console.log(tank_x);
     this.game = game;
     this.ctx = game.ctx;
-    this.x = 0;
-    this.y = 0;
+    // this.x = 0;
+    // this.y = 0;
 
     this.walls;
     this.buildings;
     this.tanks;
     
 
-    // if (tank_x < 300) {
-    //     this.x = 0;
-    // }
-    // else if (tank_x > 2000) {
-    //     this.x = 2000;
-    // }
-    // else {
-    //     this.x = tank_x - width / 2; // the start x-coordinate
-    // }
+    if (tank_x < 300) {
+        this.x = 0;
+    }
+    else if (tank_x > 2000) {
+        this.x = 2000;
+    }
+    else {
+        this.x = tank_x - width / 2; // the start x-coordinate
+    }
 
-    // if (tank_y < 300) {
-    //     this.y = 0;
-    // }
-    // else if (tank_y > 2200) {
-    //     this.y = 2200;
-    // }
-    // else {
-    //     this.y = tank_y - height / 2; // the start x-coordinate
-    // }
+    if (tank_y < 300) {
+        this.y = 0;
+    }
+    else if (tank_y > 2200) {
+        this.y = 2200;
+    }
+    else {
+        this.y = tank_y - height / 2; // the start x-coordinate
+    }
 
     
 
@@ -49,7 +50,7 @@ Camera.prototype.constructor = Camera;
 
 Camera.prototype.draw = function() {
     // console.log(this.game.tanks[0].y);
-
+    console.log(this.x);
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
     this.ctx.strokeStyle = "red";
@@ -59,9 +60,20 @@ Camera.prototype.draw = function() {
         this.width,
         this.height
     );
-    this.ctx.strokeStyle = 'blue';
-    this.ctx.fillStyle = 'pink';
-    this.ctx.fillRect(this.x - this.game.camera.x + 800,this.y-this.game.camera.y + 400,200,200);
+
+
+    if (this.game.tanks[0].x >= 2300 && this.game.tanks[0].y >=2300) {
+        
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.fillStyle = 'pink';
+        this.ctx.fillRect(this.x - this.game.camera.x,this.y-this.game.camera.y + 400,200,200);
+    }
+    else{
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.fillStyle = 'pink';
+        this.ctx.fillRect(this.x - this.game.camera.x + 800,this.y-this.game.camera.y + 400,200,200);
+    }
+
 
     var pixel = 4;
     // walls drawing on the minimap
