@@ -100,14 +100,14 @@ Camera.prototype.draw = function() {
         // draw buildings
         if (this.buildings[i].contains.type === 'r') {
             if (this.game.tanks[0].x >= 2300 && this.game.tanks[0].y >=2300) {
-                this.ctx.strokeStyle = 'brown';
-                this.ctx.strokeRect(this.x-this.game.camera.x + (this.buildings[i].x * pixel),
+                this.ctx.fillStyle = 'brown';
+                this.ctx.fillRect(this.x-this.game.camera.x + (this.buildings[i].x * pixel),
                                     this.y-this.game.camera.y + 400 + (this.buildings[i].y * pixel),
                                     pixel*5,pixel*5);
             }
             else {
-                this.ctx.strokeStyle = 'brown';
-                this.ctx.strokeRect(this.x-this.game.camera.x + 800 + (this.buildings[i].x * pixel),
+                this.ctx.fillStyle = 'brown';
+                this.ctx.fillRect(this.x-this.game.camera.x + 800 + (this.buildings[i].x * pixel),
                                     this.y-this.game.camera.y + 400 + (this.buildings[i].y * pixel),
                                     pixel*5,pixel*5);
             }
