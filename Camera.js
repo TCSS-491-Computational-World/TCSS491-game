@@ -6,6 +6,11 @@ function Camera(game, tank_x, tank_y, width, height) {
     this.x = 0;
     this.y = 0;
 
+    this.walls;
+    this.buildings;
+    this.tanks;
+    
+
     // if (tank_x < 300) {
     //     this.x = 0;
     // }
@@ -54,9 +59,31 @@ Camera.prototype.draw = function() {
         this.width,
         this.height
     );
+    this.ctx.strokeStyle = 'blue';
+    this.ctx.fillStyle = 'pink';
+    this.ctx.fillRect(this.x - this.game.camera.x + 800,this.y-this.game.camera.y + 400,200,200);
 
-    //this.ctx.rect(this.startX, this.endX, this.startY, this.endY);
-    //this.ctx.stroke();
+    var pixel = 4;
+    // walls drawing on the minimap
+    for (let i = 0; i < this.walls.length; i++){
+        // draw a rectangle for walls with black;
+    }
+    // buildings drawing on the minimap
+    for (let i = 0; i < this.buildings.length; i++){
+        // draw a rectangle for a building using brown and a tree using green
+    }
+
+    for (let i = 0; i < this.tanks.length; i++) {
+        // draw our tank using blue index 0 using a circle;
+
+        // draw enemy tanks or vehicles using red circle.
+    }
+
+
+
+
+    // this.ctx.rect(this.startX, this.endX, this.startY, this.endY);
+    // this.ctx.stroke();
 
     Entity.prototype.draw.call(this);
 };
@@ -77,6 +104,12 @@ Camera.prototype.update = function() {
         this.x = this.game.tanks[0].x - this.width / 2;
         this.y = this.game.tanks[0].y - this.height / 2;
     }
+
+    // update all components from actual map and tanks
+    this.walls = this.game.walls;
+    this.buildings = this.game.buildings;
+    this.tanks = this.game.tanks;
+
 
 
 
