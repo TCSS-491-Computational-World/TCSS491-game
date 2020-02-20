@@ -75,20 +75,92 @@ Camera.prototype.draw = function() {
     }
 
 
+
     var pixel = 4;
     // walls drawing on the minimap
     for (let i = 0; i < this.walls.length; i++){
         // draw a rectangle for walls with black;
+        if (this.game.tanks[0].x >= 2300 && this.game.tanks[0].y >=2300) {
+            this.ctx.strokeStyle = 'black';
+            this.ctx.strokeRect(this.x-this.game.camera.x + (this.walls[i].x * pixel),
+                                this.y-this.game.camera.y + 400 + (this.walls[i].y * pixel),
+                                pixel,pixel);
+        }
+        else {
+            this.ctx.strokeStyle = 'black';
+            this.ctx.strokeRect(this.x-this.game.camera.x + 800 + (this.walls[i].x * pixel),
+                                this.y-this.game.camera.y + 400 + (this.walls[i].y * pixel),
+                                pixel,pixel);
+        }
+
     }
     // buildings drawing on the minimap
     for (let i = 0; i < this.buildings.length; i++){
         // draw a rectangle for a building using brown and a tree using green
+        // draw buildings
+        if (this.buildings[i].contains.type === 'r') {
+            if (this.game.tanks[0].x >= 2300 && this.game.tanks[0].y >=2300) {
+                this.ctx.strokeStyle = 'brown';
+                this.ctx.strokeRect(this.x-this.game.camera.x + (this.buildings[i].x * pixel),
+                                    this.y-this.game.camera.y + 400 + (this.buildings[i].y * pixel),
+                                    pixel*5,pixel*5);
+            }
+            else {
+                this.ctx.strokeStyle = 'brown';
+                this.ctx.strokeRect(this.x-this.game.camera.x + 800 + (this.buildings[i].x * pixel),
+                                    this.y-this.game.camera.y + 400 + (this.buildings[i].y * pixel),
+                                    pixel*5,pixel*5);
+            }
+        }
+        else {
+            // draw trees
+            if (this.game.tanks[0].x >= 2300 && this.game.tanks[0].y >=2300) {
+                this.ctx.strokeStyle = 'green';
+                this.ctx.strokeRect(this.x-this.game.camera.x + (this.buildings[i].x * pixel),
+                                    this.y-this.game.camera.y + 400 + (this.buildings[i].y * pixel),
+                                    pixel*2,pixel*2);
+            }
+            else {
+                this.ctx.strokeStyle = 'green';
+                this.ctx.strokeRect(this.x-this.game.camera.x + 800 + (this.buildings[i].x * pixel),
+                                    this.y-this.game.camera.y + 400 + (this.buildings[i].y * pixel),
+                                    pixel*2,pixel*2);
+            }
+        }
     }
 
+    console.log(this.tanks[0]);
     for (let i = 0; i < this.tanks.length; i++) {
         // draw our tank using blue index 0 using a circle;
-
+        if (i === 0) {
+            if (this.game.tanks[0].x >= 2300 && this.game.tanks[0].y >=2300) {
+                this.ctx.strokeStyle = 'blue';
+                this.ctx.strokeRect(this.x-this.game.camera.x + (this.tanks[i].x / 50 * pixel),
+                this.y-this.game.camera.y + 400 + (this.tanks[i].y / 50 * pixel),
+                pixel,pixel);                                
+            }
+            else {
+                this.ctx.strokeStyle = 'blue';
+                this.ctx.strokeRect(this.x-this.game.camera.x + 800 + (this.tanks[i].x / 50 * pixel),
+                                    this.y-this.game.camera.y + 400 + (this.tanks[i].y / 50 * pixel),
+                                    pixel,pixel);
+            }
+        }
         // draw enemy tanks or vehicles using red circle.
+        else {
+            if (this.game.tanks[0].x >= 2300 && this.game.tanks[0].y >=2300) {
+                this.ctx.strokeStyle = 'red';
+                this.ctx.strokeRect(this.x-this.game.camera.x + (this.tanks[i].x / 50 * pixel),
+                this.y-this.game.camera.y + 400 + (this.tanks[i].y / 50 * pixel),
+                pixel,pixel);                                
+            }
+            else {
+                this.ctx.strokeStyle = 'red';
+                this.ctx.strokeRect(this.x-this.game.camera.x + 800 + (this.tanks[i].x / 50 * pixel),
+                                    this.y-this.game.camera.y + 400 + (this.tanks[i].y / 50 * pixel),
+                                    pixel,pixel);
+            }
+        }
     }
 
 
