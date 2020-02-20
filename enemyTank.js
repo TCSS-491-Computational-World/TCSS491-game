@@ -159,27 +159,24 @@ EnemyTank.prototype.update = function() {
         //this.bullet.fire = true;
     }
 
-    if(this.x >= 799){
-        //this.lastMove = "left";
-        this.random = 76;
-    }
-    if(this.x <= 1){
-        //this.lastMove = "right";
-        this.random = 26;
-    }
-    if(this.y <= 1){
-        //this.lastMove = "down";
-        this.random = 51;
-    }
-    if(this.y >= 799){
-        //this.lastMove = "up";
-        this.random = 1;
-    }
-
+    // if(this.x - this.game.camera.x >= 800){
+    //     //this.lastMove = "left";
+    //     this.random = 76;
+    // }
+    // if(this.x - this.game.camera.x <= 0){
+    //     //this.lastMove = "right";
+    //     this.random = 26;
+    // }
+    // if(this.y - this.game.camera.y <= 0){
+    //     //this.lastMove = "down";
+    //     this.random = 51;
+    // }
+    // if(this.y - this.game.camera.y >= 800){
+    //     //this.lastMove = "up";
+    //     this.random = 1;
+    // }
 
     this.collision = false;
-
-    
 
     for(i = 0; i < this.game.tanks.length; i++){
 
