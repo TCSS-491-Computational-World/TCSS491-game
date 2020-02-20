@@ -193,6 +193,10 @@ Robot.prototype.update = function() {
         } 
     }
 
+
+
+    
+
     if(this.collision === false){
         //do nothing
         //this.speed = 1;
