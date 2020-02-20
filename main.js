@@ -411,6 +411,10 @@ AM.queueDownload("./img/cursor.png");
 AM.queueDownload("./img/grass.png");
 AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
+// merge
+AM.queueDownload("./img/tank_red8D.png");
+AM.queueDownload("./img/tank_green8D.png");
+
 AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/Puddle_01.png");
 AM.queueDownload("./img/coin2.png");
@@ -418,6 +422,9 @@ AM.queueDownload("./img/bullet_red_2.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
 AM.queueDownload("./img/tank_red2Barrell.png");
+//merge
+AM.queueDownload("./img/tank_green2Barrell.png");
+
 AM.queueDownload("./img/snowball_01.png");
 
 
@@ -438,11 +445,20 @@ AM.downloadAll(function () {
 
 
     var tank = new Tank(gameEngine);                                                        // the tank Roman and Ross did
-    var enemy = new Enemy(gameEngine);                                                      // the enemy robot Roman did
+    // var enemy = new Enemy(gameEngine);   
+    var enemytank1 = new EnemyTank(gameEngine, 700, 700);
+    var enemytank2 = new EnemyTank(gameEngine , 500, 500);
+    var enemytank3 = new EnemyTank(gameEngine , 300, 300);  
+    var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
 
     tanks.push(tank);
+    tanks.push(enemytank1);
+    tanks.push(enemytank2);
+    tanks.push(enemytank3);
+    tanks.push(enemyRobot);
 
-    tanks.push(enemy);
+
+    // tanks.push(enemy);
     gameEngine.tanks = tanks;
 
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
@@ -452,8 +468,13 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(desert);                                                           // desert map Jerry did
     gameEngine.addEntity(tank);
-    gameEngine.addEntity(enemy);
+    gameEngine.addEntity(enemytank1);
+    gameEngine.addEntity(enemytank2);
+    gameEngine.addEntity(enemytank3);
+    gameEngine.addEntity(enemyRobot);
+    // gameEngine.addEntity(enemy);
     gameEngine.addEntity(camera);
+
 
 
 

@@ -1,6 +1,6 @@
 function Explosion(game, image, fire, targetX, targetY) {
     this.image = image;
-    this.fire = false;
+    // this.fire = false;
     this.fire = fire;
     this.targetX = targetX;
     this.targetY = targetY;
@@ -39,11 +39,13 @@ function Explosion(game, image, fire, targetX, targetY) {
 Explosion.prototype = new Entity();
 Explosion.prototype.constructor = Explosion;
 
-Explosion.prototype.update = function () {
+// Commented when I merge into master, Jerry Commented
 
-    Entity.prototype.update.call(this);
+// Explosion.prototype.update = function () {
 
-};
+//     Entity.prototype.update.call(this);
+
+// };
 
 Explosion.prototype.draw = function () {
 
