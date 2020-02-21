@@ -73,8 +73,8 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function (e) {
         that.click = getXandY(e);
-        console.log(e);
-        console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        // console.log(e);
+        // console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         // document.getElementById("ctx").onclick = function() {
         //      document.getElementById("ctx").innerHTML = ' YOU CLICKED ME';
         // }
@@ -86,8 +86,8 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("contextmenu", function (e) {
         that.click = getXandY(e);
-        console.log(e);
-        console.log("Right Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        // console.log(e);
+        // console.log("Right Click Event - X,Y " + e.clientX + ", " + e.clientY);
         e.preventDefault();
     }, false);
 
@@ -97,9 +97,9 @@ GameEngine.prototype.startInput = function () {
     }, false);
 
     this.ctx.canvas.addEventListener("mousewheel", function (e) {
-        console.log(e);
+        // console.log(e);
         that.wheel = e;
-        console.log("wheeling Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
+        // console.log("wheeling Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
     }, false);
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
