@@ -430,7 +430,7 @@ Desert.prototype.draw = function () {
 //       }
 //   }
 
-  // drawGrid();
+  drawGrid(this.ctx);
 //   this.setUpComponents(); // It should install in environment.
   // this.coinAnimation.drawFrame(this.game.clockTick, ctx, 100, 100, 1);
   Entity.prototype.draw.call(this);

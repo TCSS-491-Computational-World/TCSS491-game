@@ -187,31 +187,34 @@ EnemyTank.prototype.update = function() {
             this.collision = true;
         } 
     }
+    
 
-    //     // console.log(this.game.walls[0].contains.boundingbox);
-    for (let i = 0; i < this.game.walls.length; i++) {
-        if(this.boundingbox.collide(this.game.walls[i].contains.boundingbox)){
+    // here is a bug   Jerry fixed the enmey bank will reset on the top left of corner.
 
-            this.game.walls[i].contains.cleanShot = true;
-            this.fire = false;
-            this.x = this.game.walls[i].x;
-            this.y = this.game.walls[i].y;
-            this.boundingbox.x =    this.game.walls[i].x;
-            this.boundingbox.y =    this.game.walls[i].y;
-        }
-    }
+    // //     // console.log(this.game.walls[0].contains.boundingbox);
+    // for (let i = 0; i < this.game.walls.length; i++) {
+    //     if(this.boundingbox.collide(this.game.walls[i].contains.boundingbox)){
 
-    for (let i = 0; i < this.game.buildings.length; i++) {
-        if(this.boundingbox.collide(this.game.buildings[i].contains.boundingbox)){
+    //         this.game.walls[i].contains.cleanShot = true;
+    //         this.fire = false;
+    //         // this.x = this.game.walls[i].x;
+    //         // this.y = this.game.walls[i].y;
+    //         this.boundingbox.x =    this.game.walls[i].x;
+    //         this.boundingbox.y =    this.game.walls[i].y;
+    //     }
+    // }
 
-            this.game.buildings[i].contains.cleanShot = true;
-            this.fire = false;
-            this.x = this.game.buildings[i].x;
-            this.y = this.game.buildings[i].y;
-            this.boundingbox.x =    this.game.buildings[i].x;
-            this.boundingbox.y =    this.game.buildings[i].y;
-        }
-    }
+    // for (let i = 0; i < this.game.buildings.length; i++) {
+    //     if(this.boundingbox.collide(this.game.buildings[i].contains.boundingbox)){
+
+    //         this.game.buildings[i].contains.cleanShot = true;
+    //         this.fire = false;
+    //         // this.x = this.game.buildings[i].x;
+    //         // this.y = this.game.buildings[i].y;
+    //         this.boundingbox.x =    this.game.buildings[i].x;
+    //         this.boundingbox.y =    this.game.buildings[i].y;
+    //     }
+    // }
 
     if(this.collision === false){
         //do nothing

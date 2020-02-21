@@ -49,8 +49,9 @@ Camera.prototype = new Entity();
 Camera.prototype.constructor = Camera;
 
 Camera.prototype.draw = function() {
+
     // console.log(this.game.tanks[0].y);
-    console.log(this.x);
+    // console.log(this.x);
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
     this.ctx.strokeStyle = "red";
@@ -129,7 +130,7 @@ Camera.prototype.draw = function() {
         }
     }
 
-    console.log(this.tanks[0]);
+    // console.log(this.tanks[0]);
     for (let i = 0; i < this.tanks.length; i++) {
         // draw our tank using blue index 0 using a circle;
         if (i === 0) {
