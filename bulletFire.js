@@ -64,10 +64,11 @@ BulletFire.prototype.update = function () {
 
 // EDDDDDDIT THIS LATTTTER!!!
 
-    for(i = 0; i < this.game.tanks.length; i++){
-
-        if(i != this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
+    for(let i = 0; i < this.game.tanks.length; i++){
+        // console.log("My I：" + i);
+        if(i !== this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
             //console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
+            console.log("My I：" + i);
             this.game.tanks[i].cleanShot = true;
             this.fire = false;
             this.x = this.tankX;
@@ -119,7 +120,7 @@ BulletFire.prototype.update = function () {
     if (this.x > this.tankX + 2000|| this.y > this.tankY + 2000 || this.x < this.tankX - 2000 || this.y < this.tankY - 2000) {
         //console.log("IS ANYTHING HAPPENING HERE!??!?");
 
-        this.game.entities[this.game.entities.length - 1].removeFromWorld = true; //
+        this.game.entities[this.game.entities.length - 1].removeFromWorld = true; // 
         this.fire = false;
         this.x = this.tankX;
         this.y = this.tankY;

@@ -88,7 +88,7 @@ function Tank(game) {
     this.currentHealth = 200;
 
     this.collision;
-    this.tankIndex;
+    this.tankIndex = 0;
     this.tempList;
 
     this.lastState;
@@ -163,7 +163,7 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x - 16) - this.game.camera.x), ((this.y - 16) - this.game.camera.y), this.cursorX - this.game.camera.x, this.cursorY - this.game.camera.y, theta);
+        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x) - this.game.camera.x), ((this.y - 16) - this.game.camera.y), this.cursorX - this.game.camera.x, this.cursorY - this.game.camera.y, theta);
         this.game.addEntity(bulletShot);
         mySound.play();
         this.shooting = false;
