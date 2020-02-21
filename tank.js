@@ -813,7 +813,8 @@ function findPath(game, tank_x, tank_y, direction, speed) {
             return false;
         }
     }
-
+    // console.log(game.buildings);
+    // debugger;
     // Using 
     for (let i = 0; i < game.buildings.length; i++) {
         if (game.buildings[i].contains.type === 't') {
@@ -826,16 +827,23 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        else if (game.buildings[0].contains.type === 'r') {
-            var startX  =   game.buildings[0].x * 50 - 2;
-            var startY  =   game.buildings[0].y * 50 + 40;
-            var endX    =   game.buildings[0].x * 50 + 142;
-            var endY    =   game.buildings[0].y * 50 + 250;
+        else if (game.buildings[23].contains.type === 'r') {
+            var startX  =   game.buildings[23].x * 50 + 10;
+            var startY  =   game.buildings[23].y * 50 + 60;
+            var endX    =   game.buildings[23].x * 50 + 220;
+            var endY    =   game.buildings[23].y * 50 + 170;
             
-            var secondX = endX; 
-            var secondY = startY + 40;
-            var endSecondX = endX + 100;
-            var endSecondY = endY;
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        else if (game.buildings[1].contains.type === 'r') {
+            var startX  =   game.buildings[1].x * 50 + 10;
+            var startY  =   game.buildings[1].y * 50 + 60;
+            var endX    =   game.buildings[1].x * 50 + 220;
+            var endY    =   game.buildings[0].y * 50 + 170;
+            
             if (tank_x + 40 > startX && tank_x < endX  
                 && tank_y + 40 > startY && tank_y < endY) {
                 return false;

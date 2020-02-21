@@ -163,12 +163,12 @@ function setUp() {
             else if ( // draw a roof
                 (i === 13 && j === 44)
             ) {
-                grid[i][j] = new Cell(i,j,new Component(this.roofFirst, i* w, j *w+25, 250,250,'r'));
+                grid[i][j] = new Cell(i,j,new Component(this.roofSecond, i* w, j *w +50, 250,200,'r'));
             }   
             else if ( // draw a roof
                 (i === 34 && j === 1)
             ) {
-                grid[i][j] = new Cell(i,j,new Component(this.roofFirst, i* w, j *w-25, 250,250,'r'));
+                grid[i][j] = new Cell(i,j,new Component(this.roofSecond, i* w, j *w, 250,200,'r'));
             }
             else if (
                 (i === 18 && j === 16) 
