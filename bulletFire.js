@@ -119,7 +119,7 @@ BulletFire.prototype.update = function () {
     if (this.x > this.tankX + 2000|| this.y > this.tankY + 2000 || this.x < this.tankX - 2000 || this.y < this.tankY - 2000) {
         //console.log("IS ANYTHING HAPPENING HERE!??!?");
 
-        this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
+        this.game.entities[this.game.entities.length - 1].removeFromWorld = true; //
         this.fire = false;
         this.x = this.tankX;
         this.y = this.tankY;
@@ -146,8 +146,8 @@ BulletFire.prototype.update = function () {
     if (this.game.mouse) {
         document.getElementById("gameWorld").style.cursor = "none";
         this.cursor = true;
-        this.cursorX = this.game.mouse.x;
-        this.cursorY = this.game.mouse.y;
+        this.cursorX = this.game.mouse.x;// -this.game.camera.x;
+        this.cursorY = this.game.mouse.y; // - this.game.camera.y;
     }
 
     Entity.prototype.update.call(this);
@@ -219,8 +219,8 @@ BulletFire.prototype.draw = function () {
             0,
             19,
             19,
-            this.cursorX ,
-            this.cursorY ,
+            this.cursorX,
+            this.cursorY,
             19,
             19
         );
