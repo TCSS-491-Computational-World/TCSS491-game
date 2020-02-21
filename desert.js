@@ -442,6 +442,15 @@ Desert.prototype.draw = function () {
 
 
 
+// 就是画格子
+function drawGrid(game) {
+    var w = 50;
+    for (let i = 0; i < 50; i++) {
+        for (let j = 0; j < 50; j++) {
+            game.ctx.strokeRect(i * w - game.camera.x, j * w - game.camera.y, w, w);
+        }
+    }
+  }
 
 
 
@@ -666,13 +675,3 @@ Desert.prototype.setUpComponents = function () {
 };
 
 
-
-// 就是画格子
-function drawGrid(game) {
-  var w = 50;
-  for (let i = 0; i < 50; i++) {
-      for (let j = 0; j < 50; j++) {
-          game.ctx.strokeRect(i * w - game.camera.x, j * w - game.camera.y, w, w);
-      }
-  }
-}
