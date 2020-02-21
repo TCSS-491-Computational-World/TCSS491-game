@@ -4,8 +4,8 @@ function Camera(game, tank_x, tank_y, width, height) {
     // console.log(tank_x);
     this.game = game;
     this.ctx = game.ctx;
-    // this.x = 0;
-    // this.y = 0;
+    this.x = 0;
+    this.y = 0;
 
     this.walls;
     this.buildings;

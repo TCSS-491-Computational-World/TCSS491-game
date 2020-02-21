@@ -51,7 +51,7 @@ function EnemyTank(game, x, y) {
 }
 
 EnemyTank.prototype = new Entity();
-EnemyTank.prototype.constructor = Tank;
+EnemyTank.prototype.constructor = EnemyTank;
 
 EnemyTank.prototype.update = function() {
 

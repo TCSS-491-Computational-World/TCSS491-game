@@ -89,6 +89,12 @@ BulletFire.prototype.update = function () {
             this.y = this.game.walls[i].y;
             this.boundingbox.x =    this.game.walls[i].x;
             this.boundingbox.y =    this.game.walls[i].y;
+            for(i = 0; i < this.game.entities.length; i++){
+                if(this.game.entities[i] === this.game.walls[i]){
+                    this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
+                }
+            }
+            
         }
     }
 
@@ -101,6 +107,11 @@ BulletFire.prototype.update = function () {
             this.y = this.game.buildings[i].y;
             this.boundingbox.x =    this.game.buildings[i].x;
             this.boundingbox.y =    this.game.buildings[i].y;
+            for(i = 0; i < this.game.entities.length; i++){
+                if(this.game.entities[i] === this.game.buildings[i]){
+                    this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
+                }
+            }
         }
     }
     
@@ -165,6 +176,7 @@ BulletFire.prototype.draw = function () {
             33,
             24
         );
+        //this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, .1);
 
         
         //this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
@@ -207,8 +219,8 @@ BulletFire.prototype.draw = function () {
             0,
             19,
             19,
-            this.cursorX - this.game.camera.x,
-            this.cursorY - this.game.camera.y,
+            this.cursorX ,
+            this.cursorY ,
             19,
             19
         );
