@@ -183,6 +183,7 @@ Tank.prototype.update = function() {
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
             this.game.tanks = removeCurrentTank(this.game.tanks, this.tankIndex);
+            window.location.href = "gameover.html";
             
         }
     }
