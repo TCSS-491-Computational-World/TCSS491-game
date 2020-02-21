@@ -460,7 +460,7 @@ AM.downloadAll(function () {
 
     // tanks.push(enemy);
     gameEngine.tanks = tanks;
-
+    var gameScore = new Score(gameEngine, 0); //game score for player
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
     var desert = new Desert(gameEngine);      
     gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
@@ -474,7 +474,7 @@ AM.downloadAll(function () {
     // gameEngine.addEntity(enemyRobot);
     // gameEngine.addEntity(enemy);
     gameEngine.addEntity(camera);
-
+    gameEngine.addEntity(gameScore);
 
 
 

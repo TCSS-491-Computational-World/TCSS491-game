@@ -21,6 +21,8 @@ function GameEngine() {
     // this.keyboard = null;
     this.keyboard = [W = false,A = false,S = false,D = false]
 
+    this.gameScore = 0;
+
     this.camera = null;         // Brandi did Camera
 
     this.path = null            // path for all tanks or enemy vehicles and the path only stop when meeting buildings,trees, or walls, not all vehicles.
