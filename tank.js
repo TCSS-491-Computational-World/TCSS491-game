@@ -816,8 +816,8 @@ function findPath(game, tank_x, tank_y, direction, speed) {
             return false;
         }
     }
-    console.log(game.buildings);
-    debugger;
+    // console.log(game.buildings);
+    // debugger;
     // Using 
     for (let i = 0; i < game.buildings.length; i++) {
         if (game.buildings[i].contains.type === 't') {

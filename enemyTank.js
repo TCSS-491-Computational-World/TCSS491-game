@@ -524,12 +524,12 @@ EnemyTank.prototype.draw = function() {
 
 
 // Jerry did
-function removeCurrentTank(tanks, index) {
-    let next = [];
-    for (let i = 0; i < tanks.length; i++) {
-        if (i !== index) {
-            next.push(tanks[i]);
-        }
-    }
-    return next;
-}
+// function removeCurrentTank(tanks, index) {
+//     let next = [];
+//     for (let i = 0; i < tanks.length; i++) {
+//         if (i !== index) {
+//             next.push(tanks[i]);
+//         }
+//     }
+//     return next;
+// }
