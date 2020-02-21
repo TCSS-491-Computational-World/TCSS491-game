@@ -841,17 +841,17 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        // else if (game.buildings[23].contains.type === 'r') {
-        //     var startX  =   game.buildings[23].x * 50 + 10;
-        //     var startY  =   game.buildings[23].y * 50 + 60;
-        //     var endX    =   game.buildings[23].x * 50 + 220;
-        //     var endY    =   game.buildings[23].y * 50 + 170;
+        else if (game.buildings[23].contains.type === 'r') {
+            var startX  =   game.buildings[23].x * 50 + 10;
+            var startY  =   game.buildings[23].y * 50 + 60;
+            var endX    =   game.buildings[23].x * 50 + 220;
+            var endY    =   game.buildings[23].y * 50 + 170;
             
-        //     if (tank_x + 40 > startX && tank_x < endX  
-        //         && tank_y + 40 > startY && tank_y < endY) {
-        //         return false;
-        //     }
-        // }
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
 
         
 
