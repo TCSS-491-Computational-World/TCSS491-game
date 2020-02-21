@@ -69,7 +69,7 @@ function Tank(game) {
     this.velocity = 4; //set the speed of tank  // after merge
     this.speed = this.velocity;
     this.game = game;
-    console.log(game);
+    // console.log(game);
     this.ctx = game.ctx;
     this.x = 550;
     this.y = 300;
@@ -816,8 +816,8 @@ function findPath(game, tank_x, tank_y, direction, speed) {
             return false;
         }
     }
-    // console.log(game.buildings);
-    // debugger;
+    console.log(game.buildings);
+    debugger;
     // Using 
     for (let i = 0; i < game.buildings.length; i++) {
         if (game.buildings[i].contains.type === 't') {
@@ -830,7 +830,7 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        else if (game.buildings[0].contains.type === 'r') {
+        if (game.buildings[0].contains.type === 'r') {
             var startX  =   game.buildings[0].x * 50 + 10;
             var startY  =   game.buildings[0].y * 50 + 60;
             var endX    =   game.buildings[0].x * 50 + 220;
@@ -841,7 +841,7 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        else if (game.buildings[23].contains.type === 'r') {
+        if (game.buildings[23].contains.type === 'r') {
             var startX  =   game.buildings[23].x * 50 + 10;
             var startY  =   game.buildings[23].y * 50 + 60;
             var endX    =   game.buildings[23].x * 50 + 220;
@@ -864,12 +864,12 @@ function findPath(game, tank_x, tank_y, direction, speed) {
 
 
 // // Jerry did
-// function removeCurrentTank(tanks, index) {
-//     let next = [];
-//     for (let i = 0; i < tanks.length; i++) {
-//         if (i !== index) {
-//             next.push(tanks[i]);
-//         }
-//     }
-//     return next;
-// }
+function removeCurrentTank(tanks, index) {
+    let next = [];
+    for (let i = 0; i < tanks.length; i++) {
+        if (i !== index) {
+            next.push(tanks[i]);
+        }
+    }
+    return next;
+}
