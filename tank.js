@@ -14,20 +14,20 @@ function Tank(game) {
     
     //_________________________________________________________________________________________________________
 
-    this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),  0, 0, 60, 60, 1,1,true,false);
-    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 120,0, 60,60,1,1, true,false);
-    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),240,0,60,60,1,1,true,false);
-    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),360,0,60, 60,1,1,true, false);
+    this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),  0, 0, 50, 50, 1,1,true,false);
+    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 120,0, 50,50,1,1, true,false);
+    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),240,0,50,50,1,1,true,false);
+    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),360,0,50, 50,1,1,true, false);
 
-    this.moveDownRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),  60, 0, 60, 60, 1,1,true,false);
-    this.moveUpRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 180,0, 60,60,1,1, true,false);
-    this.moveUpLeftAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),300,0,60,60,1,1,true,false);
-    this.moveDownLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),420,0,60, 60,1,1,true, false);
+    this.moveDownRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),  60, 0, 50, 50  , 1,1,true,false);
+    this.moveUpRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 180,0, 50,50,1,1, true,false);
+    this.moveUpLeftAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),300,0,50,50,1,1,true,false);
+    this.moveDownLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),420,0,50, 50,1,1,true, false);
 
-    this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
-    this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
-    this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
-    this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
+    // this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
+    // this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
+    // this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
+    // this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
 
 
 
@@ -70,8 +70,8 @@ function Tank(game) {
     this.speed = this.velocity;
     this.game = game;
     this.ctx = game.ctx;
-    this.x = 250;
-    this.y = 450;
+    this.x = 550;
+    this.y = 300;
     this.counter = 0;
     this.random = this.random = Math.floor(Math.random() * 100);
 
@@ -110,7 +110,8 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
-    // console.log(checkValid(this.game, this.x, this.y));
+    // console.log(findPath(this.game, this.x, this.y));
+
     var bool = true;
 
     this.tempList = this.game.tanks;
@@ -127,7 +128,7 @@ Tank.prototype.update = function() {
     //Barrell Code
     //____________________________________________________________________________________________________
     if (this.game.mouse) {
-        console.log("fhdfhfdh");
+        // console.log("fhdfhfdh");
         var dy = this.y - this.cursorY;
         var dx = this.x - this.cursorX;
         var theta = Math.atan2(dy, dx); // range (-PI, PI]
@@ -180,11 +181,12 @@ Tank.prototype.update = function() {
         if(this.currentHealth === 0){
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
+            this.game.tanks = removeCurrentTank(this.game.tanks, this.tankIndex);
             
         }
     }
 
-    console.log("WASD: " + this.game.keyboard);
+    // console.log("WASD: " + this.game.keyboard);
 
     for(i = 0; i < this.game.tanks.length; i++){
         if(i != this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
@@ -253,7 +255,7 @@ Tank.prototype.update = function() {
         this.lastState = 4;
         diagnol = true;
     }
-    if (this.TankState == 4  && this.x <= 2450 && this.y >=0) {
+    if (this.TankState == 4  && this.x <= 2450 && this.y >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
 
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -273,7 +275,7 @@ Tank.prototype.update = function() {
         this.lastState = 6;
         diagnol = true;
     }
-    if (this.TankState == 6   && this.x >=0 && this.y >=0) {
+    if (this.TankState == 6   && this.x >=0 && this.y >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
         this.triggerbox.y -= this.speed;
@@ -292,7 +294,7 @@ Tank.prototype.update = function() {
         this.lastState = 8;
         diagnol = true;
     }
-    if (this.TankState == 8  && this.x >= 0 && this.y <= 2450) {
+    if (this.TankState == 8  && this.x >= 0 && this.y <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -305,13 +307,13 @@ Tank.prototype.update = function() {
         this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
     }
 
-    if (this.game.keyboard[2] === true && this.game.keyboard[3] === true && this.moveDownRight) {
+    if (this.game.keyboard[2] === true && this.game.keyboard[3] === true ) {
         //moving down and right
         this.TankState = 2;
         this.lastState = 2;
         diagnol = true;
     }
-    if (this.TankState == 2  && this.x <= 2450 && this.y <= 2450) {
+    if (this.TankState == 2  && this.x <= 2450 && this.y <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -329,7 +331,7 @@ Tank.prototype.update = function() {
         this.TankState = 5;
         this.lastState = 5;
     }
-    if (this.TankState == 5  && this.y >=0) {
+    if (this.TankState == 5  && this.y >=0  && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
         this.triggerbox.y -= this.speed;
@@ -341,7 +343,7 @@ Tank.prototype.update = function() {
         this.TankState = 3;
         this.lastState = 3;
     }
-    if (this.TankState == 3    && this.x <= 2450) {
+    if (this.TankState == 3    && this.x <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -353,7 +355,7 @@ Tank.prototype.update = function() {
         this.TankState = 1;
         this.lastState = 1;
     }
-    if (this.TankState == 1  && this.y <=2450) {
+    if (this.TankState == 1  && this.y <=2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed) ) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -365,13 +367,79 @@ Tank.prototype.update = function() {
         this.TankState = 7;
         this.lastState = 7;
     }
-    if (this.TankState == 7   && this.x >=0) {
+    if (this.TankState == 7   && this.x >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
         this.triggerbox.x -= this.speed;
         this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
         this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
     }
+
+
+
+
+    // Jerry added with three keys pressed. from 8 to 11
+
+    // // move Left
+    // if (this.game.keyboard[1] === true && this.game.keyboard[0] === true && this.game.keyboard[2] === true && diagnol==false && this.moveLeft) {
+    //     //moving left
+    //     this.TankState = 8;
+    //     this.lastState = 8;
+    // }
+    // if (this.TankState == 8  && this.x >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.x -= this.speed;
+    //     this.boundingbox.x -= this.speed;
+    //     this.triggerbox.x -= this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+    // // move Down
+    // if (this.game.keyboard[2] === true && this.game.keyboard[1] === true && this.game.keyboard[3] === true && diagnol==false && this.moveDown) {
+    //     //moving down
+    //     this.TankState = 9;
+    //     this.lastState = 9;
+    // }
+    // if (this.TankState == 9  && this.y <=2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.y += this.speed;
+    //     this.boundingbox.y += this.speed;
+    //     this.triggerbox.y += this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+    // // move up
+    // if (this.game.keyboard[0] === true  && this.game.keyboard[1] === true && this.game.keyboard[3] === true &&diagnol==false && this.moveUp) {
+    //     //moving up
+    //     this.TankState = 10;
+    //     this.lastState = 10;
+    // }
+    // if (this.TankState == 5  && this.y >=0  && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.y -= this.speed;
+    //     this.boundingbox.y -= this.speed;
+    //     this.triggerbox.y -= this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+    // // move right
+    // if (this.game.keyboard[3] === true && this.game.keyboard[0] === true &&this.game.keyboard[2] === true && diagnol==false && this.moveRight) {
+    //     //moving right
+    //     this.TankState = 11;
+    //     this.lastState = 11;
+    // }
+    // if (this.TankState == 11    && this.x <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.x += this.speed;
+    //     this.boundingbox.x += this.speed;
+    //     this.triggerbox.x += this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+
+
+
+
+
+
+
+
 
     this.speed = this.velocity;
 
@@ -701,3 +769,104 @@ Tank.prototype.draw = function() {
     Entity.prototype.draw.call(this);
 };
 
+
+
+function findPath(game, tank_x, tank_y, direction, speed) {
+    // console.log(game.map);
+    if (direction === 4) {
+        tank_x  +=  speed;
+        tank_y  -=  speed;
+        
+    }
+    else if (direction === 6) {
+        tank_x  -=  speed;
+        tank_y  -=  speed;
+    }
+    else if (direction === 8) {
+        tank_x  -=  speed;
+        tank_y  +=  speed;
+    }
+    else if (direction === 2) {
+        tank_x  +=  speed;
+        tank_y  +=  speed;
+    }
+    else if (direction === 5) {
+        tank_y  -=  speed;
+    }
+    else if (direction === 3) {
+        tank_x  +=  speed;
+    }
+    else if (direction === 1) {
+        tank_y  +=  speed;
+    }
+    else{
+        tank_x -= speed;
+    }
+
+    // Using walls list
+    for (let i = 0; i < game.walls.length; i++) {
+        var startX  =   game.walls[i].x * 50;
+        var startY  =   game.walls[i].y * 50;
+        var endX    =   game.walls[i].x * 50 + 50;
+        var endY    =   game.walls[i].y * 50 + 50;
+        if (tank_x + 40 > startX && tank_x < endX  
+            && tank_y + 40 > startY && tank_y < endY) {
+            return false;
+        }
+    }
+    // console.log(game.buildings);
+    // debugger;
+    // Using 
+    for (let i = 0; i < game.buildings.length; i++) {
+        if (game.buildings[i].contains.type === 't') {
+            var startX  =   game.buildings[i].x * 50;
+            var startY  =   game.buildings[i].y * 50;
+            var endX    =   game.buildings[i].x * 50 + 100;
+            var endY    =   game.buildings[i].y * 50 + 100;
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        else if (game.buildings[23].contains.type === 'r') {
+            var startX  =   game.buildings[23].x * 50 + 10;
+            var startY  =   game.buildings[23].y * 50 + 60;
+            var endX    =   game.buildings[23].x * 50 + 220;
+            var endY    =   game.buildings[23].y * 50 + 170;
+            
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        else if (game.buildings[1].contains.type === 'r') {
+            var startX  =   game.buildings[1].x * 50 + 10;
+            var startY  =   game.buildings[1].y * 50 + 60;
+            var endX    =   game.buildings[1].x * 50 + 220;
+            var endY    =   game.buildings[0].y * 50 + 170;
+            
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        
+
+    }
+    return true;
+
+}
+
+
+
+
+// Jerry did
+function removeCurrentTank(tanks, index) {
+    let next = [];
+    for (let i = 0; i < tanks.length; i++) {
+        if (i !== index) {
+            next.push(tanks[i]);
+        }
+    }
+    return next;
+}

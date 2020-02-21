@@ -446,9 +446,9 @@ AM.downloadAll(function () {
 
     var tank = new Tank(gameEngine);                                                        // the tank Roman and Ross did
     // var enemy = new Enemy(gameEngine);   
-    var enemytank1 = new EnemyTank(gameEngine, 700, 700);
-    var enemytank2 = new EnemyTank(gameEngine , 500, 500);
-    var enemytank3 = new EnemyTank(gameEngine , 300, 300);  
+    var enemytank1 = new EnemyTank(gameEngine, 2200, 700);
+    var enemytank2 = new EnemyTank(gameEngine , 500, 2200);
+    var enemytank3 = new EnemyTank(gameEngine , 2200, 2200);  
     var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
 
     tanks.push(tank);

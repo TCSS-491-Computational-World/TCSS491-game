@@ -193,6 +193,10 @@ Robot.prototype.update = function() {
         } 
     }
 
+
+
+    
+
     if(this.collision === false){
         //do nothing
         //this.speed = 1;
@@ -209,7 +213,7 @@ Robot.prototype.update = function() {
     }
 
 
-    if (this.up === true    && this.y >=0) {
+    if (this.up === true    && this.y >=0  && findPath(this.game, this.x, this.y, 5,this.speed)) {
         
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -225,7 +229,7 @@ Robot.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true     && this.x <=2500) {
+    if (this.right === true     && this.x <=2500 && findPath(this.game, this.x, this.y, 3,this.speed)) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -240,7 +244,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true  &&  this.y <=2500) {
+    if (this.down === true  &&  this.y <=2500 && findPath(this.game, this.x, this.y, 1,this.speed)) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -254,7 +258,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = true;
     }
-    if (this.left === true  && this.x >=0) {
+    if (this.left === true  && this.x >=0 && findPath(this.game, this.x, this.y, 7,this.speed)) {
 
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
@@ -414,3 +418,96 @@ Robot.prototype.draw = function() {
 
     Entity.prototype.draw.call(this);
 };
+
+
+
+
+
+
+
+
+
+// a function to check valid path
+function findPath(game, tank_x, tank_y, direction, speed) {
+    // console.log(game.map);
+    if (direction === 4) {
+        tank_x  +=  speed;
+        tank_y  -=  speed;
+        
+    }
+    else if (direction === 6) {
+        tank_x  -=  speed;
+        tank_y  -=  speed;
+    }
+    else if (direction === 8) {
+        tank_x  -=  speed;
+        tank_y  +=  speed;
+    }
+    else if (direction === 2) {
+        tank_x  +=  speed;
+        tank_y  +=  speed;
+    }
+    else if (direction === 5) {
+        tank_y  -=  speed;
+    }
+    else if (direction === 3) {
+        tank_x  +=  speed;
+    }
+    else if (direction === 1) {
+        tank_y  +=  speed;
+    }
+    else{
+        tank_x -= speed;
+    }
+
+    // Using walls list
+    for (let i = 0; i < game.walls.length; i++) {
+        var startX  =   game.walls[i].x * 50;
+        var startY  =   game.walls[i].y * 50;
+        var endX    =   game.walls[i].x * 50 + 50;
+        var endY    =   game.walls[i].y * 50 + 50;
+        if (tank_x + 40 > startX && tank_x < endX  
+            && tank_y + 40 > startY && tank_y < endY) {
+            return false;
+        }
+    }
+    // console.log(game.buildings);
+    // debugger;
+    // Using 
+    for (let i = 0; i < game.buildings.length; i++) {
+        if (game.buildings[i].contains.type === 't') {
+            var startX  =   game.buildings[i].x * 50;
+            var startY  =   game.buildings[i].y * 50;
+            var endX    =   game.buildings[i].x * 50 + 100;
+            var endY    =   game.buildings[i].y * 50 + 100;
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        else if (game.buildings[23].contains.type === 'r') {
+            var startX  =   game.buildings[23].x * 50 + 10;
+            var startY  =   game.buildings[23].y * 50 + 60;
+            var endX    =   game.buildings[23].x * 50 + 220;
+            var endY    =   game.buildings[23].y * 50 + 170;
+            
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        else if (game.buildings[1].contains.type === 'r') {
+            var startX  =   game.buildings[1].x * 50 + 10;
+            var startY  =   game.buildings[1].y * 50 + 60;
+            var endX    =   game.buildings[1].x * 50 + 220;
+            var endY    =   game.buildings[0].y * 50 + 170;
+            
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }      
+    }
+    return true;
+
+}

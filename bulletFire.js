@@ -78,6 +78,31 @@ BulletFire.prototype.update = function () {
             
         }
     }
+
+    //     // console.log(this.game.walls[0].contains.boundingbox);
+    for (let i = 0; i < this.game.walls.length; i++) {
+        if(this.boundingbox.collide(this.game.walls[i].contains.boundingbox)){
+
+            this.game.walls[i].contains.cleanShot = true;
+            this.fire = false;
+            this.x = this.game.walls[i].x;
+            this.y = this.game.walls[i].y;
+            this.boundingbox.x =    this.game.walls[i].x;
+            this.boundingbox.y =    this.game.walls[i].y;
+        }
+    }
+
+    for (let i = 0; i < this.game.buildings.length; i++) {
+        if(this.boundingbox.collide(this.game.buildings[i].contains.boundingbox)){
+
+            this.game.buildings[i].contains.cleanShot = true;
+            this.fire = false;
+            this.x = this.game.buildings[i].x;
+            this.y = this.game.buildings[i].y;
+            this.boundingbox.x =    this.game.buildings[i].x;
+            this.boundingbox.y =    this.game.buildings[i].y;
+        }
+    }
     
 
     if (this.x > this.tankX + 2000|| this.y > this.tankY + 2000 || this.x < this.tankX - 2000 || this.y < this.tankY - 2000) {
