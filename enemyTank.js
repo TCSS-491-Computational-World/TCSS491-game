@@ -231,7 +231,7 @@ EnemyTank.prototype.update = function() {
         this.left = false;
         
     }
-
+    // console.log(this.x);
 
     if (this.up === true  && this.y >=0   && findPath(this.game, this.x, this.y, 5, this.speed)) {
         
@@ -249,7 +249,7 @@ EnemyTank.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true    && this.x <= 2500  && findPath(this.game, this.x, this.y, 3, this.speed)) {
+    if (this.right === true  && this.x <= 2450  && findPath(this.game, this.x, this.y, 3, this.speed)) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -264,7 +264,7 @@ EnemyTank.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true  &&  this.y <=2500 && findPath(this.game, this.x, this.y, 1, this.speed)) {
+    if (this.down === true  &&  this.y <=2450 && findPath(this.game, this.x, this.y, 1, this.speed)) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
