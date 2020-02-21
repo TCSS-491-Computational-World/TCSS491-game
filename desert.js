@@ -430,7 +430,7 @@ Desert.prototype.draw = function () {
 //       }
 //   }
 
-  drawGrid(this.ctx);
+//   drawGrid(this.game);
 //   this.setUpComponents(); // It should install in environment.
   // this.coinAnimation.drawFrame(this.game.clockTick, ctx, 100, 100, 1);
   Entity.prototype.draw.call(this);
@@ -668,11 +668,11 @@ Desert.prototype.setUpComponents = function () {
 
 
 // 就是画格子
-function drawGrid(ctx) {
+function drawGrid(game) {
   var w = 50;
   for (let i = 0; i < 50; i++) {
       for (let j = 0; j < 50; j++) {
-          ctx.strokeRect(i * w, j * w, w, w);
+          game.ctx.strokeRect(i * w - game.camera.x, j * w - game.camera.y, w, w);
       }
   }
 }

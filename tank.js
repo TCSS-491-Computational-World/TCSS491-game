@@ -742,10 +742,35 @@ function findPath(game, tank_x, tank_y, direction, speed) {
         var startY  =   game.walls[i].y * 50;
         var endX    =   game.walls[i].x * 50 + 50;
         var endY    =   game.walls[i].y * 50 + 50;
-        if (tank_x + 50 > startX && tank_x < endX  
-            && tank_y + 50 > startY && tank_y < endY) {
+        if (tank_x + 40 > startX && tank_x < endX  
+            && tank_y + 40 > startY && tank_y < endY) {
             return false;
         }
+    }
+
+    // Using 
+    for (let i = 0; i < game.buildings.length; i++) {
+        if (game.buildings[i].contains.type === 't') {
+            var startX  =   game.buildings[i].x * 50;
+            var startY  =   game.buildings[i].y * 50;
+            var endX    =   game.buildings[i].x * 50 + 100;
+            var endY    =   game.buildings[i].y * 50 + 100;
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        else if (game.buildings[i].contains.type === 'r') {
+            var startX  =   game.buildings[i].x * 50;
+            var startY  =   game.buildings[i].y * 50;
+            var endX    =   game.buildings[i].x * 50 + 100;
+            var endY    =   game.buildings[i].y * 50 + 100;
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+
     }
     return true;
 

@@ -66,12 +66,17 @@ Camera.prototype.draw = function() {
     if (this.game.tanks[0].x >= 2250 && this.game.tanks[0].y >=2250) {
         
         this.ctx.strokeStyle = 'blue';
-        this.ctx.fillStyle = 'pink';
+        this.ctx.font = 'bold';
+        this.ctx.strokeRect(this.x - this.game.camera.x,this.y-this.game.camera.y + 400,200,200);
+        this.ctx.fillStyle = 'transparent';
         this.ctx.fillRect(this.x - this.game.camera.x,this.y-this.game.camera.y + 400,200,200);
     }
     else{
         this.ctx.strokeStyle = 'blue';
-        this.ctx.fillStyle = 'pink';
+        this.ctx.font = 'bold';
+        this.ctx.strokeRect(this.x - this.game.camera.x + 800,this.y-this.game.camera.y + 400,200,200);
+
+        this.ctx.fillStyle = 'transparent';
         this.ctx.fillRect(this.x - this.game.camera.x + 800,this.y-this.game.camera.y + 400,200,200);
     }
 
