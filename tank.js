@@ -374,6 +374,72 @@ Tank.prototype.update = function() {
         this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
     }
 
+
+
+
+    // Jerry added with three keys pressed. from 8 to 11
+
+    // // move Left
+    // if (this.game.keyboard[1] === true && this.game.keyboard[0] === true && this.game.keyboard[2] === true && diagnol==false && this.moveLeft) {
+    //     //moving left
+    //     this.TankState = 8;
+    //     this.lastState = 8;
+    // }
+    // if (this.TankState == 8  && this.x >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.x -= this.speed;
+    //     this.boundingbox.x -= this.speed;
+    //     this.triggerbox.x -= this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+    // // move Down
+    // if (this.game.keyboard[2] === true && this.game.keyboard[1] === true && this.game.keyboard[3] === true && diagnol==false && this.moveDown) {
+    //     //moving down
+    //     this.TankState = 9;
+    //     this.lastState = 9;
+    // }
+    // if (this.TankState == 9  && this.y <=2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.y += this.speed;
+    //     this.boundingbox.y += this.speed;
+    //     this.triggerbox.y += this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+    // // move up
+    // if (this.game.keyboard[0] === true  && this.game.keyboard[1] === true && this.game.keyboard[3] === true &&diagnol==false && this.moveUp) {
+    //     //moving up
+    //     this.TankState = 10;
+    //     this.lastState = 10;
+    // }
+    // if (this.TankState == 5  && this.y >=0  && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.y -= this.speed;
+    //     this.boundingbox.y -= this.speed;
+    //     this.triggerbox.y -= this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+    // // move right
+    // if (this.game.keyboard[3] === true && this.game.keyboard[0] === true &&this.game.keyboard[2] === true && diagnol==false && this.moveRight) {
+    //     //moving right
+    //     this.TankState = 11;
+    //     this.lastState = 11;
+    // }
+    // if (this.TankState == 11    && this.x <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    //     this.x += this.speed;
+    //     this.boundingbox.x += this.speed;
+    //     this.triggerbox.x += this.speed;
+    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+    // }
+
+
+
+
+
+
+
+
+
     this.speed = this.velocity;
 
     this.moveRight = true;
