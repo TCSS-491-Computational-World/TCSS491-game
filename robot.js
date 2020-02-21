@@ -56,7 +56,7 @@ function Robot(game, x, y) {
 }
 
 Robot.prototype = new Entity();
-Robot.prototype.constructor = Tank;
+Robot.prototype.constructor = Robot;
 
 Robot.prototype.update = function() {
 

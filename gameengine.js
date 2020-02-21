@@ -57,8 +57,8 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
 
     var getXandY = function (e) {
-        var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
-        var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
+        var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left - that.camera.x ;
+        var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top - that.camera.y;
 
         // if (x < 1024) {
         //     x = Math.floor(x / 32);
@@ -177,11 +177,33 @@ GameEngine.prototype.draw = function () {
 
 GameEngine.prototype.update = function () {
     var entitiesCount = this.entities.length;
+    //var tanksCount = this.tanks.length;
+    
+    // for (var i = 0; i < tanksCount; i++) {
+
+    //     var tank = this.tanks[i];
+
+    //     if(!tank.removeFromWorld){
+    //         tank.update();
+    //     }
+        
+    // }
+
+    // for (var i = this.tanks.length - 1; i >= 0; --i) {
+    //     if (this.tanks[i].removeFromWorld) {
+    //         this.tanks.splice(i, 1);
+    //         //console.log("removed from world");
+    //     }
+    // }
 
     for (var i = 0; i < entitiesCount; i++) {
+
         var entity = this.entities[i];
 
-        entity.update();
+        if(!entity.removeFromWorld){
+            entity.update();
+        }
+        
     }
 
     for (var i = this.entities.length - 1; i >= 0; --i) {
