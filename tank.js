@@ -70,8 +70,8 @@ function Tank(game) {
     this.speed = this.velocity;
     this.game = game;
     this.ctx = game.ctx;
-    this.x = 450;
-    this.y = 200;
+    this.x = 550;
+    this.y = 300;
     this.counter = 0;
     this.random = this.random = Math.floor(Math.random() * 100);
 
@@ -826,16 +826,22 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        else if (game.buildings[i].contains.type === 'r') {
-            var startX  =   game.buildings[i].x * 50;
-            var startY  =   game.buildings[i].y * 50;
-            var endX    =   game.buildings[i].x * 50 + 100;
-            var endY    =   game.buildings[i].y * 50 + 100;
+        else if (game.buildings[0].contains.type === 'r') {
+            var startX  =   game.buildings[0].x * 50 - 2;
+            var startY  =   game.buildings[0].y * 50 + 40;
+            var endX    =   game.buildings[0].x * 50 + 142;
+            var endY    =   game.buildings[0].y * 50 + 250;
+            
+            var secondX = endX; 
+            var secondY = startY + 40;
+            var endSecondX = endX + 100;
+            var endSecondY = endY;
             if (tank_x + 40 > startX && tank_x < endX  
                 && tank_y + 40 > startY && tank_y < endY) {
                 return false;
             }
         }
+        
 
     }
     return true;
