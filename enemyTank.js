@@ -153,6 +153,7 @@ EnemyTank.prototype.update = function() {
         if(this.currentHealth === 0){
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
+            this.game.tanks = removeCurrentTank(this.game.tanks, this.tankIndex);
             
         }
         
@@ -518,4 +519,20 @@ function findPath(game, tank_x, tank_y, direction, speed) {
     }
     return true;
 
+}
+
+
+
+
+
+
+// Jerry did
+function removeCurrentTank(tanks, index) {
+    let next = [];
+    for (let i = 0; i < tanks.length; i++) {
+        if (i !== index) {
+            next.push(tanks[i]);
+        }
+    }
+    return next;
 }
