@@ -1,276 +1,3 @@
-// function Enemy(game) {
-
-//     this.explosionA = AM.getAsset("./img/Explosion_A.png")
-//     this.snowballAnimation = new Animation(AM.getAsset("./img/snowball_01.png"),0 , 0, 512, 386, .05, 6, true, true);
-
-//     this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"), 0, 0, 73, 60, 1, 1, true, false
-//     ); //quick note{:}
-//     this.moveUpRobotAnimation = new Animation(
-//         AM.getAsset("./img/robot.png"),
-//         73,
-//         0,
-//         73,
-//         60,
-//         1,
-//         1,
-//         true,
-//         false
-//     );
-//     this.moveRightRobotAnimation = new Animation(
-//         AM.getAsset("./img/robot.png"),
-//         146,
-//         0,
-//         73,
-//         60,
-//         1,
-//         1,
-//         true,
-//         false
-//     );
-//     this.moveLeftRobotAnimation = new Animation(
-//         AM.getAsset("./img/robot.png"),
-//         219,
-//         0,
-//         73,
-//         60,
-//         1,
-//         1,
-//         true,
-//         false
-//     );
-//     this.ctx = game.ctx;
-//     this.counter = 0;
-//     this.up = false;
-//     this.down = false;
-//     this.left = false;
-//     this.right = false;
-//     this.lastMove = "none";
-//     this.hero = false;
-//     this.speed = 2;
-//     this.random = this.random = Math.floor(Math.random() * 100);
-//     // this.canvasWidth = game.ctx.width;
-//     // this.canvasHeight = game.ctx.height;
-//     this.x = 100;
-//     this.y = 200;
-//     this.projectileX = 1000;
-//     this.projectileY = 600;
-//     this.shooting = false;
-//     this.cleanShot = false;
-//     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpRobotAnimation.frameWidth, this.moveUpRobotAnimation.frameHeight);
-//     this.maxHealth = 400;
-//     this.currentHealth = 200;
-//     Entity.call(this, game, 100, 200);
-// }
-
-// Enemy.prototype = new Entity();
-// Enemy.prototype.constructor = Enemy;
-
-// Enemy.prototype.update = function () {
-//     // this.boundingbox.width = this.moveUpRobotAnimation.frameWidth;
-//     // this.boundingbox.height = this.moveUpRobotAnimation.frameHeight;
-
-//     if (this.cleanShot) {
-//         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
-//         this.game.addEntity(cleanshot);
-//         this.cleanShot = false;
-        
-//         if(this.currentHealth === 0){
-//             this.removeFromWorld = true;
-//         } else {
-//             this.currentHealth -= 10;
-//         }
-//         //this.bullet.fire = true;
-//     }
-
-//     if(this.x >= 999){
-//         //this.lastMove = "left";
-//         this.random = 76;
-//     }
-//     if(this.x <= 1){
-//         //this.lastMove = "right";
-//         this.random = 26;
-//     }
-//     if(this.y <= 1){
-//         //this.lastMove = "down";
-//         this.random = 51;
-//     }
-//     if(this.y >= 799){
-//         //this.lastMove = "up";
-//         this.random = 1;
-//     }
-
-//     if (this.random <= 25) {
-//         //moving up
-//         this.up = true;
-//         this.down = false;
-//         this.right = false;
-//         this.left = false;
-        
-//     }
-//     if (this.up === true) {
-        
-//         this.y -= this.speed;
-//         this.boundingbox.y -= this.speed;
-//     }
-//     if (this.random <= 50 && this.random > 25) {
-//         //moving right
-
-//         this.up = false;
-//         this.down = false;
-//         this.right = true;
-//         this.left = false;
-//     }
-//     if (this.right === true) {
-//         this.x += this.speed;
-//         this.boundingbox.x += this.speed;
-//     }
-//     if (this.random <= 75 && this.random > 50) {
-//         //moving down
-        
-//         this.up = false;
-//         this.down = true;
-//         this.right = false;
-//         this.left = false;
-//     }
-//     if (this.down === true) {
-//         this.y += this.speed;
-//         this.boundingbox.y += this.speed;
-//     }
-//     if (this.random <= 100 && this.random > 75) {
-//         //moving left
-//         this.up = false;
-//         this.down = false;
-//         this.right = false;
-//         this.left = true;
-//     }
-//     if (this.left === true) {
-
-//         this.x -= this.speed;
-//         this.boundingbox.x -= this.speed;
-//     }
-    
-//     if(this.projectileX > 0){
-//         this.projectileX -= 3;
-//     } else {
-//         this.projectileX = 1000;
-//     }
-//     Entity.prototype.update.call(this);
-// };
-
-// Enemy.prototype.draw = function () { //CHANGE BACK TO THIS.CTX, DEFINE CTX FOR TANK GAME
-//     drawHealthBar(this.ctx, this.x+12, this.y-5, 40, 5, this.currentHealth, this.maxHealth) // 我要改掉， 不好，不好
-//     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-//     if (this.up) {
-//         this.moveUpRobotAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.counter ++;
-//         if(this.counter === 100){
-//             this.up = false;
-//             this.counter = 0;
-//             this.random = Math.floor(Math.random() * 100);
-//         }
-        
-//         this.lastMove = "up";
-//     }
-//     if (this.down) {
-//         this.moveDownRobotAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.counter ++;
-//         if(this.counter === 100){
-//             this.down = false;
-//             this.counter = 0;
-//             this.random = Math.floor(Math.random() * 100)
-//         }
-//         this.lastMove = "down";
-//     }
-//     if (this.right) {
-//         this.moveRightRobotAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.counter ++;
-//         if(this.counter === 100){
-//             this.right = false;
-//             this.counter = 0;
-//             this.random = Math.floor(Math.random() * 100)
-//         }
-//         this.lastMove = "right";
-//     }
-//     if (this.left) {
-//         this.moveLeftRobotAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.counter ++;
-//         if(this.counter === 100){
-//             this.left = false;
-//             this.counter = 0;
-//             this.random = Math.floor(Math.random() * 100)
-//         }
-//         this.lastMove = "left";
-//     }
-//     if (!this.left && !this.right && !this.up && !this.down) {
-//         //if tank isnt moving then stay at most recent direction.
-//         if (this.lastMove === "left")
-//             this.moveLeftRobotAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "right")
-//             this.moveRightRobotAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "down")
-//             this.moveDownRobotAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "up")
-//             this.moveUpRobotAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "none")
-//             this.moveUpRobotAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//     }
-//     this.snowballAnimation.drawFrame(this.game.clockTick, this.ctx, this.projectileX, this.projectileY, .1);
-
-//     this.ctx.beginPath();
-//     this.ctx.lineWidth = "2";
-//     this.ctx.strokeStyle = "blue";
-//     this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-//     this.ctx.stroke();
-
-//     Entity.prototype.draw.call(this);
-// };
-
-
 function Robot(game, x, y) {
     //Barrell Code
     //___________________________
@@ -329,7 +56,7 @@ function Robot(game, x, y) {
 }
 
 Robot.prototype = new Entity();
-Robot.prototype.constructor = Tank;
+Robot.prototype.constructor = Robot;
 
 Robot.prototype.update = function() {
 
@@ -466,6 +193,10 @@ Robot.prototype.update = function() {
         } 
     }
 
+
+
+    
+
     if(this.collision === false){
         //do nothing
         //this.speed = 1;
@@ -482,7 +213,7 @@ Robot.prototype.update = function() {
     }
 
 
-    if (this.up === true) {
+    if (this.up === true    && this.y >=0  ) { //&& findPath(this.game, this.x, this.y, 5,this.speed)
         
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -498,7 +229,7 @@ Robot.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true) {
+    if (this.right === true     && this.x <=2500 ) { //&& findPath(this.game, this.x, this.y, 3,this.speed)
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -513,7 +244,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true) {
+    if (this.down === true  &&  this.y <=2500 ) { //&& findPath(this.game, this.x, this.y, 1,this.speed)
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -527,7 +258,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = true;
     }
-    if (this.left === true) {
+    if (this.left === true  && this.x >=0 ) { //&& findPath(this.game, this.x, this.y, 7,this.speed)
 
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
@@ -545,7 +276,7 @@ Robot.prototype.update = function() {
 };
 
 Robot.prototype.draw = function() {
-    drawHealthBar(this.ctx, this.x+5, this.y-5, 65, 4, this.currentHealth, this.maxHealth);
+    drawHealthBar(this.ctx, this.x+5 - this.game.camera.x, this.y-5 -this.game.camera.y, 65, 4, this.currentHealth, this.maxHealth);
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
 
     // if(this.bulletFire){
@@ -555,8 +286,8 @@ Robot.prototype.draw = function() {
         this.moveUpRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -571,8 +302,8 @@ Robot.prototype.draw = function() {
         this.moveDownRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -587,8 +318,8 @@ Robot.prototype.draw = function() {
         this.moveRightRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -603,8 +334,8 @@ Robot.prototype.draw = function() {
         this.moveLeftRobotAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -621,36 +352,36 @@ Robot.prototype.draw = function() {
             this.moveLeftRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "right")
             this.moveRightRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "down")
             this.moveDownRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "up")
             this.moveUpRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
         if (this.lastMove === "none")
             this.moveUpRobotAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y - this.game.camera.y
             );
     }
 
@@ -664,14 +395,14 @@ Robot.prototype.draw = function() {
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
     this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, this.boundingbox.width, this.boundingbox.height);
     this.ctx.stroke();
 
     this.ctx.beginPath();
     this.ctx.lineWidth = "1";
     //if(this == this.game.tanks[this.distance])
     this.ctx.strokeStyle = "white";
-    this.ctx.rect(this.triggerbox.x - 250, this.triggerbox.y - 250 , this.triggerbox.width + 500, this.triggerbox.height + 500);
+    this.ctx.rect(this.triggerbox.x - 250 -this.game.camera.x, this.triggerbox.y - 250 -this.game.camera.y , this.triggerbox.width + 500, this.triggerbox.height + 500);
     this.ctx.stroke();
 
     
@@ -687,3 +418,96 @@ Robot.prototype.draw = function() {
 
     Entity.prototype.draw.call(this);
 };
+
+
+
+
+
+
+
+
+
+// a function to check valid path
+// function findPath(game, tank_x, tank_y, direction, speed) {
+    // // console.log(game.map);
+    // if (direction === 4) {
+    //     tank_x  +=  speed;
+    //     tank_y  -=  speed;
+        
+    // }
+    // else if (direction === 6) {
+    //     tank_x  -=  speed;
+    //     tank_y  -=  speed;
+    // }
+    // else if (direction === 8) {
+    //     tank_x  -=  speed;
+    //     tank_y  +=  speed;
+    // }
+    // else if (direction === 2) {
+    //     tank_x  +=  speed;
+    //     tank_y  +=  speed;
+    // }
+    // else if (direction === 5) {
+    //     tank_y  -=  speed;
+    // }
+    // else if (direction === 3) {
+    //     tank_x  +=  speed;
+    // }
+    // else if (direction === 1) {
+    //     tank_y  +=  speed;
+    // }
+    // else{
+    //     tank_x -= speed;
+    // }
+
+    // // Using walls list
+    // for (let i = 0; i < game.walls.length; i++) {
+    //     var startX  =   game.walls[i].x * 50;
+    //     var startY  =   game.walls[i].y * 50;
+    //     var endX    =   game.walls[i].x * 50 + 50;
+    //     var endY    =   game.walls[i].y * 50 + 50;
+    //     if (tank_x + 40 > startX && tank_x < endX  
+    //         && tank_y + 40 > startY && tank_y < endY) {
+    //         return false;
+    //     }
+    // }
+    // // console.log(game.buildings);
+    // // debugger;
+    // // Using 
+    // for (let i = 0; i < game.buildings.length; i++) {
+    //     if (game.buildings[i].contains.type === 't') {
+    //         var startX  =   game.buildings[i].x * 50;
+    //         var startY  =   game.buildings[i].y * 50;
+    //         var endX    =   game.buildings[i].x * 50 + 100;
+    //         var endY    =   game.buildings[i].y * 50 + 100;
+    //         if (tank_x + 40 > startX && tank_x < endX  
+    //             && tank_y + 40 > startY && tank_y < endY) {
+    //             return false;
+    //         }
+    //     }
+    //     else if (game.buildings[23].contains.type === 'r') {
+    //         var startX  =   game.buildings[23].x * 50 + 10;
+    //         var startY  =   game.buildings[23].y * 50 + 60;
+    //         var endX    =   game.buildings[23].x * 50 + 220;
+    //         var endY    =   game.buildings[23].y * 50 + 170;
+            
+    //         if (tank_x + 40 > startX && tank_x < endX  
+    //             && tank_y + 40 > startY && tank_y < endY) {
+    //             return false;
+    //         }
+    //     }
+    //     else if (game.buildings[0].contains.type === 'r') {
+    //         var startX  =   game.buildings[0].x * 50 + 10;
+    //         var startY  =   game.buildings[0].y * 50 + 60;
+    //         var endX    =   game.buildings[0].x * 50 + 220;
+    //         var endY    =   game.buildings[0].y * 50 + 170;
+            
+    //         if (tank_x + 40 > startX && tank_x < endX  
+    //             && tank_y + 40 > startY && tank_y < endY) {
+    //             return false;
+    //         }
+    //     }      
+    // }
+//     return true;
+
+// }

@@ -51,7 +51,7 @@ function EnemyTank(game, x, y) {
 }
 
 EnemyTank.prototype = new Entity();
-EnemyTank.prototype.constructor = Tank;
+EnemyTank.prototype.constructor = EnemyTank;
 
 EnemyTank.prototype.update = function() {
 
@@ -147,39 +147,38 @@ EnemyTank.prototype.update = function() {
         this.game.addEntity(cleanshot);
         this.cleanShot = false;
         this.currentHealth -= 10;
+        this.game.gameScore ++;
 
        // this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
         
         if(this.currentHealth === 0){
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
+            this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
             
         }
         
         //this.bullet.fire = true;
     }
 
-    if(this.x >= 799){
-        //this.lastMove = "left";
-        this.random = 76;
-    }
-    if(this.x <= 1){
-        //this.lastMove = "right";
-        this.random = 26;
-    }
-    if(this.y <= 1){
-        //this.lastMove = "down";
-        this.random = 51;
-    }
-    if(this.y >= 799){
-        //this.lastMove = "up";
-        this.random = 1;
-    }
-
+    // if(this.x - this.game.camera.x >= 800){
+    //     //this.lastMove = "left";
+    //     this.random = 76;
+    // }
+    // if(this.x - this.game.camera.x <= 0){
+    //     //this.lastMove = "right";
+    //     this.random = 26;
+    // }
+    // if(this.y - this.game.camera.y <= 0){
+    //     //this.lastMove = "down";
+    //     this.random = 51;
+    // }
+    // if(this.y - this.game.camera.y >= 800){
+    //     //this.lastMove = "up";
+    //     this.random = 1;
+    // }
 
     this.collision = false;
-
-    
 
     for(i = 0; i < this.game.tanks.length; i++){
 
@@ -187,6 +186,34 @@ EnemyTank.prototype.update = function() {
             this.collision = true;
         } 
     }
+    
+
+    // here is a bug   Jerry fixed the enmey bank will reset on the top left of corner.
+
+    // //     // console.log(this.game.walls[0].contains.boundingbox);
+    // for (let i = 0; i < this.game.walls.length; i++) {
+    //     if(this.boundingbox.collide(this.game.walls[i].contains.boundingbox)){
+
+    //         this.game.walls[i].contains.cleanShot = true;
+    //         this.fire = false;
+    //         // this.x = this.game.walls[i].x;
+    //         // this.y = this.game.walls[i].y;
+    //         this.boundingbox.x =    this.game.walls[i].x;
+    //         this.boundingbox.y =    this.game.walls[i].y;
+    //     }
+    // }
+
+    // for (let i = 0; i < this.game.buildings.length; i++) {
+    //     if(this.boundingbox.collide(this.game.buildings[i].contains.boundingbox)){
+
+    //         this.game.buildings[i].contains.cleanShot = true;
+    //         this.fire = false;
+    //         // this.x = this.game.buildings[i].x;
+    //         // this.y = this.game.buildings[i].y;
+    //         this.boundingbox.x =    this.game.buildings[i].x;
+    //         this.boundingbox.y =    this.game.buildings[i].y;
+    //     }
+    // }
 
     if(this.collision === false){
         //do nothing
@@ -202,9 +229,9 @@ EnemyTank.prototype.update = function() {
         this.left = false;
         
     }
+    // console.log(this.x);
 
-
-    if (this.up === true) {
+    if (this.up === true  && this.y >=0   && findEnemyPath(this.game, this.x, this.y, 5, this.speed)) {
         
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -220,7 +247,7 @@ EnemyTank.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true) {
+    if (this.right === true  && this.x <= 2450&& findEnemyPath(this.game, this.x, this.y, 3, this.speed)  ) { 
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -235,7 +262,7 @@ EnemyTank.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true) {
+    if (this.down === true  &&  this.y <=2450 && findEnemyPath(this.game, this.x, this.y, 1, this.speed)) { 
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -249,7 +276,7 @@ EnemyTank.prototype.update = function() {
         this.right = false;
         this.left = true;
     }
-    if (this.left === true) {
+    if (this.left === true  &&  this.x >=0  && findEnemyPath(this.game, this.x, this.y, 7, this.speed)) { 
 
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
@@ -267,14 +294,14 @@ EnemyTank.prototype.update = function() {
 };
 
 EnemyTank.prototype.draw = function() {
-    drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
+    drawHealthBar(this.ctx, this.x+5 - this.game.camera.x, this.y-5-this.game.camera.y, 40, 4, this.currentHealth, this.maxHealth);
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     if (this.up) {
         this.moveUpAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y  - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -289,8 +316,8 @@ EnemyTank.prototype.draw = function() {
         this.moveDownAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y  - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -305,8 +332,8 @@ EnemyTank.prototype.draw = function() {
         this.moveRightAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y  - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -321,8 +348,8 @@ EnemyTank.prototype.draw = function() {
         this.moveLeftAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
-            this.x,
-            this.y
+            this.x - this.game.camera.x,
+            this.y  - this.game.camera.y
         );
         this.counter ++;
         if(this.counter === 100){
@@ -339,55 +366,55 @@ EnemyTank.prototype.draw = function() {
             this.moveLeftAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y  - this.game.camera.y
             );
         if (this.lastMove === "right")
             this.moveRightAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y  - this.game.camera.y
             );
         if (this.lastMove === "down")
             this.moveDownAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y  - this.game.camera.y
             );
         if (this.lastMove === "up")
             this.moveUpAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y  - this.game.camera.y
             );
         if (this.lastMove === "none")
             this.moveUpAnimation.drawFrame(
                 this.game.clockTick,
                 this.ctx,
-                this.x,
-                this.y
+                this.x - this.game.camera.x,
+                this.y  - this.game.camera.y
             );
     }
 
 
     //Barrell Code
-    this.ctx.drawImage(this.BB, this.x, this.y);
+    this.ctx.drawImage(this.BB, this.x + 6 - this.game.camera.x, this.y + 5 - this.game.camera.y);
 
 
     this.ctx.beginPath();
     this.ctx.lineWidth = "2";
     this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
+    this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, this.boundingbox.width, this.boundingbox.height);
     this.ctx.stroke();
 
     this.ctx.beginPath();
     this.ctx.lineWidth = "1";
     //if(this == this.game.tanks[this.distance])
     this.ctx.strokeStyle = "white";
-    this.ctx.rect(this.triggerbox.x - 250, this.triggerbox.y - 250 , this.triggerbox.width + 500, this.triggerbox.height + 500);
+    this.ctx.rect(this.triggerbox.x - 250 -this.game.camera.x, this.triggerbox.y - 250 - this.game.camera.y , this.triggerbox.width + 500, this.triggerbox.height + 500);
     this.ctx.stroke();
 
     
@@ -403,3 +430,107 @@ EnemyTank.prototype.draw = function() {
 
     Entity.prototype.draw.call(this);
 };
+
+
+
+
+
+function findEnemyPath(game, tank_x, tank_y, direction, speed) {
+    // console.log(game.map);
+    if (direction === 4) {
+        tank_x  +=  speed;
+        tank_y  -=  speed;
+        
+    }
+    else if (direction === 6) {
+        tank_x  -=  speed;
+        tank_y  -=  speed;
+    }
+    else if (direction === 8) {
+        tank_x  -=  speed;
+        tank_y  +=  speed;
+    }
+    else if (direction === 2) {
+        tank_x  +=  speed;
+        tank_y  +=  speed;
+    }
+    else if (direction === 5) {
+        tank_y  -=  speed;
+    }
+    else if (direction === 3) {
+        tank_x  +=  speed;
+    }
+    else if (direction === 1) {
+        tank_y  +=  speed;
+    }
+    else{
+        tank_x -= speed;
+    }
+
+    // Using walls list
+    for (let i = 0; i < game.walls.length; i++) {
+        var startX  =   game.walls[i].x * 50;
+        var startY  =   game.walls[i].y * 50;
+        var endX    =   game.walls[i].x * 50 + 50;
+        var endY    =   game.walls[i].y * 50 + 50;
+        if (tank_x + 40 > startX && tank_x < endX  
+            && tank_y + 40 > startY && tank_y < endY) {
+            return false;
+        }
+    }
+    // console.log(game.buildings);
+    // debugger;
+    // Using 
+    for (let i = 0; i < game.buildings.length; i++) {
+        if (game.buildings[i].contains.type === 't') {
+            var startX  =   game.buildings[i].x * 50;
+            var startY  =   game.buildings[i].y * 50;
+            var endX    =   game.buildings[i].x * 50 + 100;
+            var endY    =   game.buildings[i].y * 50 + 100;
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        if (game.buildings[23].contains.type === 'r') {
+            var startX  =   game.buildings[23].x * 50 + 10;
+            var startY  =   game.buildings[23].y * 50 + 60;
+            var endX    =   game.buildings[23].x * 50 + 220;
+            var endY    =   game.buildings[23].y * 50 + 170;
+            
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }
+        if (game.buildings[0].contains.type === 'r') {
+            var startX  =   game.buildings[0].x * 50 + 10;
+            var startY  =   game.buildings[0].y * 50 + 60;
+            var endX    =   game.buildings[0].x * 50 + 220;
+            var endY    =   game.buildings[0].y * 50 + 170;
+            
+            if (tank_x + 40 > startX && tank_x < endX  
+                && tank_y + 40 > startY && tank_y < endY) {
+                return false;
+            }
+        }      
+    }
+    return true;
+
+}
+
+
+
+
+
+
+// Jerry did
+function removeEnemyTank(tanks, index) {
+    let next = [];
+    for (let i = 0; i < tanks.length; i++) {
+        if (i !== index) {
+            next.push(tanks[i]);
+        }
+    }
+    return next;
+}

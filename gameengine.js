@@ -18,9 +18,17 @@ function GameEngine() {
     this.click = null;
     this.mouse = null;
     this.rightclick = null;
-    //this.keyboard = null;
+    // this.keyboard = null;
     this.keyboard = [W = false,A = false,S = false,D = false]
-    
+
+    this.gameScore = 0;
+
+    this.camera = null;         // Brandi did Camera
+
+    this.path = null            // path for all tanks or enemy vehicles and the path only stop when meeting buildings,trees, or walls, not all vehicles.
+    this.map = null;            // the whole map   Jerry did
+    this.walls = null           // the walls' location  Jerry did
+    this.buildings = null;      // the buildings    Jerry did 
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -51,8 +59,8 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
 
     var getXandY = function (e) {
-        var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
-        var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
+        var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;// - that.camera.x ;
+        var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;// - that.camera.y;
 
         // if (x < 1024) {
         //     x = Math.floor(x / 32);
@@ -67,8 +75,8 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function (e) {
         that.click = getXandY(e);
-        //console.log(e);
-        //console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        // console.log(e);
+        // console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         // document.getElementById("ctx").onclick = function() {
         //      document.getElementById("ctx").innerHTML = ' YOU CLICKED ME';
         // }
@@ -80,8 +88,8 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("contextmenu", function (e) {
         that.click = getXandY(e);
-        //console.log(e);
-       // console.log("Right Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        // console.log(e);
+        // console.log("Right Click Event - X,Y " + e.clientX + ", " + e.clientY);
         e.preventDefault();
     }, false);
 
@@ -91,9 +99,9 @@ GameEngine.prototype.startInput = function () {
     }, false);
 
     this.ctx.canvas.addEventListener("mousewheel", function (e) {
-        //console.log(e);
+        // console.log(e);
         that.wheel = e;
-        //console.log("wheeling Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
+        // console.log("wheeling Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
     }, false);
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
@@ -117,8 +125,8 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keypress", function (e) {
         if (e.code === "KeyD") that.d = true;
         that.chars[e.code] = true;
-        //console.log(e);
-        //console.log("Key Pressed Event - Char " + e.charCode + " Code " + e.keyCode);
+        console.log(e);
+        console.log("Key Pressed Event - Char " + e.charCode + " Code " + e.keyCode);
     }, false);
 
     this.ctx.canvas.addEventListener("keyup", function (e) {
@@ -154,6 +162,7 @@ GameEngine.prototype.startInput = function () {
 
 
 
+
 GameEngine.prototype.addEntity = function (entity) {
     console.log('added entity');
     this.entities.push(entity);
@@ -170,11 +179,33 @@ GameEngine.prototype.draw = function () {
 
 GameEngine.prototype.update = function () {
     var entitiesCount = this.entities.length;
+    //var tanksCount = this.tanks.length;
+    
+    // for (var i = 0; i < tanksCount; i++) {
+
+    //     var tank = this.tanks[i];
+
+    //     if(!tank.removeFromWorld){
+    //         tank.update();
+    //     }
+        
+    // }
+
+    // for (var i = this.tanks.length - 1; i >= 0; --i) {
+    //     if (this.tanks[i].removeFromWorld) {
+    //         this.tanks.splice(i, 1);
+    //         //console.log("removed from world");
+    //     }
+    // }
 
     for (var i = 0; i < entitiesCount; i++) {
+
         var entity = this.entities[i];
 
-        entity.update();
+        if(!entity.removeFromWorld){
+            entity.update();
+        }
+        
     }
 
     for (var i = this.entities.length - 1; i >= 0; --i) {
@@ -192,6 +223,7 @@ GameEngine.prototype.loop = function () {
     this.click = null;
     this.rightclick = null;
     this.mouse = null;
+    // this.keyboard = null;
     this.keyboard = [this.keyboard[0], this.keyboard[1], this.keyboard[2], this.keyboard[3]];
 }
 
