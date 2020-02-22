@@ -57,8 +57,8 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
 
     var getXandY = function (e) {
-        var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left - that.camera.x ;
-        var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top - that.camera.y;
+        var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
+        var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
 
         // if (x < 1024) {
         //     x = Math.floor(x / 32);
