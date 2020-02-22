@@ -374,15 +374,12 @@ Desert.prototype.update = function () {
 };
 
 
-<<<<<<< Updated upstream
 // draw the map
 Desert.prototype.draw = function () {
   var w = 50;
   /* Draw all tiles on the map.
   */
-=======
   grid = new Array(50);
->>>>>>> Stashed changes
   for (let i = 0; i < 50; i++) {
       for (let j = 0; j < 50; j++) {
           this.ctx.drawImage(this.desertTile, 
