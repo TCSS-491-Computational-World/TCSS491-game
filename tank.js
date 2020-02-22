@@ -69,6 +69,7 @@ function Tank(game) {
     this.velocity = 4; //set the speed of tank  // after merge
     this.speed = this.velocity;
     this.game = game;
+    // console.log(game);
     this.ctx = game.ctx;
     this.x = 550;
     this.y = 300;
@@ -87,7 +88,7 @@ function Tank(game) {
     this.currentHealth = 200;
 
     this.collision;
-    this.tankIndex;
+    this.tankIndex = 0;
     this.tempList;
 
     this.lastState;
@@ -129,8 +130,12 @@ Tank.prototype.update = function() {
     //____________________________________________________________________________________________________
     if (this.game.mouse) {
         // console.log("fhdfhfdh");
-        var dy = this.y - this.cursorY;
-        var dx = this.x - this.cursorX;
+        var dy = this.y - (this.cursorY + this.game.camera.y);
+        var dx = this.x - (this.cursorX + this.game.camera.x);
+        //var dy = this.y - this.cursorY;
+        //var dx = this.x - this.cursorX;
+        //console.log("this.y: " + this.y + " cursorY: " + this.cursorY + " CameraY: " + this.game.camera.y);
+        //console.log("this.x: " + this.x + " cursorX: " + this.cursorX + " CameraX: " + this.game.camera.x);
         var theta = Math.atan2(dy, dx); // range (-PI, PI]
         //theta *= 180 / Math.PI;
         this.cursorX = this.game.mouse.x;
@@ -142,9 +147,8 @@ Tank.prototype.update = function() {
         );
         //console.log(this.spritesheet);
     } else {
-
-        var dy = this.y - this.cursorY;
-        var dx = this.x - this.cursorX;
+        var dy = this.y - (this.cursorY+this.game.camera.y);
+        var dx = this.x - (this.cursorX+this.game.camera.x);
         var theta = Math.atan2(dy, dx); // range (-PI, PI]
         //theta *= 180 / Math.PI;
         //this.cursorX = this.game.mouse.x;
@@ -162,7 +166,7 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x - 16) - this.game.camera.x), ((this.y - 16) - this.game.camera.y), this.cursorX - this.game.camera.x, this.cursorY - this.game.camera.y, theta);
+        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta);
         this.game.addEntity(bulletShot);
         mySound.play();
         this.shooting = false;
@@ -182,6 +186,7 @@ Tank.prototype.update = function() {
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
             this.game.tanks = removeCurrentTank(this.game.tanks, this.tankIndex);
+            window.location.href = "gameover.html";
             
         }
     }
@@ -748,22 +753,22 @@ Tank.prototype.draw = function() {
     //Barrell Code
     this.ctx.drawImage(this.BB, this.x + 6 - this.game.camera.x, this.y + 5 - this.game.camera.y);
 
+    // Bounding box helper.
+    // this.ctx.beginPath();
+    // this.ctx.lineWidth = "2";
+    // this.ctx.strokeStyle = "red";
+    // this.ctx.rect(this.boundingbox.x - this.game.camera.x,
+    //                  this.boundingbox.y - this.game.camera.y, 
+    //                  this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.stroke();
 
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x - this.game.camera.x,
-                     this.boundingbox.y - this.game.camera.y, 
-                     this.boundingbox.width, this.boundingbox.height);
-    this.ctx.stroke();
 
-
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    //if(this == this.game.tanks[this.distance])
-    this.ctx.strokeStyle = "pink";
-    this.ctx.rect(this.triggerbox.x - 50- this.game.camera.x, this.triggerbox.y - 50 -this.game.camera.y , this.triggerbox.width + 100, this.triggerbox.height + 100);
-    this.ctx.stroke();
+    // this.ctx.beginPath();
+    // this.ctx.lineWidth = "2";
+    // //if(this == this.game.tanks[this.distance])
+    // this.ctx.strokeStyle = "pink";
+    // this.ctx.rect(this.triggerbox.x - 50- this.game.camera.x, this.triggerbox.y - 50 -this.game.camera.y , this.triggerbox.width + 100, this.triggerbox.height + 100);
+    // this.ctx.stroke();
 
 
     Entity.prototype.draw.call(this);
@@ -772,6 +777,7 @@ Tank.prototype.draw = function() {
 
 
 function findPath(game, tank_x, tank_y, direction, speed) {
+    // console.log(game.buildings);
     // console.log(game.map);
     if (direction === 4) {
         tank_x  +=  speed;
@@ -828,22 +834,22 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        else if (game.buildings[23].contains.type === 'r') {
-            var startX  =   game.buildings[23].x * 50 + 10;
-            var startY  =   game.buildings[23].y * 50 + 60;
-            var endX    =   game.buildings[23].x * 50 + 220;
-            var endY    =   game.buildings[23].y * 50 + 170;
+        if (game.buildings[0].contains.type === 'r') {
+            var startX  =   game.buildings[0].x * 50 + 10;
+            var startY  =   game.buildings[0].y * 50 + 60;
+            var endX    =   game.buildings[0].x * 50 + 220;
+            var endY    =   game.buildings[0].y * 50 + 170;
             
             if (tank_x + 40 > startX && tank_x < endX  
                 && tank_y + 40 > startY && tank_y < endY) {
                 return false;
             }
         }
-        else if (game.buildings[1].contains.type === 'r') {
-            var startX  =   game.buildings[1].x * 50 + 10;
-            var startY  =   game.buildings[1].y * 50 + 60;
-            var endX    =   game.buildings[1].x * 50 + 220;
-            var endY    =   game.buildings[0].y * 50 + 170;
+        if (game.buildings[23].contains.type === 'r') {
+            var startX  =   game.buildings[23].x * 50 + 10;
+            var startY  =   game.buildings[23].y * 50 + 60;
+            var endX    =   game.buildings[23].x * 50 + 220;
+            var endY    =   game.buildings[23].y * 50 + 170;
             
             if (tank_x + 40 > startX && tank_x < endX  
                 && tank_y + 40 > startY && tank_y < endY) {
@@ -860,7 +866,7 @@ function findPath(game, tank_x, tank_y, direction, speed) {
 
 
 
-// Jerry did
+// // Jerry did
 function removeCurrentTank(tanks, index) {
     let next = [];
     for (let i = 0; i < tanks.length; i++) {

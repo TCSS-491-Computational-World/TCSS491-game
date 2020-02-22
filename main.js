@@ -448,19 +448,19 @@ AM.downloadAll(function () {
     // var enemy = new Enemy(gameEngine);   
     var enemytank1 = new EnemyTank(gameEngine, 2200, 700);
     var enemytank2 = new EnemyTank(gameEngine , 500, 2200);
-    var enemytank3 = new EnemyTank(gameEngine , 2200, 2200);  
-    var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
+    var enemytank3 = new EnemyTank(gameEngine , 400, 400);  
+    // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
 
     tanks.push(tank);
     tanks.push(enemytank1);
     tanks.push(enemytank2);
     tanks.push(enemytank3);
-    tanks.push(enemyRobot);
+    // tanks.push(enemyRobot);
 
 
     // tanks.push(enemy);
     gameEngine.tanks = tanks;
-
+    var gameScore = new Score(gameEngine, 0); //game score for player
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
     var desert = new Desert(gameEngine);      
     gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
@@ -471,10 +471,10 @@ AM.downloadAll(function () {
     gameEngine.addEntity(enemytank1);
     gameEngine.addEntity(enemytank2);
     gameEngine.addEntity(enemytank3);
-    gameEngine.addEntity(enemyRobot);
+    // gameEngine.addEntity(enemyRobot);
     // gameEngine.addEntity(enemy);
     gameEngine.addEntity(camera);
-
+    gameEngine.addEntity(gameScore);
 
 
 

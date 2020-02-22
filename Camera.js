@@ -52,15 +52,15 @@ Camera.prototype.draw = function() {
 
     // console.log(this.game.tanks[0].y);
     // console.log(this.x);
-    this.ctx.beginPath();
+    // this.ctx.beginPath();
     this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.strokeRect(
-        this.x - this.game.camera.x,
-        this.y - this.game.camera.y,
-        this.width,
-        this.height
-    );
+    // this.ctx.strokeStyle = "red";
+    // this.ctx.strokeRect(
+    //     this.x - this.game.camera.x,
+    //     this.y - this.game.camera.y,
+    //     this.width,
+    //     this.height
+    // );
 
 
     if (this.game.tanks[0].x >= 2250 && this.game.tanks[0].y >=2250) {
@@ -169,7 +169,18 @@ Camera.prototype.draw = function() {
         }
     }
 
+    if (this.game.tanks[0].x >= 2250 && this.game.tanks[0].y >=2250) {
+        this.ctx.strokeStyle = 'orange';
+        this.ctx.strokeRect(this.x-this.game.camera.x + this.game.camera.x / 50 * pixel , this.y-this.game.camera.y + 400 + this.game.camera.y / 50 * pixel , 20*pixel, 12 * pixel);    
+    }
+    else {
+        this.ctx.strokeStyle = 'orange';
+        this.ctx.strokeRect(this.x-this.game.camera.x + 800 + this.game.camera.x / 50 * pixel , this.y-this.game.camera.y + 400 + this.game.camera.y / 50 * pixel , 20*pixel, 12 * pixel);
 
+
+    }
+
+    
 
 
     // this.ctx.rect(this.startX, this.endX, this.startY, this.endY);
