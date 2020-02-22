@@ -63,8 +63,8 @@ BulletFire.prototype.update = function () {
 
 
 // EDDDDDDIT THIS LATTTTER!!!
-
-    for(let i = 0; i < this.game.tanks.length; i++){
+    // Ross changed the i to 1, instead of 0
+    for(let i = 1; i < this.game.tanks.length; i++){
         // console.log("My I：" + i);
         if(i !== this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
             //console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");

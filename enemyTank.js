@@ -147,7 +147,7 @@ EnemyTank.prototype.update = function() {
         this.game.addEntity(cleanshot);
         this.cleanShot = false;
         this.currentHealth -= 10;
-        this.game.gameScore.gameScore ++;
+        this.game.gameScore ++;
 
        // this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
         

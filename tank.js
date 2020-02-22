@@ -130,8 +130,12 @@ Tank.prototype.update = function() {
     //____________________________________________________________________________________________________
     if (this.game.mouse) {
         // console.log("fhdfhfdh");
-        var dy = this.y - this.cursorY;
-        var dx = this.x - this.cursorX;
+        var dy = this.y - (this.cursorY + this.game.camera.y);
+        var dx = this.x - (this.cursorX + this.game.camera.x);
+        //var dy = this.y - this.cursorY;
+        //var dx = this.x - this.cursorX;
+        //console.log("this.y: " + this.y + " cursorY: " + this.cursorY + " CameraY: " + this.game.camera.y);
+        //console.log("this.x: " + this.x + " cursorX: " + this.cursorX + " CameraX: " + this.game.camera.x);
         var theta = Math.atan2(dy, dx); // range (-PI, PI]
         //theta *= 180 / Math.PI;
         this.cursorX = this.game.mouse.x;
@@ -143,9 +147,8 @@ Tank.prototype.update = function() {
         );
         //console.log(this.spritesheet);
     } else {
-
-        var dy = this.y - this.cursorY;
-        var dx = this.x - this.cursorX;
+        var dy = this.y - (this.cursorY+this.game.camera.y);
+        var dx = this.x - (this.cursorX+this.game.camera.x);
         var theta = Math.atan2(dy, dx); // range (-PI, PI]
         //theta *= 180 / Math.PI;
         //this.cursorX = this.game.mouse.x;
@@ -163,7 +166,7 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x) - this.game.camera.x), ((this.y - 16) - this.game.camera.y), this.cursorX - this.game.camera.x, this.cursorY - this.game.camera.y, theta);
+        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta);
         this.game.addEntity(bulletShot);
         mySound.play();
         this.shooting = false;
