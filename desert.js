@@ -7,6 +7,7 @@ function Cell(theX, theY, theContain) {
     this.contains = theContain;
 }
 
+
 // Map setting
 function setUp() {
     this.wall = AM.getAsset("./img/background/crate.png");

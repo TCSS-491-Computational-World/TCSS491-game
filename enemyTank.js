@@ -9,6 +9,7 @@ function EnemyTank(game, x, y) {
     this.cursorX;
     this.cursorY;
     
+    
     //_________________________________________________________________________________________________________
 
     this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
