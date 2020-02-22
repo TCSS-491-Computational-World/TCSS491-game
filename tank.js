@@ -166,7 +166,7 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta);
+        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex, null);
         this.game.addEntity(bulletShot);
         mySound.play();
         this.shooting = false;
@@ -185,8 +185,9 @@ Tank.prototype.update = function() {
         if(this.currentHealth === 0){
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
-            this.game.tanks = removeCurrentTank(this.game.tanks, this.tankIndex);
+
             window.location.href = "gameover.html";
+            this.game.tanks = removeCurrentTank(this.game.tanks, this.tankIndex);
             
         }
     }
