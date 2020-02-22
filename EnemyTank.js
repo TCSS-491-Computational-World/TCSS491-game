@@ -403,19 +403,19 @@ EnemyTank.prototype.draw = function() {
     //Barrell Code
     this.ctx.drawImage(this.BB, this.x + 6 - this.game.camera.x, this.y + 5 - this.game.camera.y);
 
+    //Bounding box helper.
+    // this.ctx.beginPath();
+    // this.ctx.lineWidth = "2";
+    // this.ctx.strokeStyle = "red";
+    // this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.stroke();
 
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, this.boundingbox.width, this.boundingbox.height);
-    this.ctx.stroke();
-
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "1";
-    //if(this == this.game.tanks[this.distance])
-    this.ctx.strokeStyle = "white";
-    this.ctx.rect(this.triggerbox.x - 250 -this.game.camera.x, this.triggerbox.y - 250 - this.game.camera.y , this.triggerbox.width + 500, this.triggerbox.height + 500);
-    this.ctx.stroke();
+    // this.ctx.beginPath();
+    // this.ctx.lineWidth = "1";
+    // //if(this == this.game.tanks[this.distance])
+    // this.ctx.strokeStyle = "white";
+    // this.ctx.rect(this.triggerbox.x - 250 -this.game.camera.x, this.triggerbox.y - 250 - this.game.camera.y , this.triggerbox.width + 500, this.triggerbox.height + 500);
+    // this.ctx.stroke();
 
     
     // if(this.game.tanks.length > 3){
