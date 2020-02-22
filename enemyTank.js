@@ -9,7 +9,7 @@ function EnemyTank(game, x, y) {
     this.cursorX;
     this.cursorY;
     
-    
+
     //_________________________________________________________________________________________________________
 
     this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
@@ -157,6 +157,13 @@ EnemyTank.prototype.update = function() {
             this.game.tanks[this.tankIndex].removeFromWorld = true;
             this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
             
+
+            var newTank = new EnemyTank(gameEngine, 
+                this.game.path[Math.floor(Math.random() * this.game.path.length)].x * 50,
+                this.game.path[Math.floor(Math.random() * this.game.path.length)].y * 50);
+
+            this.game.tanks.push(newTank);
+            this.game.addEntity(newTank);
         }
         
         //this.bullet.fire = true;
