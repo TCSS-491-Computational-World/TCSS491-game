@@ -158,7 +158,7 @@ EnemyTank.prototype.update = function() {
             this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
             
 
-            var newTank = new EnemyTank(gameEngine, 
+            var newTank = new EnemyTank(this.game, 
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].x * 50,
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].y * 50);
 
