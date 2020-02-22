@@ -147,13 +147,14 @@ EnemyTank.prototype.update = function() {
         this.game.addEntity(cleanshot);
         this.cleanShot = false;
         this.currentHealth -= 10;
+        this.game.gameScore ++;
 
        // this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
         
         if(this.currentHealth === 0){
 
             this.game.tanks[this.tankIndex].removeFromWorld = true;
-            this.game.tanks = removeCurrentTank(this.game.tanks, this.tankIndex);
+            this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
             
         }
         
@@ -228,9 +229,9 @@ EnemyTank.prototype.update = function() {
         this.left = false;
         
     }
+    // console.log(this.x);
 
-
-    if (this.up === true  && this.y >=0   && findPath(this.game, this.x, this.y, 5, this.speed)) {
+    if (this.up === true  && this.y >=0   && findEnemyPath(this.game, this.x, this.y, 5, this.speed)) {
         
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -246,7 +247,7 @@ EnemyTank.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true    && this.x <= 2500  && findPath(this.game, this.x, this.y, 3, this.speed)) {
+    if (this.right === true  && this.x <= 2450&& findEnemyPath(this.game, this.x, this.y, 3, this.speed)  ) { 
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -261,7 +262,7 @@ EnemyTank.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true  &&  this.y <=2500 && findPath(this.game, this.x, this.y, 1, this.speed)) {
+    if (this.down === true  &&  this.y <=2450 && findEnemyPath(this.game, this.x, this.y, 1, this.speed)) { 
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -275,7 +276,7 @@ EnemyTank.prototype.update = function() {
         this.right = false;
         this.left = true;
     }
-    if (this.left === true  &&  this.x >=0  && findPath(this.game, this.x, this.y, 7, this.speed)) {
+    if (this.left === true  &&  this.x >=0  && findEnemyPath(this.game, this.x, this.y, 7, this.speed)) { 
 
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
@@ -402,19 +403,19 @@ EnemyTank.prototype.draw = function() {
     //Barrell Code
     this.ctx.drawImage(this.BB, this.x + 6 - this.game.camera.x, this.y + 5 - this.game.camera.y);
 
+    //Bounding box helper.
+    // this.ctx.beginPath();
+    // this.ctx.lineWidth = "2";
+    // this.ctx.strokeStyle = "red";
+    // this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, this.boundingbox.width, this.boundingbox.height);
+    // this.ctx.stroke();
 
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, this.boundingbox.width, this.boundingbox.height);
-    this.ctx.stroke();
-
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "1";
-    //if(this == this.game.tanks[this.distance])
-    this.ctx.strokeStyle = "white";
-    this.ctx.rect(this.triggerbox.x - 250 -this.game.camera.x, this.triggerbox.y - 250 - this.game.camera.y , this.triggerbox.width + 500, this.triggerbox.height + 500);
-    this.ctx.stroke();
+    // this.ctx.beginPath();
+    // this.ctx.lineWidth = "1";
+    // //if(this == this.game.tanks[this.distance])
+    // this.ctx.strokeStyle = "white";
+    // this.ctx.rect(this.triggerbox.x - 250 -this.game.camera.x, this.triggerbox.y - 250 - this.game.camera.y , this.triggerbox.width + 500, this.triggerbox.height + 500);
+    // this.ctx.stroke();
 
     
     // if(this.game.tanks.length > 3){
@@ -434,7 +435,7 @@ EnemyTank.prototype.draw = function() {
 
 
 
-function findPath(game, tank_x, tank_y, direction, speed) {
+function findEnemyPath(game, tank_x, tank_y, direction, speed) {
     // console.log(game.map);
     if (direction === 4) {
         tank_x  +=  speed;
@@ -491,7 +492,7 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        else if (game.buildings[23].contains.type === 'r') {
+        if (game.buildings[23].contains.type === 'r') {
             var startX  =   game.buildings[23].x * 50 + 10;
             var startY  =   game.buildings[23].y * 50 + 60;
             var endX    =   game.buildings[23].x * 50 + 220;
@@ -502,10 +503,10 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-        else if (game.buildings[1].contains.type === 'r') {
-            var startX  =   game.buildings[1].x * 50 + 10;
-            var startY  =   game.buildings[1].y * 50 + 60;
-            var endX    =   game.buildings[1].x * 50 + 220;
+        if (game.buildings[0].contains.type === 'r') {
+            var startX  =   game.buildings[0].x * 50 + 10;
+            var startY  =   game.buildings[0].y * 50 + 60;
+            var endX    =   game.buildings[0].x * 50 + 220;
             var endY    =   game.buildings[0].y * 50 + 170;
             
             if (tank_x + 40 > startX && tank_x < endX  
@@ -524,7 +525,7 @@ function findPath(game, tank_x, tank_y, direction, speed) {
 
 
 // Jerry did
-function removeCurrentTank(tanks, index) {
+function removeEnemyTank(tanks, index) {
     let next = [];
     for (let i = 0; i < tanks.length; i++) {
         if (i !== index) {
