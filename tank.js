@@ -172,6 +172,7 @@ Tank.prototype.update = function() {
     }
     if (this.shooting) {
         bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex,null);
+        //bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex, null);
         this.game.addEntity(bulletShot);
         mySound.play();
         this.shooting = false;
@@ -862,7 +863,6 @@ function findPath(game, tank_x, tank_y, direction, speed) {
                 return false;
             }
         }
-
         
 
     }
