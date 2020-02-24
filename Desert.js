@@ -347,6 +347,7 @@ Desert.prototype.update = function () {
             this.game.walls[i].contains.cleanShot = false;
             // console.log("I changed");
             this.game.walls[i].contains.removed = true;
+            this.game.gameScore ++;
         }       
     }
     // buildings explosion // Something wrong

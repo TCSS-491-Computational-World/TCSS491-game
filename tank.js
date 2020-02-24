@@ -15,14 +15,14 @@ function Tank(game) {
     //_________________________________________________________________________________________________________
 
     this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),  0, 0, 50, 50, 1,1,true,false);
-    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 120,0, 50,50,1,1, true,false);
-    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),240,0,50,50,1,1,true,false);
-    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),360,0,50, 50,1,1,true, false);
+    this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 100,0, 50,50,1,1, true,false);
+    this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),200,0,50,50,1,1,true,false);
+    this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),300,0,50, 50,1,1,true, false);
 
-    this.moveDownRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),  60, 0, 50, 50  , 1,1,true,false);
-    this.moveUpRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 180,0, 50,50,1,1, true,false);
-    this.moveUpLeftAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),300,0,50,50,1,1,true,false);
-    this.moveDownLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),420,0,50, 50,1,1,true, false);
+    this.moveDownRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),  50, 0, 50, 50  , 1,1,true,false);
+    this.moveUpRightAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"), 150,0, 50,50,1,1, true,false);
+    this.moveUpLeftAnimation = new Animation(AM.getAsset("./img/tank_green8D.png"),250,0,50,50,1,1,true,false);
+    this.moveDownLeftAnimation = new Animation( AM.getAsset("./img/tank_green8D.png"),350,0,50, 50,1,1,true, false);
 
     // this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
     // this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
@@ -530,6 +530,7 @@ Tank.prototype.draw = function() {
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "up";
@@ -540,6 +541,7 @@ Tank.prototype.draw = function() {
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "down";
@@ -550,6 +552,7 @@ Tank.prototype.draw = function() {
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "right";
@@ -560,6 +563,7 @@ Tank.prototype.draw = function() {
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "left";
@@ -572,6 +576,7 @@ Tank.prototype.draw = function() {
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "UpRight";
@@ -583,28 +588,31 @@ Tank.prototype.draw = function() {
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "UpLeft";
     }
 
     if (this.TankState == 8) {
-        this.moveUpLeftAnimation.drawFrame(
+        this.moveDownLeftAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "DownLeft";
     }
 
     if (this.TankState == 2) {
-        this.moveUpLeftAnimation.drawFrame(
+        this.moveDownRightAnimation.drawFrame(
             this.game.clockTick,
             this.ctx,
             this.x - this.game.camera.x,
             this.y - this.game.camera.y
+            ,1.2
         );
         this.TankState == 0;
         this.lastMove = "DownRight";
@@ -620,6 +628,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "UpRight")
             this.moveUpRightAnimation.drawFrame(
@@ -627,6 +636,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "UpLeft")
             this.moveUpLeftAnimation.drawFrame(
@@ -634,6 +644,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "DownLeft")
             this.moveDownLeftAnimation.drawFrame(
@@ -641,6 +652,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "left")
             this.moveLeftAnimation.drawFrame(
@@ -648,6 +660,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "right")
             this.moveRightAnimation.drawFrame(
@@ -655,6 +668,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "down")
             this.moveDownAnimation.drawFrame(
@@ -662,6 +676,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "up")
             this.moveUpAnimation.drawFrame(
@@ -669,6 +684,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
         if (this.lastMove === "none")
             this.moveUpAnimation.drawFrame(
@@ -676,6 +692,7 @@ Tank.prototype.draw = function() {
                 this.ctx,
                 this.x - this.game.camera.x,
                 this.y - this.game.camera.y
+                ,1.2
             );
     }
     // if (this.up) {
