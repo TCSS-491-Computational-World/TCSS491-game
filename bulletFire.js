@@ -158,12 +158,13 @@ BulletFire.prototype.draw = function () {
 
     if (this.fire && this.type != "snowball") {
 
-        
+        /* UNCOMMENT FOR SHOWING BOUNDING BOX ON BULLETS
         this.ctx.beginPath();
         this.ctx.lineWidth = "1";
         this.ctx.strokeStyle = "red";
         this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, 33, 24);
         this.ctx.stroke();
+        */
 
 
         this.ctx.drawImage(
