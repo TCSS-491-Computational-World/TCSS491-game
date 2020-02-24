@@ -157,6 +157,9 @@ EnemyTank.prototype.update = function() {
             this.game.gameScore += 50;
             this.game.tanks[this.tankIndex].removeFromWorld = true;
             this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
+                // if (this.game.tanks.length === 1 && this.game.tanks[0].x === this.x && this.game.tanks[0].y === this.y) {
+    //     window.location.href = "gamewin.html";
+    // }
             
 
             var newTank = new EnemyTank(this.game, 
