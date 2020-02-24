@@ -111,6 +111,11 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
+
+    if (this.game.tanks.length === 1 && this.game.tanks[0].x === this.x && this.game.tanks[0].y === this.y) {
+        window.location.href = "gamewin.html";
+    }
+
     // console.log(findPath(this.game, this.x, this.y));
 
     var bool = true;
