@@ -185,7 +185,7 @@ Tank.prototype.update = function() {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
         this.cleanShot = false;
-        this.currentHealth -= 10;
+        this.currentHealth -= 50;
         //this.bullet.fire = true;
 
         if(this.currentHealth === 0){
