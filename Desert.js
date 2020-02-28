@@ -1,4 +1,4 @@
-// var grid = new Array(50);
+// var grid = new Array(50); 
 
 //尝试知道每个格子都有什么 contains for each c
 function Cell(theX, theY, theContain) {
@@ -299,7 +299,7 @@ function checkBuilding(game) {
     // console.log(buildings);
     return buildings;
 }
-
+// log all the powerups
 function checkPowerups(game){
     var powerups = [];
     for(let i = 0; i < game.map.length; i++){
@@ -313,7 +313,7 @@ function checkPowerups(game){
     }
     return powerups;
 }
-
+// once a powerup is drove over we remove it
 function removePowerup(game){
     var next = [];
     //var newPath = game.path;
