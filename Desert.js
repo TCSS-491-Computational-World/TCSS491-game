@@ -10,6 +10,7 @@ function Cell(theX, theY, theContain) {
 
 // Map setting
 function setUp() {
+    this.healthPack = AM.queueDownload("./img/healthPack.png");
     this.wall = AM.getAsset("./img/background/crate.png");
     this.roofFirst = AM.getAsset("./img/rooftop.png");    // first roofTop
     this.roofSecond = AM.getAsset("./img/roof.png");      // second roof
@@ -171,6 +172,27 @@ function setUp() {
             ) {
                 grid[i][j] = new Cell(i,j,new Component(this.roofSecond, i* w, j *w, 250,200,'r'));
             }
+            else if ( i === 5 && j === 5){
+                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            }
+            else if ( i === 10 && j === 10){
+                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            }
+            else if ( i === 15 && j === 15){
+                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            }
+            else if ( i === 20 && j === 20){
+                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            }
+            else if ( i === 25 && j === 25){
+                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            }
+            else if ( i === 30 && j === 30){
+                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            }
+            else if ( i === 35 && j === 35){
+                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            }
             else if (
                 (i === 18 && j === 16) 
             ||  (i === 20 && j === 16)
@@ -199,7 +221,7 @@ function setUp() {
             ||  (i === 18 && j === 16)
 
             ) {
-                grid[i][j] = new Cell(i,j, new Component(this.tree,i*w,j*w, 100,100,'t'));
+                grid[i][j] = new Cell(i,j, new Component(this.tree,i*w ,j*w, 100,100,'t'));
             }
 
             else {
@@ -278,6 +300,33 @@ function checkBuilding(game) {
     return buildings;
 }
 
+function checkPowerups(game){
+    var powerups = [];
+    for(let i = 0; i < game.map.length; i++){
+        for(let j = 0; j < game.map[i].length; j++){
+            if(game.map[i][j].contains.type === 'hp' || game.map[i][j].contains.type === 'ap'){
+                //console.log("checks for POOOOOOWEEEEER");
+                powerups.push(game.map[i][j]);
+            }
+        }
+        
+    }
+    return powerups;
+}
+
+function removePowerup(game){
+    var next = [];
+    //var newPath = game.path;
+    // console.log("Before "+ game.path.length);
+    for (let i = 0; i < game.powerups.length; i++) {
+        // console.log(game.walls[i] === wall);
+        if (!game.powerups[i].contains.removed) {
+            next.push(game.powerups[i]);
+        }
+    }
+    return {powerups:next};
+}
+
 
 
 
@@ -292,7 +341,17 @@ function Component(image,x,y,width,height,type) {
     this.height = height;   // limit height
     this.type = type;   // check the type of the component, like wall, building or tree etc.
 
-    this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);   // bounding box
+    if(this.type === 'hp') {
+        
+        this.healthPackAnimation = new Animation(AM.getAsset("./img/healthPack.png"), 0 , 0, 16, 16, 0.5, true, false);
+        this.boundingbox = new BoundingBox(this.x + 18, this.y + 18,this.width,this.height);
+    } else {
+        this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);
+    }
+
+
+
+       // bounding box
     this.cleanShot = false;                                                     // working for bullet fire
     this.removed = false;                                                       // check if it needs to draw on the map
 }
@@ -300,6 +359,10 @@ Component.prototype = new Entity();
 Component.prototype.constructor = Component;
 
 Component.prototype.draw = function () {
+    // if(this.type === 'gp'){
+    //     console.log("ISSSS DRAWWWWWING");
+    //     this.healthBarAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+    // }
 
 };
 
@@ -315,6 +378,7 @@ function Desert(game) {
   // this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false); 
 
   this.desertTile = AM.getAsset("./img/background/desertTile.png");
+  this.healthPackAnimation = new Animation(AM.getAsset("./img/healthPack.png"), 0 , 0, 16, 16, .9, 4, true, false);
   this.radius = 200;
   this.game = game;
   this.ctx = game.ctx
@@ -324,6 +388,7 @@ function Desert(game) {
   this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
   this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
   this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
+  this.game.powerups = checkPowerups(game);
 
   this.game.buildings = checkBuilding(game);
   Entity.call(this, game, 0, 400);
@@ -362,10 +427,21 @@ Desert.prototype.update = function () {
         }       
     }
 
+    for (let i = 0; i < this.game.powerups.length; i++) {
+        if (this.game.powerups[i].contains.boundingbox.collide(this.game.tanks[0].boundingbox) && this.game.tanks[0].currentHealth != 200) {
+            console.log("I changed");
+            this.game.tanks[0].currentHealth += 50;
+            this.game.powerups[i].contains.removed = true;
+            //ADD LATER TO CHECK FOR COLLISION 
+             
+        }       
+    }
 
 
 
 
+    var tempP = removePowerup(this.game);
+    this.game.powerups = tempP.powerups;
 
 
     var temp = removeWalls(this.game);
@@ -421,6 +497,25 @@ Desert.prototype.draw = function () {
         }
 
     }
+
+    for (let i = 0; i < this.game.powerups.length; i++) {
+        if (this.game.powerups[i].contains.type === 'hp'){
+            console.log("ISSSSS GOING PPPPP");
+            this.healthPackAnimation.drawFrame(this.game.clockTick, this.ctx, this.game.powerups[i].contains.x - this.game.camera.x  + 20 ,
+                 this.game.powerups[i].contains.y - this.game.camera.y + 20);
+
+                //  this.ctx.beginPath();
+                //  this.ctx.lineWidth = "2";
+                //  //if(this == this.game.tanks[this.distance])
+                //  this.ctx.strokeStyle = "pink";
+                //  this.ctx.rect(this.game.powerups[i].contains.boundingbox.x- this.game.camera.x, this.game.powerups[i].contains.boundingbox.x -this.game.camera.y , this.game.powerups[i].contains.boundingbox.width , this.game.powerups[i].contains.boundingbox.height );
+                //  this.ctx.stroke();
+        }
+ 
+    }
+
+     
+    
 
 
 

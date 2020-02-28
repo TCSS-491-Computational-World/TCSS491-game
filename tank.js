@@ -112,7 +112,7 @@ Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
 
-    if (/*this.game.tanks.length === 1 && this.game.tanks[0].x === this.x && this.game.tanks[0].y === this.y*/ this.game.gameScore > 200) {
+    if (/*this.game.tanks.length === 1 && this.game.tanks[0].x === this.x && this.game.tanks[0].y === this.y*/ this.game.gameScore > 2000) {
         window.location.href = "gamewin.html";
     }
 
