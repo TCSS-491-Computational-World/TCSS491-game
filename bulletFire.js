@@ -1,4 +1,4 @@
-function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation, index, type) {
+function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation, index, type, speed) {
     this.theta = rotation;
     //this.distance = distance;
     this.type = type;
@@ -13,7 +13,7 @@ function BulletFire(game, image, fire, tankX, tankY, targetX, targetY, rotation,
     this.tankY = tankY + 25;
     this.rotation = rotation;
     this.fire = fire;
-    this.speed = 10;
+    this.speed = speed;
     this.ctx = game.ctx;
     this.fire = fire;
     this.timeA = null;
@@ -117,7 +117,7 @@ BulletFire.prototype.update = function () {
     }
     
 
-    if (this.x > this.tankX + 2000|| this.y > this.tankY + 2000 || this.x < this.tankX - 2000 || this.y < this.tankY - 2000) {
+    if (this.x > this.tankX + 1000|| this.y > this.tankY + 1000 || this.x < this.tankX - 1000 || this.y < this.tankY - 1000) {
         //console.log("IS ANYTHING HAPPENING HERE!??!?");
 
         this.game.entities[this.game.entities.length - 1].removeFromWorld = true; // 
@@ -136,10 +136,10 @@ BulletFire.prototype.update = function () {
     if (this.fire) {
 
         //this.x += this.speed;
-            this.x -= Math.cos(this.theta) * 10;
-            this.y -= Math.sin(this.theta) * 10;
-            this.boundingbox.x -= Math.cos(this.theta) * 10;
-            this.boundingbox.y -= Math.sin(this.theta) * 10;
+            this.x -= Math.cos(this.theta) * this.speed;
+            this.y -= Math.sin(this.theta) * this.speed;
+            this.boundingbox.x -= Math.cos(this.theta) * this.speed;
+            this.boundingbox.y -= Math.sin(this.theta) * this.speed;
         
        
     }

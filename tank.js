@@ -171,7 +171,7 @@ Tank.prototype.update = function() {
         this.shooting = true;
     }
     if (this.shooting) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex,null);
+        bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex,null, 10);
         //bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex, null);
         this.game.addEntity(bulletShot);
         mySound.play();
@@ -208,40 +208,40 @@ Tank.prototype.update = function() {
                 this.moveDownLeft = false;
                 this.moveDownRight = false;
             } 
-            if(this.lastMove === "up"){
+            else if(this.lastMove === "up"){
                 this.moveUp = false;
                 this.moveUpRight = false;
                 this.moveUpLeft = false;
             }
-            if(this.lastMove === "right"){
+            else if(this.lastMove === "right"){
                 this.moveRight = false;
                 this.moveUpRight = false;
                 this.moveUpLeft = false;
             } 
-            if(this.lastMove === "left"){
+            else if(this.lastMove === "left"){
                 this.moveLeft = false;
                 this.moveUpLeft = false;
                 this.moveUpRight = false;
             }
-            if(this.lastMove === "DownRight"){
+            else if(this.lastMove === "DownRight"){
                 this.moveDownRight = false;
                 this.moveDown = false;
                 this.moveDownLeft = false;
                 this.moveRight = false;
             } 
-            if(this.lastMove === "DownLeft"){
+            else if(this.lastMove === "DownLeft"){
                 this.moveDownLeft = false;
                 this.moveDownRight = false;
                 this.moveLeft = false;
                 this.moveDown = false;
             }
-            if(this.lastMove === "UpRight"){
+            else if(this.lastMove === "UpRight"){
                 this.moveUpRight = false;
                 this.moveUpLeft = false;
                 this.moveUp = false;
                 this.moveRight = false;
             } 
-            if(this.lastMove === "UpLeft"){
+            else if(this.lastMove === "UpLeft"){
                 this.moveUpLeft = false;
                 this.moveUpRight = false;
                 this.moveUp = false;

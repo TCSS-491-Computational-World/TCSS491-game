@@ -130,7 +130,7 @@ EnemyTank.prototype.update = function() {
     //_____________________________________________________________________________________________________
 
     if (this.shooting && this.cooldown === 200 ) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex, null);
+        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex, null, 10);
         this.game.addEntity(bulletShot);
         this.shooting = false;
         //this.bullet.fire = true;
