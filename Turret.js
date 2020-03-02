@@ -113,8 +113,8 @@ Turret.prototype.update = function() {
         //this.cursorX = this.game.mouse.x;
         //this.cursorY = this.game.mouse.y;
         this.bullet = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta);
-        this.bullet = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta - 70);
-        this.bullet = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta + 70);
+        this.bullet1 = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta - 70);
+        this.bullet2 = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta + 70);
         this.BB = this.rotateAndCache(
             AM.getAsset("./img/tank_red2Barrell.png"),
             this.theta
@@ -142,9 +142,11 @@ Turret.prototype.update = function() {
     if (this.shooting && this.cooldown === 100 ) {
         console.log("fhdfhfdh "+ this.theta);
         bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
-        bulletShot = new BulletFire(this.game, this.bullet1, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
-        bulletShot = new BulletFire(this.game, this.bullet2, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
+        bulletShot1 = new BulletFire(this.game, this.bullet1, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
+        bulletShot2 = new BulletFire(this.game, this.bullet2, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
         this.game.addEntity(bulletShot);
+        this.game.addEntity(bulletShot1);
+        this.game.addEntity(bulletShot2);
         this.shooting = false;
         //this.bullet.fire = true;
     }
