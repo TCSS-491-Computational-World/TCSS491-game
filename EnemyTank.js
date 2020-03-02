@@ -97,7 +97,7 @@ EnemyTank.prototype.update = function() {
     
     this.distance = Math.sqrt(Math.pow((this.triggerbox.midpointx - this.game.tanks[0].triggerbox.midpointx), 2) +
                              Math.pow((this.triggerbox.midpointy - this.game.tanks[0].triggerbox.midpointy), 2));
-
+                             console.log("fhdfhfdh "+ this.distance);
     if (this.distance < 350) {
         //console.log("fhdfhfdh");
         var dy = this.y - this.game.tanks[0].y;

@@ -6,7 +6,9 @@ function Turret(game, x, y) {
     this.barrell = new Barrell(game, AM.getAsset("./img/tank_red2Barrell.png"));
     this.BB = AM.getAsset("./img/tank_red2Barrell.png");
     
-    this.bullet = AM.getAsset("./img/bullet_red_2.png");
+    this.bullet = AM.getAsset("./img/bulletc.png");
+    this.bullet1 = AM.getAsset("./img/bulletc.png");
+    this.bullet2 = AM.getAsset("./img/bulletc.png");
     this.explosionA = AM.getAsset("./img/Explosion_A.png")
     this.cursorX;
     this.cursorY;
@@ -14,18 +16,18 @@ function Turret(game, x, y) {
 
     //_________________________________________________________________________________________________________
 
-    this.moveDownAnimation = new Animation(AM.getAsset("./img/turret.png"),  0, 0, 23, 33, 1,1,true,false);
-    this.moveUpAnimation = new Animation(AM.getAsset("./img/turret.png"), 23,0, 23,33,1,1, true,false);
-    this.moveUpRightAnimation = new Animation(AM.getAsset("./img/turret.png"),46,0,23,33,1,1,true,false);
-    this.moveDownRightAnimation = new Animation(AM.getAsset("./img/turret.png"),69,0,23, 33,1,1,true, false);
+    this.moveDownAnimation = new Animation(AM.getAsset("./img/turret.png"),  0, 0, 23, 33, 1,1,true,true);
+    this.moveUpAnimation = new Animation(AM.getAsset("./img/turret.png"), 23,0, 23,33,1,1, true,true);
+    this.moveUpRightAnimation = new Animation(AM.getAsset("./img/turret.png"),46,0,23,33,1,1,true,true);
+    this.moveDownRightAnimation = new Animation(AM.getAsset("./img/turret.png"),69,0,23, 33,1,1,true, true);
 
-    this.moveRightAnimation = new Animation(AM.getAsset("./img/turret.png"),0,0,23,33,1, 1,true,false); //quick note{:}
-    this.moveUpLefttAnimation = new Animation(AM.getAsset("./img/turret.png"),73,0,23,33,1,1,true,false);
-    this.moveDownLeftAnimation = new Animation(AM.getAsset("./img/turret.png"),146,0,23,33,1,1,true,false);
-    this.moveLeftAnimation = new Animation(AM.getAsset("./img/turret.png"),219,0,23,33,1,1,true,false);
+    this.moveRightAnimation = new Animation(AM.getAsset("./img/turret.png"),92,0,23,33,1, 1,true,true); //quick note{:}
+    this.moveUpLeftAnimation = new Animation(AM.getAsset("./img/turret.png"),115,0,23,33,1,1,true,true);
+    this.moveDownLeftAnimation = new Animation(AM.getAsset("./img/turret.png"),138,0,23,33,1,1,true,true);
+    this.moveLeftAnimation = new Animation(AM.getAsset("./img/turret.png"),161,0,23,33,1,1,true,true);
 
     //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
-    this.cooldown = 200;
+    this.cooldown = 100;
     this.counter = 0;
     this.random = this.random = Math.floor(Math.random() * 100);
     this.up = false;
@@ -40,11 +42,12 @@ function Turret(game, x, y) {
     this.y = y;
     this.shooting = false;
     this.cleanShot = false;
-    this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
-    this.triggerbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
+    this.boundingbox = new BoundingBox(this.x, this.y, this.moveDownAnimation.frameWidth + 17, this.moveDownAnimation.frameHeight + 19);
+    this.triggerbox = new BoundingBox(this.x, this.y, this.moveDownAnimation.frameWidth + 17, this.moveDownAnimation.frameHeight + 19);
     this.distance = 1;
-    this.maxHealth = 200;
-    this.currentHealth = 200;
+    this.maxHealth = 500;
+    this.currentHealth = 500;
+    this.theta = 0;
     this.collision;
     this.tankIndex;
     this.tempList;
@@ -66,7 +69,7 @@ Turret.prototype.update = function() {
             //this.tempList.splice(this.tankIndex, 1);
         }
     }
-    //console.log("MY TANKK INDEX:    " + this.tankIndex);
+    console.log("MY TANKK INDEX:    " + this.tankIndex);
 
 
     var bool = true;
@@ -100,40 +103,47 @@ Turret.prototype.update = function() {
     
     this.distance = Math.sqrt(Math.pow((this.triggerbox.midpointx - this.game.tanks[0].triggerbox.midpointx), 2) +
                              Math.pow((this.triggerbox.midpointy - this.game.tanks[0].triggerbox.midpointy), 2));
-
+     
     if (this.distance < 350) {
         //console.log("fhdfhfdh");
         var dy = this.y - this.game.tanks[0].y;
         var dx = this.x - this.game.tanks[0].x;
-        var theta = Math.atan2(dy, dx); // range (-PI, PI]
+        this.theta = Math.atan2(dy, dx); // range (-PI, PI]
         //theta *= 180 / Math.PI;
         //this.cursorX = this.game.mouse.x;
         //this.cursorY = this.game.mouse.y;
-        this.bullet = this.rotateAndCache(AM.getAsset("./img/bullet_red_2.png"), theta);
+        this.bullet = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta);
+        this.bullet = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta - 70);
+        this.bullet = this.rotateAndCache(AM.getAsset("./img/bulletc.png"), this.theta + 70);
         this.BB = this.rotateAndCache(
             AM.getAsset("./img/tank_red2Barrell.png"),
-            theta
+            this.theta
         );
+        
         this.shooting = true;
         //console.log(this.spritesheet);
      } else {
          //console.log("fhdfhfdh");
          var dy = this.y;
          var dx = this.x;
-         var theta = Math.atan2(dy, dx); // range (-PI, PI]
+         this.theta = Math.atan2(dy, dx); // range (-PI, PI]
          //theta *= 180 / Math.PI;
          //this.cursorX = this.game.mouse.x;
          //this.cursorY = this.game.mouse.y;
+         //this.bullet = this.rotateAndCache(AM.getAsset("./img/bullet_red_2.png"), theta);
          this.BB = this.rotateAndCache(
              AM.getAsset("./img/tank_red2Barrell.png"),
-             theta
+             this.theta
          );
          this.shooting = false;
      }
     //_____________________________________________________________________________________________________
 
-    if (this.shooting && this.cooldown === 200 ) {
-        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex, null);
+    if (this.shooting && this.cooldown === 100 ) {
+        console.log("fhdfhfdh "+ this.theta);
+        bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
+        bulletShot = new BulletFire(this.game, this.bullet1, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
+        bulletShot = new BulletFire(this.game, this.bullet2, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, this.theta, this.tankIndex, null);
         this.game.addEntity(bulletShot);
         this.shooting = false;
         //this.bullet.fire = true;
@@ -142,7 +152,7 @@ Turret.prototype.update = function() {
     this.cooldown--;
 
     if(this.cooldown === 0){
-        this.cooldown = 200;
+        this.cooldown = 100;
     }
 
 
@@ -162,7 +172,7 @@ Turret.prototype.update = function() {
             this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
             
 
-            var newTank = new EnemyTank(this.game, 
+            var newTank = new Turret(this.game, 
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].x * 50,
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].y * 50);
 
@@ -202,30 +212,30 @@ Turret.prototype.update = function() {
 
     // here is a bug   Jerry fixed the enmey bank will reset on the top left of corner.
 
-    // //     // console.log(this.game.walls[0].contains.boundingbox);
-    // for (let i = 0; i < this.game.walls.length; i++) {
-    //     if(this.boundingbox.collide(this.game.walls[i].contains.boundingbox)){
+    //     // console.log(this.game.walls[0].contains.boundingbox);
+    for (let i = 0; i < this.game.walls.length; i++) {
+        if(this.boundingbox.collide(this.game.walls[i].contains.boundingbox)){
 
-    //         this.game.walls[i].contains.cleanShot = true;
-    //         this.fire = false;
-    //         // this.x = this.game.walls[i].x;
-    //         // this.y = this.game.walls[i].y;
-    //         this.boundingbox.x =    this.game.walls[i].x;
-    //         this.boundingbox.y =    this.game.walls[i].y;
-    //     }
-    // }
+            this.game.walls[i].contains.cleanShot = true;
+            this.fire = false;
+            // this.x = this.game.walls[i].x;
+            // this.y = this.game.walls[i].y;
+            this.boundingbox.x =    this.game.walls[i].x;
+            this.boundingbox.y =    this.game.walls[i].y;
+        }
+    }
 
-    // for (let i = 0; i < this.game.buildings.length; i++) {
-    //     if(this.boundingbox.collide(this.game.buildings[i].contains.boundingbox)){
+    for (let i = 0; i < this.game.buildings.length; i++) {
+        if(this.boundingbox.collide(this.game.buildings[i].contains.boundingbox)){
 
-    //         this.game.buildings[i].contains.cleanShot = true;
-    //         this.fire = false;
-    //         // this.x = this.game.buildings[i].x;
-    //         // this.y = this.game.buildings[i].y;
-    //         this.boundingbox.x =    this.game.buildings[i].x;
-    //         this.boundingbox.y =    this.game.buildings[i].y;
-    //     }
-    // }
+            this.game.buildings[i].contains.cleanShot = true;
+            this.fire = false;
+            // this.x = this.game.buildings[i].x;
+            // this.y = this.game.buildings[i].y;
+            this.boundingbox.x =    this.game.buildings[i].x;
+            this.boundingbox.y =    this.game.buildings[i].y;
+        }
+    }
 
     // if(this.collision === false){
     //     //do nothing
@@ -244,12 +254,15 @@ Turret.prototype.update = function() {
     // // console.log(this.x);
 
     // if (this.up === true  && this.y >=0   && findEnemyPath(this.game, this.x, this.y, 5, this.speed)) {
+    if(this.speed === 1){
+        this.y -= this.speed;
+        this.boundingbox.y -= this.speed;
+        this.triggerbox.y -= this.speed;
+        this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
+        this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
+        this.speed = 2;
+    }
         
-    //     this.y -= this.speed;
-    //     this.boundingbox.y -= this.speed;
-    //     this.triggerbox.y -= this.speed;
-    //     this.triggerbox.midpointx = (this.triggerbox.x + (this.triggerbox.x + this.triggerbox.width))/2;
-    //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
     // }
     // if (this.random <= 50 && this.random > 25) {
     //     //moving right
@@ -297,10 +310,7 @@ Turret.prototype.update = function() {
     //     this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
     // }
 
-    
 
-
-    //this.distance = new findClosestTank(this.game.tanks).closestTank;
     //console.log("CLOSEST TANK IS AT INDEX:   " + closestTank);
     Entity.prototype.update.call(this);
 };
@@ -308,7 +318,20 @@ Turret.prototype.update = function() {
 Turret.prototype.draw = function() {
     drawHealthBar(this.ctx, this.x+5 - this.game.camera.x, this.y-5-this.game.camera.y, 40, 4, this.currentHealth, this.maxHealth);
 
-    this.moveDownAnimation.drawFrame(this.game.clockTick, this.ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 2);
+
+    if(this.game.tanks[0].y < this.y && this.game.tanks[0].x < this.x){
+        this.moveUpLeftAnimation.drawFrame(this.game.clockTick, this.ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 1.6);
+    }
+    else if(this.game.tanks[0].y > this.y && this.game.tanks[0].x > this.x){
+        this.moveDownRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 1.6);
+    }
+    else if(this.game.tanks[0].y > this.y && this.game.tanks[0].x < this.x){
+        this.moveDownLeftAnimation.drawFrame(this.game.clockTick, this.ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 1.6);
+    }
+    else if(this.game.tanks[0].y < this.y && this.game.tanks[0].x > this.x){
+        this.moveUpRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x - this.game.camera.x, this.y - this.game.camera.y, 1.6);
+    }
+  
     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
     // if (this.up) {
     //     this.moveUpAnimation.drawFrame(

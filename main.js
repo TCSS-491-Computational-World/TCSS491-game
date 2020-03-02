@@ -411,6 +411,7 @@ AM.queueDownload("./img/cursor.png");
 AM.queueDownload("./img/grass.png");
 AM.queueDownload("./img/Explosion_A.png");
 AM.queueDownload("./img/Explosion_C.png");
+AM.queueDownload("./img/bulletc.png");
 // merge
 AM.queueDownload("./img/tank_red8D.png");
 AM.queueDownload("./img/tank_green8D.png");

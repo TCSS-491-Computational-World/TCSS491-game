@@ -68,7 +68,7 @@ BulletFire.prototype.update = function () {
         // console.log("My I：" + i);
         if(i !== this.tankIndex && this.boundingbox.collide(this.game.tanks[i].boundingbox)){
             //console.log("anyhintg hapalokhohiahskjdhakjdshlkdajhsjlkdahslkj");
-            console.log("My I：" + i);
+            //console.log("My I：" + i);
             this.game.tanks[i].cleanShot = true;
             this.fire = false;
             this.x = this.tankX;
