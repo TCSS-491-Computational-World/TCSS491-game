@@ -147,13 +147,14 @@ EnemyTank.prototype.update = function() {
         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
         this.game.addEntity(cleanshot);
         this.cleanShot = false;
-        this.currentHealth -= 10;
-        this.game.gameScore ++;
+        this.currentHealth -= 50;
+        this.game.gameScore += 10;
 
        // this.game.entities[this.game.entities.length - 1].removeFromWorld = true;
         
         if(this.currentHealth === 0){
 
+            this.game.gameScore += 50;
             this.game.tanks[this.tankIndex].removeFromWorld = true;
             this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
             

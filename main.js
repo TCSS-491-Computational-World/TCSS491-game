@@ -419,6 +419,7 @@ AM.queueDownload("./img/tank_red.png");
 AM.queueDownload("./img/turret.png");
 AM.queueDownload("./img/Puddle_01.png");
 AM.queueDownload("./img/coin2.png");
+AM.queueDownload("./img/healthPack.png");
 AM.queueDownload("./img/bullet_red_2.png");
 AM.queueDownload("./img/Decor_Items/Container_A.png");
 AM.queueDownload("./img/robot.png");
@@ -432,6 +433,7 @@ AM.queueDownload("./img/snowball_01.png");
 AM.queueDownload("./img/TankSprites/vehicleA.png")
 AM.queueDownload("./img/TankSprites/vehicleB.png")
 AM.queueDownload("./img/TankSprites/vehicleC.png")
+
 
 
 AM.downloadAll(function () {
