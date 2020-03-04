@@ -111,12 +111,8 @@ Tank.prototype = new Entity();
 Tank.prototype.constructor = Tank;
 
 Tank.prototype.update = function() {
-<<<<<<< HEAD
 
     // if (/*this.game.tanks.length === 1 && this.game.tanks[0].x === this.x && this.game.tanks[0].y === this.y*/ this.game.gameScore > 2000) {
-=======
-    // if (this.game.tanks.length === 1 && this.game.tanks[0].x === this.x && this.game.tanks[0].y === this.y) {
->>>>>>> commented win page
     //     window.location.href = "gamewin.html";
     // }
 
