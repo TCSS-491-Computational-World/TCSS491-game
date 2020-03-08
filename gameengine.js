@@ -199,7 +199,7 @@ GameEngine.prototype.update = function () {
         }
         
     }
-    console.log("Before "+this.entities.length);
+    // console.log("Before "+this.entities.length);
 
     for (var i = this.entities.length - 1; i >= 0; i--) {
         if (this.entities[i].removeFromWorld) {
@@ -207,7 +207,7 @@ GameEngine.prototype.update = function () {
             //console.log("removed from world");
         }
     }
-    console.log("After "+this.entities.length);
+    // console.log("After "+this.entities.length);
 }
 
 GameEngine.prototype.loop = function () {
