@@ -500,7 +500,7 @@ Desert.prototype.draw = function () {
 
     for (let i = 0; i < this.game.powerups.length; i++) {
         if (this.game.powerups[i].contains.type === 'hp'){
-            console.log("ISSSSS GOING PPPPP");
+            // console.log("ISSSSS GOING PPPPP");
             this.healthPackAnimation.drawFrame(this.game.clockTick, this.ctx, this.game.powerups[i].contains.x - this.game.camera.x  + 20 ,
                  this.game.powerups[i].contains.y - this.game.camera.y + 20);
 

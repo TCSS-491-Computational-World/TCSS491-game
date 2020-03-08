@@ -437,6 +437,7 @@ AM.queueDownload("./img/TankSprites/vehicleC.png")
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
+    console.log(canvas.context);
     var ctx = canvas.getContext("2d");
 
     var gameEngine = new GameEngine();
