@@ -440,6 +440,9 @@ AM.downloadAll(function () {
     // var url = canvas.toDataURL();
     // console.log(url);
     var ctx = canvas.getContext("2d");
+    // Level
+    canvas.level = parseInt(location.search.split('level=')[1]);
+    // console.log(canvas.level);                           // passing the level
 
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
