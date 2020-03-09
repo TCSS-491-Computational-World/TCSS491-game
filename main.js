@@ -5,7 +5,6 @@ var AM = new AssetManager();
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-
 //Animation Class
 function Animation(
     spriteSheet,
@@ -31,7 +30,7 @@ function Animation(
     this.reverse = reverse;
 }
 
-Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
+Animation.prototype.drawFrame = function(tick, ctx, x, y, scaleBy) {
     var scaleBy = scaleBy || 1;
     this.elapsedTime += tick;
     if (this.loop) {
@@ -73,11 +72,11 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, scaleBy) {
     );
 };
 
-Animation.prototype.currentFrame = function () {
+Animation.prototype.currentFrame = function() {
     return Math.floor(this.elapsedTime / this.frameDuration);
 };
 
-Animation.prototype.isDone = function () {
+Animation.prototype.isDone = function() {
     return this.elapsedTime >= this.totalTime;
 };
 
@@ -95,20 +94,17 @@ function Background(game, spritesheet) {
     this.ctx = game.ctx;
 }
 
-Background.prototype.draw = function () {
+Background.prototype.draw = function() {
     //console.log(spriteSheet + " sssssss ");
     this.ctx.drawImage(this.spritesheet, this.x, this.y);
 };
 
-Background.prototype.update = function () { };
+Background.prototype.update = function() {};
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
-
-
-
 
 // function Tank(game) {
 //     //Barrell Code
@@ -118,7 +114,7 @@ Background.prototype.update = function () { };
 //     this.explosionA = AM.getAsset("./img/Explosion_A.png")
 //     this.cursorX;
 //     this.cursorY;
-    
+
 //     //_________________________________________________________________________________________________________
 
 //     this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
@@ -146,8 +142,7 @@ Background.prototype.update = function () { };
 //     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
 //     this.maxHealth = 200;
 //     this.currentHealth = 200;
-    
-    
+
 //     Entity.call(this, game, 300, 300);
 // }
 
@@ -221,7 +216,7 @@ Background.prototype.update = function () { };
 //         }
 //         if (this.game.keyboard === 39 || this.game.keyboard === 68) {
 //             //moving right
-    
+
 //             this.up = false;
 //             this.down = false;
 //             this.right = true;
@@ -255,7 +250,6 @@ Background.prototype.update = function () { };
 //         }
 
 //     //}
-    
 
 //     Entity.prototype.update.call(this);
 // };
@@ -345,19 +339,14 @@ Background.prototype.update = function () { };
 //     //Barrell Code
 //     this.ctx.drawImage(this.BB, this.x, this.y);
 
-
 //     this.ctx.beginPath();
 //     this.ctx.lineWidth = "2";
 //     this.ctx.strokeStyle = "red";
 //     this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
 //     this.ctx.stroke();
 
-
 //     Entity.prototype.draw.call(this);
 // };
-
-
-
 
 // // // Vehicles class
 // function Vehicles(game) {
@@ -367,7 +356,7 @@ Background.prototype.update = function () { };
 //     // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
 //     this.x = 240;
 //     this.y = 285;
-//     this.speed = 0; 
+//     this.speed = 0;
 //     this.game = game;
 //     this.ctx = game.ctx;
 
@@ -388,17 +377,15 @@ Background.prototype.update = function () { };
 //     Entity.prototype.update.call(this);
 // }
 
+AM.queueDownload("./img/forest/grass03.png"); //grass background for forest
+AM.queueDownload("./img/forest/forest1.png"); // forest1
+AM.queueDownload("./img/forest/forest2.png"); // forest1
+AM.queueDownload("./img/forest/forest3.jpg"); // forest1
 
-
-
-
-
-
-
-
-AM.queueDownload("./img/background/desertTile.png");
+//AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
 
+AM.queueDownload("./img/forest/castle.png");
 AM.queueDownload("./img/background/tree1.png");
 AM.queueDownload("./img/background/tree2.png");
 AM.queueDownload("./img/background/tree3.png");
@@ -427,13 +414,11 @@ AM.queueDownload("./img/tank_green2Barrell.png");
 
 AM.queueDownload("./img/snowball_01.png");
 
+AM.queueDownload("./img/TankSprites/vehicleA.png");
+AM.queueDownload("./img/TankSprites/vehicleB.png");
+AM.queueDownload("./img/TankSprites/vehicleC.png");
 
-AM.queueDownload("./img/TankSprites/vehicleA.png")
-AM.queueDownload("./img/TankSprites/vehicleB.png")
-AM.queueDownload("./img/TankSprites/vehicleC.png")
-
-
-AM.downloadAll(function () {
+AM.downloadAll(function() {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
 
@@ -443,15 +428,14 @@ AM.downloadAll(function () {
 
     var tanks = [];
 
-
-    var tank = new Tank(gameEngine);                                                        // the tank Roman and Ross did
-    // var enemy = new Enemy(gameEngine);   
+    var tank = new Tank(gameEngine); // the tank Roman and Ross did
+    // var enemy = new Enemy(gameEngine);
     var enemytank1 = new EnemyTank(gameEngine, 2200, 700);
-    var enemytank2 = new EnemyTank(gameEngine , 500, 2200);
-    var enemytank3 = new EnemyTank(gameEngine , 400, 400);  
+    var enemytank2 = new EnemyTank(gameEngine, 500, 2200);
+    var enemytank3 = new EnemyTank(gameEngine, 400, 400);
     var enemytank4 = new EnemyTank(gameEngine, 1700, 500);
-    var enemytank5 = new EnemyTank(gameEngine , 1000, 1400);
-    var enemytank6 = new EnemyTank(gameEngine , 800, 1300);  
+    var enemytank5 = new EnemyTank(gameEngine, 1000, 1400);
+    var enemytank6 = new EnemyTank(gameEngine, 800, 1300);
     // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
 
     tanks.push(tank);
@@ -463,16 +447,28 @@ AM.downloadAll(function () {
     tanks.push(enemytank6);
     // tanks.push(enemyRobot);
 
-
     // tanks.push(enemy);
     gameEngine.tanks = tanks;
     var gameScore = new Score(gameEngine, 0); //game score for player
-    var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-    var desert = new Desert(gameEngine);      
-    gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+    var camera = new Camera(
+        gameEngine,
+        gameEngine.tanks[0].x,
+        gameEngine.tanks[0].y,
+        1000,
+        600
+    ); // camera on our tank
+    //   var desert = new Desert(gameEngine);
+    //   gameEngine.map = desert.grid; // the map----desert Jerry did
+    //   gameEngine.camera = camera;
+
+    // Forest map Brandi
+    var forest = new Forest(gameEngine);
+    gameEngine.map = forest.grid;
     gameEngine.camera = camera;
 
-    gameEngine.addEntity(desert);                                                           // desert map Jerry did
+    // Forest map Brandi
+    gameEngine.addEntity(forest);
+    //   gameEngine.addEntity(desert); // desert map Jerry did
     gameEngine.addEntity(tank);
     gameEngine.addEntity(enemytank1);
     gameEngine.addEntity(enemytank2);
@@ -484,10 +480,6 @@ AM.downloadAll(function () {
     // gameEngine.addEntity(enemy);
     gameEngine.addEntity(camera);
     gameEngine.addEntity(gameScore);
-
-
-
-    
 
     console.log("All Done!");
 });
