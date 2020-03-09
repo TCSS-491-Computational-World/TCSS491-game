@@ -438,6 +438,7 @@ AM.queueDownload("./img/TankSprites/vehicleC.png")
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
+    canvas.level = parseInt(location.search.split('level=')[1]); // passing level from the previous html
 
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
