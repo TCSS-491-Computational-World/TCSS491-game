@@ -448,6 +448,12 @@ AM.downloadAll(function () {
     gameEngine.init(ctx);
     gameEngine.start();
 
+
+
+
+
+
+
     var tanks = [];
 
 

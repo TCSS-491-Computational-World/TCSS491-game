@@ -49,6 +49,19 @@ Camera.prototype = new Entity();
 Camera.prototype.constructor = Camera;
 
 Camera.prototype.draw = function() {
+    //select Map 
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillRect(this.x-this.game.camera.x, this.y - this.game.camera.y, 1000,600);
+
+    // desert map seleciton.
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillRect(this.x - this.game.camera.x+225, this.y - this.game.camera.y+150, 250,250);
+    // forest map selection.
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillRect(this.x - this.game.camera.x+525, this.y - this.game.camera.y+150, 250,250);
+
+
+
 
     // console.log(this.game.tanks[0].y);
     // console.log(this.x);
