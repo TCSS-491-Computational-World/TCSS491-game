@@ -1,4 +1,4 @@
-function EnemyTank(game, x, y) {
+function EnemyTank(game, x, y, cooldown, speed, maxHealth, aggroRange) {
     //Barrell Code
     //___________________________
     this.barrell = new Barrell(game, AM.getAsset("./img/tank_red2Barrell.png"));
@@ -22,7 +22,7 @@ function EnemyTank(game, x, y) {
     this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
     this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
     //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
-    this.cooldown = 200;
+    this.cooldown = cooldown;
     this.counter = 0;
     this.random = this.random = Math.floor(Math.random() * 100);
     this.up = false;
@@ -31,17 +31,18 @@ function EnemyTank(game, x, y) {
     this.right = false;
     this.lastMove = "none";
     this.hero = false;
-    this.speed = 1;
+    this.speed = speed;
     this.ctx = game.ctx;
     this.x = x;
     this.y = y;
+    this.aggroRange = aggroRange;
     this.shooting = false;
     this.cleanShot = false;
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
     this.triggerbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
     this.distance = 1;
-    this.maxHealth = 200;
-    this.currentHealth = 200;
+    this.maxHealth = maxHealth;
+    this.currentHealth = this.maxHealth;
     this.collision;
     this.tankIndex;
     this.tempList;
@@ -98,7 +99,7 @@ EnemyTank.prototype.update = function() {
     this.distance = Math.sqrt(Math.pow((this.triggerbox.midpointx - this.game.tanks[0].triggerbox.midpointx), 2) +
                              Math.pow((this.triggerbox.midpointy - this.game.tanks[0].triggerbox.midpointy), 2));
 
-    if (this.distance < 350) {
+    if (this.distance < this.aggroRange) {
         //console.log("fhdfhfdh");
         var dy = this.y - this.game.tanks[0].y;
         var dx = this.x - this.game.tanks[0].x;
@@ -164,7 +165,8 @@ EnemyTank.prototype.update = function() {
 
             var newTank = new EnemyTank(this.game, 
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].x * 50,
-                this.game.path[Math.floor(Math.random() * this.game.path.length)].y * 50);
+                this.game.path[Math.floor(Math.random() * this.game.path.length)].y * 50,
+                this.cooldown, this.speed, this.maxHealth, this.aggroRange);
 
             this.game.tanks.push(newTank);
             this.game.addEntity(newTank);
