@@ -81,9 +81,9 @@ GameEngine.prototype.startInput = function () {
         //      document.getElementById("ctx").innerHTML = ' YOU CLICKED ME';
         // }
 
-        that.menu  = getSelected(e, that, true);
-        that.instruction = getCloseInstruction()
-        that.back = getBack(e,that);                                                // from game.html to index.html
+        // that.menu  = getSelected(e, that, true);
+        // that.instruction = getCloseInstruction()
+        // that.back = getBack(e,that);                                                // from game.html to index.html
     
         
         //BulletFire.prototype.mouseclick;
@@ -156,21 +156,21 @@ GameEngine.prototype.startInput = function () {
 
 
 
-function getSelected(e, that, click) {
-    if(e.click) {
+// function getSelected(e, that, click) {
+//     if(e.click) {
         
-    }
-}
+//     }
+// }
 
-function getCloseInstruction() {
+// function getCloseInstruction() {
 
-}
+// }
 
-function getBack(e, that) {
-    if () {
+// function getBack(e, that) {
+//     if () {
 
-    }
-}
+//     }
+// }
 
 
 
