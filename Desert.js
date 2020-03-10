@@ -531,7 +531,7 @@ Desert.prototype.draw = function () {
     }
 
      
-    
+
 
 
 

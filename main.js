@@ -87,20 +87,54 @@ Animation.prototype.isDone = function () {
 //________________________________________________________________________________________________________
 
 // Background Class
-function Background(game, spritesheet) {
+function Background(game) {
     this.x = 0;
     this.y = 0;
-    this.spritesheet = spritesheet;
     this.game = game;
     this.ctx = game.ctx;
+    this.clicked = false;
 }
 
 Background.prototype.draw = function () {
     //console.log(spriteSheet + " sssssss ");
-    this.ctx.drawImage(this.spritesheet, this.x, this.y);
+    // this.ctx.drawImage(this.spritesheet, this.x, this.y);
+    if (MapSelection) {
+        //select Map 
+        this.ctx.fillStyle = 'black';
+        console.log(this.game.camera.x);
+        this.ctx.fillRect(this.x, this.y, 1000,600);
+
+        // desert map seleciton.
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(this.x +200, this.y+180, 250,200);
+        this.ctx.drawImage(AM.getAsset("./img/background/desert.jpg"),this.x+200, this.y +180, 250,200);
+        // forest map selection.
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(this.x +550, this.y+180, 250,200);
+        this.ctx.drawImage(AM.getAsset("./img/background/forest.jpg"),this.x+550, this.y +180, 250,200);
+
+    }
+
 };
 
-Background.prototype.update = function () { };
+Background.prototype.update = function () {
+    // console.log(this.clicked);
+    // if (this.clicked) {
+    //     MapSelection = false;
+    // }
+    // else if (!this.clicked && ){
+
+    // }
+
+    // if () {
+    //     MapType = 'desert';
+    //     MapSelection = false;
+    // }   
+    // else if () {
+    //     MapType = 'forest';
+    //     MapSelection = false;
+    // }
+};
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
@@ -119,7 +153,8 @@ AM.queueDownload("./img/forest/forest2.png"); // forest2
 AM.queueDownload("./img/forest/forest3.png"); // forest3
 AM.queueDownload("./img/forest/castle.png");
 
-
+AM.queueDownload("./img/background/desert.jpg");
+AM.queueDownload("./img/background/forest.jpg");
 
 AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
@@ -204,6 +239,8 @@ AM.downloadAll(function () {
     var gameScore = new Score(gameEngine, 0); //game score for player
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
     var desert = new Desert(gameEngine);  
+
+    var background = new Background(gameEngine);
     // var forest = new Forest(gameEngine);
     gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
     // gameEngine.map = forest.grid;
@@ -222,6 +259,7 @@ AM.downloadAll(function () {
     // gameEngine.addEntity(enemy);
     gameEngine.addEntity(camera);
     gameEngine.addEntity(gameScore);
+    gameEngine.addEntity(background);
 
 
 

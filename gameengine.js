@@ -29,7 +29,7 @@ function GameEngine() {
     this.map = null;            // the whole map   Jerry did
     this.walls = null           // the walls' location  Jerry did
     this.buildings = null;      // the buildings    Jerry did 
-    this.typeMap = null;        // the map selected Jerry did
+    // this.typeMap = null;        // the map selected Jerry did
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -158,7 +158,7 @@ GameEngine.prototype.startInput = function () {
 
 
 // function getSelected(e, that, click) {
-//     if(e.click) {
+//     if(e.clientX >= ) {
         
 //     }
 // }
