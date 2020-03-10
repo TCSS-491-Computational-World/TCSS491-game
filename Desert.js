@@ -9,7 +9,7 @@ function Cell(theX, theY, theContain) {
 
 
 // Map setting
-function setUp() {
+function setUpDesert() {
     this.healthPack = AM.queueDownload("./img/healthPack.png");
     this.wall = AM.getAsset("./img/background/crate.png");
     this.roofFirst = AM.getAsset("./img/rooftop.png");    // first roofTop
@@ -332,43 +332,43 @@ function removePowerup(game){
 
 
 
-// component on map
-function Component(image,x,y,width,height,type) {
-    this.image = image;
-    this.x = x;
-    this.y = y;
-    this.width = width; // limit width
-    this.height = height;   // limit height
-    this.type = type;   // check the type of the component, like wall, building or tree etc.
+// // component on map
+// function Component(image,x,y,width,height,type) {
+//     this.image = image;
+//     this.x = x;
+//     this.y = y;
+//     this.width = width; // limit width
+//     this.height = height;   // limit height
+//     this.type = type;   // check the type of the component, like wall, building or tree etc.
 
-    if(this.type === 'hp') {
+//     if(this.type === 'hp') {
         
-        this.healthPackAnimation = new Animation(AM.getAsset("./img/healthPack.png"), 0 , 0, 16, 16, 0.5, true, false);
-        this.boundingbox = new BoundingBox(this.x + 18, this.y + 18,this.width,this.height);
-    } else {
-        this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);
-    }
+//         this.healthPackAnimation = new Animation(AM.getAsset("./img/healthPack.png"), 0 , 0, 16, 16, 0.5, true, false);
+//         this.boundingbox = new BoundingBox(this.x + 18, this.y + 18,this.width,this.height);
+//     } else {
+//         this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);
+//     }
 
 
 
-       // bounding box
-    this.cleanShot = false;                                                     // working for bullet fire
-    this.removed = false;                                                       // check if it needs to draw on the map
-}
-Component.prototype = new Entity();
-Component.prototype.constructor = Component;
+//        // bounding box
+//     this.cleanShot = false;                                                     // working for bullet fire
+//     this.removed = false;                                                       // check if it needs to draw on the map
+// }
+// Component.prototype = new Entity();
+// Component.prototype.constructor = Component;
 
-Component.prototype.draw = function () {
-    // if(this.type === 'gp'){
-    //     console.log("ISSSS DRAWWWWWING");
-    //     this.healthBarAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    // }
+// Component.prototype.draw = function () {
+//     // if(this.type === 'gp'){
+//     //     console.log("ISSSS DRAWWWWWING");
+//     //     this.healthBarAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+//     // }
 
-};
+// };
 
-Component.prototype.update = function () {
+// Component.prototype.update = function () {
 
-};
+// };
 
 
 
@@ -382,7 +382,7 @@ function Desert(game) {
   this.radius = 200;
   this.game = game;
   this.ctx = game.ctx
-  this.grid = setUp();
+  this.grid = setUpDesert();
 //   console.log(this.grid);
 
   this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
@@ -391,7 +391,7 @@ function Desert(game) {
   this.game.powerups = checkPowerups(game);
 
   this.game.buildings = checkBuilding(game);
-  Entity.call(this, game, 0, 400);
+  Entity.call(this, game, 0, 0);
 
 }
 
@@ -454,6 +454,22 @@ Desert.prototype.update = function () {
 
 // draw the map
 Desert.prototype.draw = function () {
+    // //select Map 
+    // this.ctx.fillStyle = 'black';
+    // this.ctx.fillRect(0, 0, 1000,600);
+
+    // // desert map seleciton.
+    // this.ctx.fillStyle = 'white';
+    // this.ctx.fillRect(0, 0, 250,250);
+    // // forest map selection.
+    // this.ctx.fillStyle = 'white';
+    // this.ctx.fillRect(0, 0, 250,250);
+
+
+
+
+
+    
   var w = 50;
   /* Draw all tiles on the map.
   */
