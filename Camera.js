@@ -75,6 +75,8 @@ Camera.prototype.draw = function() {
     //     this.height
     // );
 
+    
+
 
     if (this.game.tanks[0].x >= 2250 && this.game.tanks[0].y >=2250) {
         

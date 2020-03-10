@@ -98,22 +98,30 @@ function Background(game) {
 Background.prototype.draw = function () {
     //console.log(spriteSheet + " sssssss ");
     // this.ctx.drawImage(this.spritesheet, this.x, this.y);
-    if (MapSelection) {
-        //select Map 
-        this.ctx.fillStyle = 'black';
-        console.log(this.game.camera.x);
-        this.ctx.fillRect(this.x, this.y, 1000,600);
+    // if (MapSelection) {
+    //     //select Map 
+    //     this.ctx.fillStyle = 'black';
+    //     console.log(this.game.camera.x);
+    //     this.ctx.fillRect(this.x, this.y, 1000,600);
 
-        // desert map seleciton.
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(this.x +200, this.y+180, 250,200);
-        this.ctx.drawImage(AM.getAsset("./img/background/desert.jpg"),this.x+200, this.y +180, 250,200);
-        // forest map selection.
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(this.x +550, this.y+180, 250,200);
-        this.ctx.drawImage(AM.getAsset("./img/background/forest.jpg"),this.x+550, this.y +180, 250,200);
+    //     // desert map seleciton.
+    //     this.ctx.fillStyle = 'white';
+    //     this.ctx.fillRect(this.x +200, this.y+180, 250,200);
+    //     this.ctx.drawImage(AM.getAsset("./img/background/desert.jpg"),this.x+200, this.y +180, 250,200);
+    //     // forest map selection.
+    //     this.ctx.fillStyle = 'white';
+    //     this.ctx.fillRect(this.x +550, this.y+180, 250,200);
+    //     this.ctx.drawImage(AM.getAsset("./img/background/forest.jpg"),this.x+550, this.y +180, 250,200);
 
-    }
+    // }
+
+    // if (gameOver) {
+    //     this.ctx.fillStyle = 'black';
+    //     this.ctx.fillRect(0,0,2500,2500);
+    //     this.ctx.font = "56px Arial";
+    //     // this.ctx.strokeStyle = "#F5E616";
+
+    // }
 
 };
 
