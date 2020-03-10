@@ -1,3 +1,3 @@
-var MapSelection = true;
-var MapType = null;
+var MapSelection = false;
+var MapType = 'forest'; // hard code
 // var gameOver = false;

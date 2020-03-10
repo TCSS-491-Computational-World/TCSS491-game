@@ -92,7 +92,7 @@ function Background(game) {
     this.y = 0;
     this.game = game;
     this.ctx = game.ctx;
-    this.clicked = false;
+    // this.clicked = false;
 }
 
 Background.prototype.draw = function () {
@@ -101,7 +101,7 @@ Background.prototype.draw = function () {
     if (MapSelection) {
         //select Map 
         this.ctx.fillStyle = 'black';
-        console.log(this.game.camera.x);
+        // console.log(this.game.camera.x);
         this.ctx.fillRect(this.x, this.y, 1000,600);
 
         // desert map seleciton.
@@ -126,6 +126,36 @@ Background.prototype.draw = function () {
 };
 
 Background.prototype.update = function () {
+    if (MapType ===  null) {
+        if (this.game.mouse) {
+            if (this.game.click) {
+                if (        this.game.mouse.x >= this.x + 200 && this.game.mouse.y >= this.y + 200 
+                    &&  this.game.mouse.x <= this.x + 500 && this.game.mouse.y <= this.y + 400) {
+                    console.log("desert");
+                    MapType = 'desert';
+                    MapSelection = false;
+                }
+                else if (   this.game.mouse.x >= this.x + 550 && this.game.mouse.y >= this.y + 200 
+                    &&  this.game.mouse.x <= this.x + 750 && this.game.mouse.y <= this.y + 400) {
+                    console.log("forest");
+                    MapType = 'forest';
+                    MapSelection = false;
+                }
+            }
+            // if (        this.game.mouse.x >= this.x + 200 && this.game.mouse.y >= this.y + 200 
+            //         &&  this.game.mouse.x <= this.x + 500 && this.game.mouse.y <= this.y + 400) {
+            //         console.log("desert");
+            //         MapType = 'desert';
+            //         MapSelection = false;
+            // }
+            // else if (   this.game.mouse.x >= this.x + 550 && this.game.mouse.y >= this.y + 200 
+            //         &&  this.game.mouse.x <= this.x + 750 && this.game.mouse.y <= this.y + 400) {
+            //         console.log("forest");
+            //         MapType = 'forest';
+            //         MapSelection = false;
+            // }
+        }
+    }
     // console.log(this.clicked);
     // if (this.clicked) {
     //     MapSelection = false;
@@ -246,16 +276,16 @@ AM.downloadAll(function () {
     gameEngine.tanks = tanks;
     var gameScore = new Score(gameEngine, 0); //game score for player
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-    var desert = new Desert(gameEngine);  
+    // var desert = new Desert(gameEngine);  
 
     var background = new Background(gameEngine);
-    // var forest = new Forest(gameEngine);
-    gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
-    // gameEngine.map = forest.grid;
+    var forest = new Forest(gameEngine);
+    // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+    gameEngine.map = forest.grid;
     gameEngine.camera = camera;
 
-    gameEngine.addEntity(desert);                                                           // desert map Jerry did
-    // gameEngine.addEntity(forest);
+    // gameEngine.addEntity(desert);                                                           // desert map Jerry did
+    gameEngine.addEntity(forest);
     gameEngine.addEntity(tank);
     gameEngine.addEntity(enemytank1);
     gameEngine.addEntity(enemytank2);

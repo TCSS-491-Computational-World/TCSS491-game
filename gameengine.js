@@ -86,7 +86,7 @@ GameEngine.prototype.startInput = function () {
         //      document.getElementById("ctx").innerHTML = ' YOU CLICKED ME';
         // }
 
-        // that.menu  = getSelected(e, that, true);
+        that.menu  = getSelected(e, that, true);
         // that.instruction = getCloseInstruction()
         // that.back = getBack(e,that);                                                // from game.html to index.html
     
@@ -161,11 +161,11 @@ GameEngine.prototype.startInput = function () {
 
 
 
-// function getSelected(e, that, click) {
-//     if(e.clientX >= ) {
+function getSelected(e, that, click) {
+    if(e.clientX >= this.camera.x) {
         
-//     }
-// }
+    }
+}
 
 // function getCloseInstruction() {
 

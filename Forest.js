@@ -373,7 +373,7 @@ Forest.prototype.draw = function() {
      *  Draw all components on the map
      */
 
-    // draw walls
+    // draw walls // unneccesary
     for (let i = 0; i < this.game.walls.length; i++) {
         if (
             this.game.walls[i].contains !== 0 &&
@@ -401,6 +401,10 @@ Forest.prototype.draw = function() {
                 this.game.buildings[i].contains.width,
                 this.game.buildings[i].contains.height
             );
+    
+            this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
+                                this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
+
         } else if (
             this.game.buildings[i].contains !== 0 &&
             this.game.buildings[i].contains.type === "t"
@@ -412,6 +416,10 @@ Forest.prototype.draw = function() {
                 this.game.buildings[i].contains.width,
                 this.game.buildings[i].contains.height
             );
+
+            this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
+                this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
+
         }
     }
     Entity.prototype.draw.call(this);
