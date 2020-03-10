@@ -213,7 +213,7 @@ BulletFire.prototype.draw = function () {
         //this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
         //Entity.prototype.draw.call(this);
     }
-    if (this.cursor && !MapSelection) {
+    if (this.cursor ) { //&& !MapSelection
         //this.cursorAnimation.drawFrame(this.game.clockTick, this.ctx, this.cursorX, this.cursorY );
         this.ctx.drawImage(
             AM.getAsset("./img/cursor.png"),
