@@ -1,4 +1,4 @@
-function EnemyTank(game, x, y, cooldown, speed, maxHealth, aggroRange) {
+function EnemyTank(game, x, y, maxCooldown, speed, maxHealth, aggroRange) {
     //Barrell Code
     //___________________________
     this.barrell = new Barrell(game, AM.getAsset("./img/tank_red2Barrell.png"));
@@ -22,7 +22,8 @@ function EnemyTank(game, x, y, cooldown, speed, maxHealth, aggroRange) {
     this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
     this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
     //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
-    this.cooldown = cooldown;
+    this.maxCooldown = maxCooldown;
+    this.cooldown = this.maxCooldown;
     this.counter = 0;
     this.random = this.random = Math.floor(Math.random() * 100);
     this.up = false;
@@ -130,7 +131,7 @@ EnemyTank.prototype.update = function() {
      }
     //_____________________________________________________________________________________________________
 
-    if (this.shooting && this.cooldown === 200 ) {
+    if (this.shooting && this.cooldown === this.maxCooldown ) {
         bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta, this.tankIndex, null);
         this.game.addEntity(bulletShot);
         this.shooting = false;
@@ -140,7 +141,7 @@ EnemyTank.prototype.update = function() {
     this.cooldown--;
 
     if(this.cooldown === 0){
-        this.cooldown = 200;
+        this.cooldown = this.maxCooldown;
     }
 
 
@@ -166,7 +167,7 @@ EnemyTank.prototype.update = function() {
             var newTank = new EnemyTank(this.game, 
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].x * 50,
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].y * 50,
-                this.cooldown, this.speed, this.maxHealth, this.aggroRange);
+                this.maxCooldown, this.speed, this.maxHealth, this.aggroRange);
 
             this.game.tanks.push(newTank);
             this.game.addEntity(newTank);
