@@ -439,7 +439,61 @@ AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
     canvas.level = parseInt(location.search.split('level=')[1]); // passing level from the previous html
+    console.log("CANVAS LEVEL: " + canvas.level);
+    
+    if(canvas.level === 1){
 
+        var tanks = [];
+
+        var tank = new Tank(gameEngine);                                                        // the tank Roman and Ross did
+        // var enemy = new Enemy(gameEngine);   
+        var enemytank1 = new EnemyTank(gameEngine, 2200, 700);
+        var enemytank2 = new EnemyTank(gameEngine , 500, 2200);
+        var enemytank3 = new EnemyTank(gameEngine , 400, 400);  
+        var enemytank4 = new EnemyTank(gameEngine, 1700, 500);
+        var enemytank5 = new EnemyTank(gameEngine , 1000, 1400);
+        var enemytank6 = new EnemyTank(gameEngine , 800, 1300);  
+        // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
+    
+        tanks.push(tank);
+        tanks.push(enemytank1);
+        tanks.push(enemytank2);
+        tanks.push(enemytank3);
+        tanks.push(enemytank4);
+        tanks.push(enemytank5);
+        tanks.push(enemytank6);
+        // tanks.push(enemyRobot);
+    
+    
+        // tanks.push(enemy);
+        gameEngine.tanks = tanks;
+        var gameScore = new Score(gameEngine, 0); //game score for player
+        var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
+        var desert = new Desert(gameEngine);      
+        gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+        gameEngine.camera = camera;
+    
+        gameEngine.addEntity(desert);                                                           // desert map Jerry did
+        gameEngine.addEntity(tank);
+        gameEngine.addEntity(enemytank1);
+        gameEngine.addEntity(enemytank2);
+        gameEngine.addEntity(enemytank3);
+        gameEngine.addEntity(enemytank4);
+        gameEngine.addEntity(enemytank5);
+        gameEngine.addEntity(enemytank6);
+        // gameEngine.addEntity(enemyRobot);
+        // gameEngine.addEntity(enemy);
+        gameEngine.addEntity(camera);
+        gameEngine.addEntity(gameScore);
+
+        var gameEngine = new GameEngine();
+        gameEngine.init(ctx);
+        gameEngine.start();
+    
+        console.log("All Done!");
+    } else if (canvas.level === 2){
+
+<<<<<<< Updated upstream
     if(canvas.level === 1){
         var gameEngine = new GameEngine();
         gameEngine.init(ctx);
@@ -638,5 +692,14 @@ AM.downloadAll(function () {
      
         console.log("All Done!");
     }
+=======
+    } else if (canvas.level === 3){
+        
+    } else if (canvas.level === 4){
+
+    }
+
+
+>>>>>>> Stashed changes
     
 });
