@@ -213,7 +213,7 @@ Robot.prototype.update = function() {
     }
 
 
-    if (this.up === true    && this.y >=0  ) { //&& findPath(this.game, this.x, this.y, 5,this.speed)
+    if (this.up === true    && this.y >=0  ) { //&& finaDesertPath(this.game, this.x, this.y, 5,this.speed)
         
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -229,7 +229,7 @@ Robot.prototype.update = function() {
         this.right = true;
         this.left = false;
     }
-    if (this.right === true     && this.x <=2500 ) { //&& findPath(this.game, this.x, this.y, 3,this.speed)
+    if (this.right === true     && this.x <=2500 ) { //&& finaDesertPath(this.game, this.x, this.y, 3,this.speed)
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -244,7 +244,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = false;
     }
-    if (this.down === true  &&  this.y <=2500 ) { //&& findPath(this.game, this.x, this.y, 1,this.speed)
+    if (this.down === true  &&  this.y <=2500 ) { //&& finaDesertPath(this.game, this.x, this.y, 1,this.speed)
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -258,7 +258,7 @@ Robot.prototype.update = function() {
         this.right = false;
         this.left = true;
     }
-    if (this.left === true  && this.x >=0 ) { //&& findPath(this.game, this.x, this.y, 7,this.speed)
+    if (this.left === true  && this.x >=0 ) { //&& finaDesertPath(this.game, this.x, this.y, 7,this.speed)
 
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
@@ -428,7 +428,7 @@ Robot.prototype.draw = function() {
 
 
 // a function to check valid path
-// function findPath(game, tank_x, tank_y, direction, speed) {
+// function finaDesertPath(game, tank_x, tank_y, direction, speed) {
     // // console.log(game.map);
     // if (direction === 4) {
     //     tank_x  +=  speed;

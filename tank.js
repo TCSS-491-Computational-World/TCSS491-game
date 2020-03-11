@@ -117,7 +117,7 @@ Tank.prototype.update = function() {
     // }
 
 
-    // console.log(findPath(this.game, this.x, this.y));
+    // console.log(finaDesertPath(this.game, this.x, this.y));
 
     var bool = true;
 
@@ -275,7 +275,7 @@ Tank.prototype.update = function() {
         this.lastState = 4;
         diagnol = true;
     }
-    if (this.TankState == 4  && this.x <= 2450 && this.y >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 4  && this.x <= 2450 && this.y >=0 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
 
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -295,7 +295,7 @@ Tank.prototype.update = function() {
         this.lastState = 6;
         diagnol = true;
     }
-    if (this.TankState == 6   && this.x >=0 && this.y >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 6   && this.x >=0 && this.y >=0 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
         this.triggerbox.y -= this.speed;
@@ -314,7 +314,7 @@ Tank.prototype.update = function() {
         this.lastState = 8;
         diagnol = true;
     }
-    if (this.TankState == 8  && this.x >= 0 && this.y <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 8  && this.x >= 0 && this.y <= 2450 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -333,7 +333,7 @@ Tank.prototype.update = function() {
         this.lastState = 2;
         diagnol = true;
     }
-    if (this.TankState == 2  && this.x <= 2450 && this.y <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 2  && this.x <= 2450 && this.y <= 2450 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -351,7 +351,7 @@ Tank.prototype.update = function() {
         this.TankState = 5;
         this.lastState = 5;
     }
-    if (this.TankState == 5  && this.y >=0  && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 5  && this.y >=0  && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.y -= this.speed;
         this.boundingbox.y -= this.speed;
         this.triggerbox.y -= this.speed;
@@ -363,7 +363,7 @@ Tank.prototype.update = function() {
         this.TankState = 3;
         this.lastState = 3;
     }
-    if (this.TankState == 3    && this.x <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 3    && this.x <= 2450 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.x += this.speed;
         this.boundingbox.x += this.speed;
         this.triggerbox.x += this.speed;
@@ -375,7 +375,7 @@ Tank.prototype.update = function() {
         this.TankState = 1;
         this.lastState = 1;
     }
-    if (this.TankState == 1  && this.y <=2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed) ) {
+    if (this.TankState == 1  && this.y <=2450 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed) ) {
         this.y += this.speed;
         this.boundingbox.y += this.speed;
         this.triggerbox.y += this.speed;
@@ -387,7 +387,7 @@ Tank.prototype.update = function() {
         this.TankState = 7;
         this.lastState = 7;
     }
-    if (this.TankState == 7   && this.x >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 7   && this.x >=0 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         this.x -= this.speed;
         this.boundingbox.x -= this.speed;
         this.triggerbox.x -= this.speed;
@@ -408,7 +408,7 @@ Tank.prototype.update = function() {
         this.lastState = 9;
         console.log(this.TankState);
     }
-    if (this.TankState == 9  && this.x >=0 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 9  && this.x >=0 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         // this.x -= this.speed;
         // this.boundingbox.x -= this.speed;
         // this.triggerbox.x -= this.speed;
@@ -423,7 +423,7 @@ Tank.prototype.update = function() {
         this.lastState = 10;
         console.log(this.TankState);
     }
-    if (this.TankState == 10  && this.y <=2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 10  && this.y <=2450 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         // this.y += this.speed;
         // this.boundingbox.y += this.speed;
         // this.triggerbox.y += this.speed;
@@ -438,7 +438,7 @@ Tank.prototype.update = function() {
         this.lastState = 11;
         console.log(this.TankState);
     }
-    if (this.TankState == 11  && this.y >=0  && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 11  && this.y >=0  && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         // this.y -= this.speed;
         // this.boundingbox.y -= this.speed;
         // this.triggerbox.y -= this.speed;
@@ -453,7 +453,7 @@ Tank.prototype.update = function() {
         this.lastState = 12;
         console.log(this.TankState);
     }
-    if (this.TankState == 12    && this.x <= 2450 && findPath(this.game, this.x, this.y, this.TankState, this.speed)) {
+    if (this.TankState == 12    && this.x <= 2450 && finaDesertPath(this.game, this.x, this.y, this.TankState, this.speed)) {
         // this.x += this.speed;
         // this.boundingbox.x += this.speed;
         // this.triggerbox.x += this.speed;
@@ -859,7 +859,7 @@ Tank.prototype.draw = function() {
 
 
 
-function findPath(game, tank_x, tank_y, direction, speed) {
+function finaDesertPath(game, tank_x, tank_y, direction, speed) {
     // console.log(game.buildings);
     // console.log(game.map);
     if (direction === 4) {
