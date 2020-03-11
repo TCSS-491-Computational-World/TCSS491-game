@@ -166,7 +166,7 @@ Tank.prototype.update = function() {
     }
     //_____________________________________________________________________________________________________
 
-    var mySound = new Audio("./Sounds/TankFiringSound.mp3");
+    // var mySound = new Audio("./Sounds/TankFiringSound.mp3");
 
     if (this.game.click) {
         this.shooting = true;
@@ -175,7 +175,7 @@ Tank.prototype.update = function() {
         bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex,null);
         //bulletShot = new BulletFire(this.game, this.bullet, true, ((this.x -14)), ((this.y - 14)), this.cursorX + this.game.camera.x, this.cursorY + this.game.camera.y, theta,this.tankIndex, null);
         this.game.addEntity(bulletShot);
-        mySound.play();
+        // mySound.play();
         this.shooting = false;
         //this.bullet.fire = true;
     }

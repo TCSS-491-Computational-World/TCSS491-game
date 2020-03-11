@@ -276,16 +276,16 @@ AM.downloadAll(function () {
     gameEngine.tanks = tanks;
     var gameScore = new Score(gameEngine, 0); //game score for player
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-    // var desert = new Desert(gameEngine);  
+    var desert = new Desert(gameEngine);  
 
     var background = new Background(gameEngine);
-    var forest = new Forest(gameEngine);
-    // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
-    gameEngine.map = forest.grid;
+    // var forest = new Forest(gameEngine);
+    gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+    // gameEngine.map = forest.grid;
     gameEngine.camera = camera;
 
-    // gameEngine.addEntity(desert);                                                           // desert map Jerry did
-    gameEngine.addEntity(forest);
+    gameEngine.addEntity(desert);                                                           // desert map Jerry did
+    // gameEngine.addEntity(forest);
     gameEngine.addEntity(tank);
     gameEngine.addEntity(enemytank1);
     gameEngine.addEntity(enemytank2);
