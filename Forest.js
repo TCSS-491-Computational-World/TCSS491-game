@@ -402,8 +402,8 @@ Forest.prototype.draw = function() {
                 this.game.buildings[i].contains.height
             );
     
-            // this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
-            //                     this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
+            this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
+                                this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
 
         } else if (
             this.game.buildings[i].contains !== 0 &&
@@ -417,8 +417,8 @@ Forest.prototype.draw = function() {
                 this.game.buildings[i].contains.height
             );
 
-            // this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
-            //     this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
+            this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
+                this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
 
         }
     }

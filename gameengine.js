@@ -80,8 +80,9 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function (e) {
         that.click = getXandY(e);
-        // console.log(e);
-        // console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
+        
+        console.log(e);
+        console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
         // document.getElementById("ctx").onclick = function() {
         //      document.getElementById("ctx").innerHTML = ' YOU CLICKED ME';
         // }
@@ -162,9 +163,20 @@ GameEngine.prototype.startInput = function () {
 
 
 function getSelected(e, that, click) {
-    if(e.clientX >= this.camera.x) {
-        
+    if  (     e.clientX >= 200 && e.clientY >= 180
+          &&  e.clientX <= 450 && e.clientY <=380
+        ) {
+        MapSelection = false;
+        MapType = 'desert';
+        console.log("desert");
     }
+    else if (e.clientX >= 550 && e.clientY >= 180
+        &&  e.clientX <= 800 && e.clientY <=380 ) {
+        MapSelection = false;
+        MapType = 'forest';
+        console.log("forest");
+    }
+    console.log(e.clientX, e.clientY);
 }
 
 // function getCloseInstruction() {

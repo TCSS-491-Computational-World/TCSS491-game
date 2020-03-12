@@ -126,58 +126,29 @@ Background.prototype.draw = function () {
 };
 
 Background.prototype.update = function () {
-    if (MapType ===  null) {
-        if (this.game.mouse) {
-            if (this.game.click) {
-                if (        this.game.mouse.x >= this.x + 200 && this.game.mouse.y >= this.y + 200 
-                    &&  this.game.mouse.x <= this.x + 500 && this.game.mouse.y <= this.y + 400) {
-                    console.log("desert");
-                    MapType = 'desert';
-                    MapSelection = false;
-                }
-                else if (   this.game.mouse.x >= this.x + 550 && this.game.mouse.y >= this.y + 200 
-                    &&  this.game.mouse.x <= this.x + 750 && this.game.mouse.y <= this.y + 400) {
-                    console.log("forest");
-                    MapType = 'forest';
-                    MapSelection = false;
-                }
+    // for (var i = 0; i < this.game.entities.length; i++) {
+    //     console.log(this.game.entities[i].constructor.name);
+    // }
+    if (!updatedMap) {
+        for (var i = 0; i < this.game.entities.length; i++) {
+            if (this.game.entities[i].constructor.name === MapType) {
+                this.game.entities.splice(i,1);
             }
-            // if (        this.game.mouse.x >= this.x + 200 && this.game.mouse.y >= this.y + 200 
-            //         &&  this.game.mouse.x <= this.x + 500 && this.game.mouse.y <= this.y + 400) {
-            //         console.log("desert");
-            //         MapType = 'desert';
-            //         MapSelection = false;
-            // }
-            // else if (   this.game.mouse.x >= this.x + 550 && this.game.mouse.y >= this.y + 200 
-            //         &&  this.game.mouse.x <= this.x + 750 && this.game.mouse.y <= this.y + 400) {
-            //         console.log("forest");
-            //         MapType = 'forest';
-            //         MapSelection = false;
+            // if (this.game.) {
+
             // }
         }
+        
+        updatedMap = true;
     }
-    // console.log(this.clicked);
-    // if (this.clicked) {
-    //     MapSelection = false;
-    // }
-    // else if (!this.clicked && ){
-
-    // }
-
-    // if () {
-    //     MapType = 'desert';
-    //     MapSelection = false;
-    // }   
-    // else if () {
-    //     MapType = 'forest';
-    //     MapSelection = false;
-    // }
 };
 
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
+
+
 
 
 
@@ -246,14 +217,12 @@ AM.downloadAll(function () {
     gameEngine.init(ctx);
     gameEngine.start();
 
-    // gameEngine.ctx.fillStyle = 'Black'
-    // gameEngine.ctx.fillRect(0,0,200,200);
 
     var tanks = [];
 
 
+
     var tank = new Tank(gameEngine);                                                        // the tank Roman and Ross did
-    // var enemy = new Enemy(gameEngine);   
     var enemytank1 = new EnemyTank(gameEngine, 2200, 700);
     var enemytank2 = new EnemyTank(gameEngine , 500, 2200);
     var enemytank3 = new EnemyTank(gameEngine , 400, 400);  
@@ -269,22 +238,20 @@ AM.downloadAll(function () {
     tanks.push(enemytank4);
     tanks.push(enemytank5);
     tanks.push(enemytank6);
-    // tanks.push(enemyRobot);
 
 
     // tanks.push(enemy);
     gameEngine.tanks = tanks;
     var gameScore = new Score(gameEngine, 0); //game score for player
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-    // var desert = new Desert(gameEngine);  
-
+    var desert = new Desert(gameEngine);  
     var background = new Background(gameEngine);
     var forest = new Forest(gameEngine);
     // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
-    gameEngine.map = forest.grid;
+    // gameEngine.map = forest.grid;
     gameEngine.camera = camera;
 
-    // gameEngine.addEntity(desert);                                                           // desert map Jerry did
+    gameEngine.addEntity(desert);                                                           // desert map Jerry did
     gameEngine.addEntity(forest);
     gameEngine.addEntity(tank);
     gameEngine.addEntity(enemytank1);
