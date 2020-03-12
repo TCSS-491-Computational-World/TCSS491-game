@@ -443,11 +443,11 @@ Turret.prototype.draw = function() {
     // this.ctx.drawImage(this.BB, this.x + 6 - this.game.camera.x, this.y + 5 - this.game.camera.y);
 
     //Bounding box helper.
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "2";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.triggerbox.y - this.game.camera.y, this.triggerbox.width, this.triggerbox.height);
-    this.ctx.stroke();
+    // this.ctx.beginPath();
+    // this.ctx.lineWidth = "2";
+    // this.ctx.strokeStyle = "red";
+    // this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.triggerbox.y - this.game.camera.y, this.triggerbox.width, this.triggerbox.height);
+    // this.ctx.stroke();
 
     // this.ctx.beginPath();
     // this.ctx.lineWidth = "1";

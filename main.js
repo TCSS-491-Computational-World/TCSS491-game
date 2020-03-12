@@ -456,7 +456,7 @@ AM.downloadAll(function () {
     var enemytank4 = new EnemyTank(gameEngine, 1700, 500);
     var enemytank5 = new EnemyTank(gameEngine , 1000, 1400);
     var enemytank6 = new EnemyTank(gameEngine , 800, 1300);  
-    var enemytank7 = new Turret(gameEngine , 400, 600);
+    var enemytank7 = new Turret(gameEngine , 1600, 800);
     // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
 
     tanks.push(tank);
