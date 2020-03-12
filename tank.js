@@ -1,7 +1,7 @@
 
 
 
-function Tank(game) {
+function Tank(game, maxHealth) {
     //Barrell Code
     //________________________________________________________________________________________________________
     this.barrell = new Barrell(game, AM.getAsset("./img/tank_green2Barrell.png"));
@@ -84,8 +84,8 @@ function Tank(game) {
 
     
     
-    this.maxHealth = 200;
-    this.currentHealth = 200;
+    this.maxHealth = maxHealth;
+    this.currentHealth = this.maxHealth;
 
     this.collision;
     this.tankIndex = 0;
