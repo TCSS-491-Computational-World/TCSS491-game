@@ -608,6 +608,13 @@ AM.downloadAll(function () {
         var enemytank4 = new EnemyTank(gameEngine, 1700, 500, 50, 2, 400, 500);
         var enemytank5 = new EnemyTank(gameEngine , 1000, 1400, 50, 2, 400, 500);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300, 50, 2, 400, 500);  
+
+        var enemytank7 = new EnemyTank(gameEngine, 1800, 2300, 200, 2, 400, 500);
+        var enemytank8 = new EnemyTank(gameEngine , 900, 1700, 200, 2, 400, 500);
+        var enemytank9 = new EnemyTank(gameEngine , 500, 300, 200, 2, 400, 500);  
+        var enemytank10 = new EnemyTank(gameEngine, 1700, 2000, 200, 2, 400, 500);
+        var enemytank11 = new EnemyTank(gameEngine , 500, 1400, 200, 2, 400, 500);
+        var enemytank12 = new EnemyTank(gameEngine , 800, 1000, 200, 2, 400, 500); 
         // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
     
         tanks.push(tank);
@@ -617,6 +624,12 @@ AM.downloadAll(function () {
         tanks.push(enemytank4);
         tanks.push(enemytank5);
         tanks.push(enemytank6);
+        tanks.push(enemytank7);
+        tanks.push(enemytank8);
+        tanks.push(enemytank9);
+        tanks.push(enemytank10);
+        tanks.push(enemytank11);
+        tanks.push(enemytank12);
         // tanks.push(enemyRobot);
     
         // tanks.push(enemy);
@@ -635,6 +648,13 @@ AM.downloadAll(function () {
         gameEngine.addEntity(enemytank4);
         gameEngine.addEntity(enemytank5);
         gameEngine.addEntity(enemytank6);
+        gameEngine.addEntity(enemytank7);
+        gameEngine.addEntity(enemytank8);
+        gameEngine.addEntity(enemytank9);
+        gameEngine.addEntity(enemytank10);
+        gameEngine.addEntity(enemytank11);
+        gameEngine.addEntity(enemytank12);
+        
         // gameEngine.addEntity(enemyRobot);
         // gameEngine.addEntity(enemy);
         gameEngine.addEntity(camera);
@@ -657,6 +677,8 @@ AM.downloadAll(function () {
         var enemytank4 = new EnemyTank(gameEngine, 1700, 500, 200, 1, 200, 350);
         var enemytank5 = new EnemyTank(gameEngine , 1000, 1400, 200, 1, 200, 350);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300, 200, 1, 200, 350);  
+        
+ 
         // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
     
         tanks.push(tank);
@@ -666,6 +688,7 @@ AM.downloadAll(function () {
         tanks.push(enemytank4);
         tanks.push(enemytank5);
         tanks.push(enemytank6);
+
         // tanks.push(enemyRobot);
     
         // tanks.push(enemy);
