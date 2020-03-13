@@ -171,24 +171,24 @@ GameEngine.prototype.draw = function () {
 
 GameEngine.prototype.update = function () {
     var entitiesCount = this.entities.length;
-    //var tanksCount = this.tanks.length;
+    var tanksCount = this.tanks.length;
     
-    // for (var i = 0; i < tanksCount; i++) {
+    for (var i = 0; i < tanksCount; i++) {
 
-    //     var tank = this.tanks[i];
+        var tank = this.tanks[i];
 
-    //     if(!tank.removeFromWorld){
-    //         tank.update();
-    //     }
+        if(!tank.removeFromWorld){
+            tank.update();
+        }
         
-    // }
+    }
 
-    // for (var i = this.tanks.length - 1; i >= 0; --i) {
-    //     if (this.tanks[i].removeFromWorld) {
-    //         this.tanks.splice(i, 1);
-    //         //console.log("removed from world");
-    //     }
-    // }
+    for (var i = this.tanks.length - 1; i >= 0; --i) {
+        if (this.tanks[i].removeFromWorld) {
+            this.tanks.splice(i, 1);
+            //console.log("removed from world");
+        }
+    }
 
     for (var i = 0; i < entitiesCount; i++) {
 

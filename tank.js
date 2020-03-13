@@ -66,7 +66,7 @@ function Tank(game, maxHealth) {
     this.cooldown = 200;
     this.lastMove = "none";
     this.hero = false;
-    this.velocity = 4; //set the speed of tank  // after merge
+    this.velocity = 2; //set the speed of tank  // after merge
     this.speed = this.velocity;
     this.game = game;
     // console.log(game);
@@ -86,6 +86,7 @@ function Tank(game, maxHealth) {
     
     this.maxHealth = maxHealth;
     this.currentHealth = this.maxHealth;
+    this.removeFromWorld = false;
 
     this.collision;
     this.tankIndex = 0;

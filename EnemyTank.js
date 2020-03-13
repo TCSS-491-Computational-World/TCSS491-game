@@ -47,7 +47,7 @@ function EnemyTank(game, x, y, maxCooldown, speed, maxHealth, aggroRange) {
     this.collision;
     this.tankIndex;
     this.tempList;
-
+    this.removeFromWorld = false;
     
     
     Entity.call(this, game, x, y);
