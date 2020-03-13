@@ -96,8 +96,6 @@ function Background(game) {
 }
 
 Background.prototype.draw = function () {
-    //console.log(spriteSheet + " sssssss ");
-    // this.ctx.drawImage(this.spritesheet, this.x, this.y);
     if (MapSelection) {
         //select Map 
         this.ctx.fillStyle = 'black';
