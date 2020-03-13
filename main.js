@@ -113,6 +113,12 @@ Background.prototype.draw = function () {
         this.ctx.fillRect(this.x +550, this.y+180, 250,200);
         this.ctx.drawImage(AM.getAsset("./img/background/forest.jpg"),this.x+550, this.y +180, 250,200);
 
+        this.ctx.font = "26px serif";
+        this.ctx.strokeStyle = 'yellow';
+        this.ctx.strokeText("Tutorial: ", this.x+200, this.y+450);
+        this.ctx.strokeText("WASD: Moving your tank with directions. ", this.x+200, this.y+485);
+        this.ctx.strokeText("Left Click: Shooting", this.x+200, this.y + 520);
+
     }
 
     // if (gameOver) {
