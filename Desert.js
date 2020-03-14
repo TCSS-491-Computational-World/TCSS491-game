@@ -322,7 +322,7 @@ function removePowerup(game){
             next.push(game.powerups[i]);
         }
     }
-    return {powerups:next};
+    return next;
 }
 
 
@@ -434,12 +434,8 @@ Desert.prototype.update = function () {
         }       
     }
 
-
-
-
     var tempP = removePowerup(this.game);
-    this.game.powerups = tempP.powerups;
-
+    this.game.powerups = tempP;
 
     var temp = removeWalls(this.game);
     // console.log(temp);                       // checked

@@ -29,6 +29,7 @@ function GameEngine() {
     this.map = null;            // the whole map   Jerry did
     this.walls = null           // the walls' location  Jerry did
     this.buildings = null;      // the buildings    Jerry did 
+    this.powerups = null;
     // this.typeMap = null;        // the map selected Jerry did
 }
 
