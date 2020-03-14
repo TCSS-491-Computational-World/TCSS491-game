@@ -201,6 +201,7 @@ AM.downloadAll(function () {
     var ctx = canvas.getContext("2d");
     canvas.level = parseInt(location.search.split('level=')[1]); // passing level from the previous html
     console.log("CANVAS LEVEL: " + canvas.level);
+
     
     // if(canvas.level === 1){
 
