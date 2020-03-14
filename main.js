@@ -185,6 +185,7 @@ AM.queueDownload("./img/robot.png");
 AM.queueDownload("./img/tank_red2Barrell.png");
 //merge
 AM.queueDownload("./img/tank_green2Barrell.png");
+AM.queueDownload("./img/turret.png");
 
 AM.queueDownload("./img/snowball_01.png");
 
