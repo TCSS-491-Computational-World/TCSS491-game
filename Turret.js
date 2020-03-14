@@ -45,8 +45,8 @@ function Turret(game, x, y) {
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveDownAnimation.frameWidth + 17, this.moveDownAnimation.frameHeight + 19);
     this.triggerbox = new BoundingBox(this.x, this.y, this.moveDownAnimation.frameWidth + 17, this.moveDownAnimation.frameHeight + 19);
     this.distance = 500;
-    this.maxHealth = 500;
-    this.currentHealth = 500;
+    this.maxHealth = 10000;
+    this.currentHealth = 10000;
     this.theta = 0;
     this.collision;
     this.tankIndex;
@@ -64,7 +64,7 @@ Turret.prototype.update = function() {
 
     this.tempList = this.game.tanks;
     for(j = 0; j < this.game.tanks.length; j++){
-        if(this.tempList[j].x === this.x){
+        if(this.tempList[j].x === this.x && this.tempList[j].y === this.y){
             this.tankIndex = j;
     
             //this.tempList.splice(this.tankIndex, 1);
@@ -174,6 +174,12 @@ Turret.prototype.update = function() {
             this.game.tanks[this.tankIndex].removeFromWorld = true;
             this.game.tanks = removeEnemyTank(this.game.tanks, this.tankIndex);
             
+            // for(i = 0; i < this.game.entities.length; i++){
+            //     if(this.game.entities[i].x === this.game.tanks[this.tankIndex].x){
+            //         this.game.entities[i].removeFromWorld = true;
+            //     }
+            // }
+
 
             var newTank = new Turret(this.game, 
                 this.game.path[Math.floor(Math.random() * this.game.path.length)].x * 50,
