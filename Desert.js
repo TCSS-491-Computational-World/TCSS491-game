@@ -381,8 +381,14 @@ function Desert(game) {
   this.game = game;
   this.ctx = game.ctx
   this.grid = setUpDesert();
+
+
 //   console.log(this.grid);
   this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
+  this.path = checkDesertPath(game); // the path of the tank, except other vehicles Jerry did
+  this.walls = checkDesertWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
+  this.powerups = checkDesertPowerups(game);
+  this.buildings = checkDesertBuilding(game);
   this.game.path = checkDesertPath(game); // the path of the tank, except other vehicles Jerry did
   this.game.walls = checkDesertWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
   this.game.powerups = checkDesertPowerups(game);

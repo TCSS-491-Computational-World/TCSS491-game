@@ -95,7 +95,8 @@ function Background(game) {
 
     this.forest = new Forest(this.game);
     this.desert = new Desert(this.game);
-    // console.log(this.desert.grid === this.forest.grid);
+
+    console.log(this.desert.grid === this.forest.grid);
     // this.clicked = false;
 }
 
@@ -133,12 +134,21 @@ Background.prototype.update = function () {
 
         if (MapType === 'desert') {
             this.game.map = this.desert.grid;
-            console.log(this.game.map === this.forest.grid);
+            this.game.path = this.desert.path; // the path of the tank, except other vehicles Jerry did
+            this.game.walls = this.desert.walls; // the path of the tank, except other vehicles Jerry did, work for bullet shot
+            this.game.powerups = this.desert.powerups;
+            this.game.buildings = this.desert.buildings;
+            console.log("GO Desert");
             this.game.entities.splice(0,0,this.desert);
             
         }
         else {
             this.game.map = this.forest.grid;
+            this.game.path = this.forest.path; // the path of the tank, except other vehicles Jerry did
+            this.game.walls = this.forest.walls; // the path of the tank, except other vehicles Jerry did, work for bullet shot
+        
+            this.game.buildings = this.forest.buildings;
+            console.log("Go Forest");
             this.game.entities.splice(0,0,this.forest);
         }
 
@@ -148,6 +158,7 @@ Background.prototype.update = function () {
             }
     
         }
+        console.log(this.game.entities);
 
         // updatedMap = true;
     }
@@ -237,7 +248,7 @@ AM.downloadAll(function () {
     var enemytank2 = new EnemyTank(gameEngine , 500, 2200);
     var enemytank3 = new EnemyTank(gameEngine , 400, 400);  
     var enemytank4 = new EnemyTank(gameEngine, 1700, 500);
-    var enemytank5 = new EnemyTank(gameEngine , 1000, 1400);
+    var enemytank5 = new EnemyTank(gameEngine , 1800, 1400);
     var enemytank6 = new EnemyTank(gameEngine , 800, 1300);  
     // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
 
