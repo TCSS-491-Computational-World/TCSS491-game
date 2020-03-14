@@ -120,6 +120,9 @@ Background.prototype.draw = function () {
         this.ctx.strokeText("Tutorial: ", this.x+200, this.y+450);
         this.ctx.strokeText("WASD: Moving your tank with directions. ", this.x+200, this.y+485);
         this.ctx.strokeText("Left Click: Shooting", this.x+200, this.y + 520);
+        this.ctx.font = "30spx serif";
+        this.ctx.strokeStyle = 'red';
+        this.ctx.strokeText("Keep away from all turrets !!!", this.x+200, this.y + 555);
 
     }
 
@@ -137,7 +140,7 @@ Background.prototype.update = function () {
             this.game.walls = this.desert.walls; // the path of the tank, except other vehicles Jerry did, work for bullet shot
             this.game.powerups = this.desert.powerups;
             this.game.buildings = this.desert.buildings;
-            console.log("GO Desert");
+            // console.log("GO Desert");
             this.game.entities.splice(0,0,this.desert);
             
         }
@@ -147,7 +150,7 @@ Background.prototype.update = function () {
             this.game.walls = this.forest.walls; // the path of the tank, except other vehicles Jerry did, work for bullet shot
         
             this.game.buildings = this.forest.buildings;
-            console.log("Go Forest");
+            // console.log("Go Forest");
             this.game.entities.splice(0,0,this.forest);
         }
 
@@ -410,6 +413,9 @@ AM.downloadAll(function () {
         var enemytank5 = new EnemyTank(gameEngine , 1000, 1400,100, 1, 400, 400);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300,100, 1, 400, 400); 
         var enemytank7 = new Turret(gameEngine, 1600, 800); 
+
+        // Jerry added a new turret.
+        var enemytank8 = new Turret(gameEngine, 800,1600);
         // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
     
         tanks.push(tank);
@@ -420,17 +426,19 @@ AM.downloadAll(function () {
         tanks.push(enemytank5);
         tanks.push(enemytank6);
         tanks.push(enemytank7);
+        tanks.push(enemytank8);
         // tanks.push(enemyRobot);
     
         // tanks.push(enemy);
         gameEngine.tanks = tanks;
         var gameScore = new Score(gameEngine, 0); //game score for player
         var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-        var desert = new Desert(gameEngine);      
-        gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+        // var desert = new Desert(gameEngine);      
+        // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
         gameEngine.camera = camera;
+        var background = new Background(gameEngine);
     
-        gameEngine.addEntity(desert);                                                           // desert map Jerry did
+        // gameEngine.addEntity(desert);                                                           // desert map Jerry did
         gameEngine.addEntity(tank);
         gameEngine.addEntity(enemytank1);
         gameEngine.addEntity(enemytank2);
@@ -439,10 +447,12 @@ AM.downloadAll(function () {
         gameEngine.addEntity(enemytank5);
         gameEngine.addEntity(enemytank6);
         gameEngine.addEntity(enemytank7);
+        gameEngine.addEntity(enemytank8);
         // gameEngine.addEntity(enemyRobot);
         // gameEngine.addEntity(enemy);
         gameEngine.addEntity(camera);
         gameEngine.addEntity(gameScore);
+        gameEngine.addEntity(background);
      
         console.log("All Done!");
     } else if (canvas.level === 3){
@@ -469,6 +479,9 @@ AM.downloadAll(function () {
         var enemytank11 = new EnemyTank(gameEngine , 500, 1400, 200, 2, 400, 500);
         var enemytank12 = new EnemyTank(gameEngine , 800, 1000, 200, 2, 400, 500); 
         var enemytank13 = new Turret(gameEngine, 1600, 800);
+        var enemytank14 = new Turret(gameEngine, 800, 1600);
+        var enemytank15 = new Turret(gameEngine, 400 , 800);
+        var enemytank16 = new Turret(gameEngine, 400 , 1600);
         // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
     
         tanks.push(tank);
@@ -485,17 +498,22 @@ AM.downloadAll(function () {
         tanks.push(enemytank11);
         tanks.push(enemytank12);
         tanks.push(enemytank13);
+        tanks.push(enemytank14);
+        tanks.push(enemytank15);
+        tanks.push(enemytank16);
         // tanks.push(enemyRobot);
     
         // tanks.push(enemy);
         gameEngine.tanks = tanks;
         var gameScore = new Score(gameEngine, 0); //game score for player
         var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-        var desert = new Desert(gameEngine);      
-        gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+        // var desert = new Desert(gameEngine);      
+        // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
         gameEngine.camera = camera;
-    
-        gameEngine.addEntity(desert);                                                           // desert map Jerry did
+
+        var background = new Background(gameEngine);
+
+        // gameEngine.addEntity(desert);                                                           // desert map Jerry did
         gameEngine.addEntity(tank);
         gameEngine.addEntity(enemytank1);
         gameEngine.addEntity(enemytank2);
@@ -510,11 +528,16 @@ AM.downloadAll(function () {
         gameEngine.addEntity(enemytank11);
         gameEngine.addEntity(enemytank12);
         gameEngine.addEntity(enemytank13);
+        gameEngine.addEntity(enemytank14);
+        gameEngine.addEntity(enemytank15);
+        gameEngine.addEntity(enemytank16);
+        
         
         // gameEngine.addEntity(enemyRobot);
         // gameEngine.addEntity(enemy);
         gameEngine.addEntity(camera);
         gameEngine.addEntity(gameScore);
+        gameEngine.addEntity(background);
      
         console.log("All Done!");
     } else if (canvas.level === 4){
@@ -534,7 +557,7 @@ AM.downloadAll(function () {
         var enemytank5 = new EnemyTank(gameEngine , 1000, 1400, 200, 1, 200, 350);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300, 200, 1, 200, 350);  
         var enemytank7 = new Turret(gameEngine, 1600, 800);
-        
+        var enemytank8 = new Turret(gameEngine, 800, 1600);
  
         // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
     
@@ -546,6 +569,7 @@ AM.downloadAll(function () {
         tanks.push(enemytank5);
         tanks.push(enemytank6);
         tanks.push(enemytank7);
+        tanks.push(enemytank8);
 
         // tanks.push(enemyRobot);
     
@@ -553,11 +577,12 @@ AM.downloadAll(function () {
         gameEngine.tanks = tanks;
         var gameScore = new Score(gameEngine, 0); //game score for player
         var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-        var desert = new Desert(gameEngine);      
-        gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+        // var desert = new Desert(gameEngine);      
+        // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
         gameEngine.camera = camera;
+        var background = new Background(gameEngine);
     
-        gameEngine.addEntity(desert);                                                           // desert map Jerry did
+        // gameEngine.addEntity(desert);                                                           // desert map Jerry did
         gameEngine.addEntity(tank);
         gameEngine.addEntity(enemytank1);
         gameEngine.addEntity(enemytank2);
@@ -566,10 +591,12 @@ AM.downloadAll(function () {
         gameEngine.addEntity(enemytank5);
         gameEngine.addEntity(enemytank6);
         gameEngine.addEntity(enemytank7);
+        gameEngine.addEntity(enemytank8);
         // gameEngine.addEntity(enemyRobot);
         // gameEngine.addEntity(enemy);
         gameEngine.addEntity(camera);
         gameEngine.addEntity(gameScore);
+        gameEngine.addEntity(background);
      
         console.log("All Done!");
     }    
