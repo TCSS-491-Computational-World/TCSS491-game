@@ -72,7 +72,7 @@ function Tank(game, maxHealth) {
     // console.log(game);
     this.ctx = game.ctx;
     this.x = 550;
-    this.y = 300;
+    this.y = 350;
     this.counter = 0;
     this.random = this.random = Math.floor(Math.random() * 100);
 

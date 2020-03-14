@@ -86,15 +86,16 @@ Animation.prototype.isDone = function () {
 //________________________________________________________________________________________________________
 //________________________________________________________________________________________________________
 
-// Background Class
 function Background(game) {
     this.x = 0;
     this.y = 0;
     this.game = game;
     this.ctx = game.ctx;
-    this.desert = new Desert(this.game);
+
     this.forest = new Forest(this.game);
-    // console.log(this.desert.grid === this.forest.grid);
+    this.desert = new Desert(this.game);
+
+    console.log(this.desert.grid === this.forest.grid);
     // this.clicked = false;
 }
 
@@ -132,12 +133,21 @@ Background.prototype.update = function () {
 
         if (MapType === 'desert') {
             this.game.map = this.desert.grid;
-            console.log(this.game.map === this.forest.grid);
+            this.game.path = this.desert.path; // the path of the tank, except other vehicles Jerry did
+            this.game.walls = this.desert.walls; // the path of the tank, except other vehicles Jerry did, work for bullet shot
+            this.game.powerups = this.desert.powerups;
+            this.game.buildings = this.desert.buildings;
+            console.log("GO Desert");
             this.game.entities.splice(0,0,this.desert);
             
         }
         else {
             this.game.map = this.forest.grid;
+            this.game.path = this.forest.path; // the path of the tank, except other vehicles Jerry did
+            this.game.walls = this.forest.walls; // the path of the tank, except other vehicles Jerry did, work for bullet shot
+        
+            this.game.buildings = this.forest.buildings;
+            console.log("Go Forest");
             this.game.entities.splice(0,0,this.forest);
         }
 
@@ -147,14 +157,86 @@ Background.prototype.update = function () {
             }
     
         }
+        console.log(this.game.entities);
 
         // updatedMap = true;
     }
 };
 
+// // Background Class
+// function Background(game) {
+//     this.x = 0;
+//     this.y = 0;
+//     this.game = game;
+//     this.ctx = game.ctx;
+//     this.desert = new Desert(this.game);
+//     this.forest = new Forest(this.game);
+//     // console.log(this.desert.grid === this.forest.grid);
+//     // this.clicked = false;
+// }
+
+// Background.prototype.draw = function () {
+//     if (MapSelection) {
+//         //select Map 
+//         this.ctx.fillStyle = 'black';
+//         // console.log(this.game.camera.x);
+//         this.ctx.fillRect(this.x, this.y, 1000,600);
+
+//         // desert map seleciton.
+//         this.ctx.fillStyle = 'white';
+//         this.ctx.fillRect(this.x +200, this.y+180, 250,200);
+//         this.ctx.drawImage(AM.getAsset("./img/background/desert.jpg"),this.x+200, this.y +180, 250,200);
+//         // forest map selection.
+//         this.ctx.fillStyle = 'white';
+//         this.ctx.fillRect(this.x +550, this.y+180, 250,200);
+//         this.ctx.drawImage(AM.getAsset("./img/background/forest.jpg"),this.x+550, this.y +180, 250,200);
+
+//         this.ctx.font = "26px serif";
+//         this.ctx.strokeStyle = 'yellow';
+//         this.ctx.strokeText("Tutorial: ", this.x+200, this.y+450);
+//         this.ctx.strokeText("WASD: Moving your tank with directions. ", this.x+200, this.y+485);
+//         this.ctx.strokeText("Left Click: Shooting", this.x+200, this.y + 520);
+
+//     }
 
 
+// };
 
+// Background.prototype.update = function () {
+
+//     if (!MapSelection) {
+//         // console.log(this.desert.grid === this.forest.grid);
+
+//         if (MapType === 'desert') {
+//             this.game.map = this.desert.grid;
+//             console.log(this.game.map === this.forest.grid);
+//             this.game.entities.splice(0,0,this.desert);
+            
+//         }
+//         else {
+//             this.game.map = this.forest.grid;
+//             this.game.entities.splice(0,0,this.forest);
+//         }
+
+//         for (var i = 0; i < this.game.entities.length; i++) {
+//             if (this.game.entities[i].constructor.name === 'Background') {
+//                 this.game.entities.splice(i,1);
+//             }
+    
+//         }
+
+//         // updatedMap = true;
+//     }
+// };
+
+AM.queueDownload("./img/forest/grass03.png"); //grass background for forest
+AM.queueDownload("./img/forest/forest1.png"); // forest1
+AM.queueDownload("./img/forest/forest2.png"); // forest2
+AM.queueDownload("./img/forest/forest3.png"); // forest3
+AM.queueDownload("./img/forest/castle.png");
+
+AM.queueDownload("./img/background/desert.jpg");
+AM.queueDownload("./img/background/forest.jpg");
 
 AM.queueDownload("./img/background/desertTile.png");
 AM.queueDownload("./img/background/crate.png");
@@ -288,11 +370,14 @@ AM.downloadAll(function () {
         gameEngine.tanks = tanks;
         var gameScore = new Score(gameEngine, 0); //game score for player
         var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-        var desert = new Desert(gameEngine);      
-        gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+        // var desert = new Desert(gameEngine);      
+        // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
         gameEngine.camera = camera;
+
+        var background = new Background(gameEngine);
+
     
-        gameEngine.addEntity(desert);                                                           // desert map Jerry did
+        // gameEngine.addEntity(desert);                                                           // desert map Jerry did
         gameEngine.addEntity(tank);
         gameEngine.addEntity(enemytank1);
         gameEngine.addEntity(enemytank2);
@@ -305,6 +390,7 @@ AM.downloadAll(function () {
         // gameEngine.addEntity(enemy);
         gameEngine.addEntity(camera);
         gameEngine.addEntity(gameScore);
+        gameEngine.addEntity(background);
      
         console.log("All Done!");
     } else if (canvas.level === 2){

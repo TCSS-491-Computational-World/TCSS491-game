@@ -70,7 +70,7 @@ Turret.prototype.update = function() {
             //this.tempList.splice(this.tankIndex, 1);
         }
     }
-    console.log("MY TUUUUUUUREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET           INDEX:    " + this.tankIndex);
+    // console.log("MY TUUUUUUUREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET           INDEX:    " + this.tankIndex);
 
 
     var bool = true;
