@@ -502,7 +502,7 @@ function findEnemyPath(game, tank_x, tank_y, direction, speed) {
             var endX    =   game.buildings[i].x * 50 + game.buildings[i].contains.boundingWidth;
             var endY    =   game.buildings[i].y * 50 + game.buildings[i].contains.boundingHeight;
 
-            console.log(endX,endY);
+            // console.log(endX,endY);
 
             if (tank_x + 40 > startX && tank_x < endX  
                 && tank_y + 40 > startY && tank_y < endY) {

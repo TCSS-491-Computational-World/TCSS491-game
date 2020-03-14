@@ -38,7 +38,7 @@ function setUpForest() {
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t",i*w,j*w,85,80)
+                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t",i*w,j*w,72,66) // checked
                 );
             } else if (
                 // draw tree border West
@@ -134,7 +134,7 @@ function setUpForest() {
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.forestOne, i * w, j * w, 250, 200, "t")
+                    new Component(this.forestOne, i * w, j * w, 250-30, 200-30, "t", i * w, j*w,190,140)
                 );
             } else if (
                 // Jerry trees
