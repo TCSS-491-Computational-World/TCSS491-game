@@ -87,310 +87,70 @@ Animation.prototype.isDone = function () {
 //________________________________________________________________________________________________________
 
 // Background Class
-function Background(game, spritesheet) {
+function Background(game) {
     this.x = 0;
     this.y = 0;
-    this.spritesheet = spritesheet;
     this.game = game;
     this.ctx = game.ctx;
+    this.desert = new Desert(this.game);
+    this.forest = new Forest(this.game);
+    // console.log(this.desert.grid === this.forest.grid);
+    // this.clicked = false;
 }
 
 Background.prototype.draw = function () {
-    //console.log(spriteSheet + " sssssss ");
-    this.ctx.drawImage(this.spritesheet, this.x, this.y);
+    if (MapSelection) {
+        //select Map 
+        this.ctx.fillStyle = 'black';
+        // console.log(this.game.camera.x);
+        this.ctx.fillRect(this.x, this.y, 1000,600);
+
+        // desert map seleciton.
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(this.x +200, this.y+180, 250,200);
+        this.ctx.drawImage(AM.getAsset("./img/background/desert.jpg"),this.x+200, this.y +180, 250,200);
+        // forest map selection.
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(this.x +550, this.y+180, 250,200);
+        this.ctx.drawImage(AM.getAsset("./img/background/forest.jpg"),this.x+550, this.y +180, 250,200);
+
+        this.ctx.font = "26px serif";
+        this.ctx.strokeStyle = 'yellow';
+        this.ctx.strokeText("Tutorial: ", this.x+200, this.y+450);
+        this.ctx.strokeText("WASD: Moving your tank with directions. ", this.x+200, this.y+485);
+        this.ctx.strokeText("Left Click: Shooting", this.x+200, this.y + 520);
+
+    }
+
+
 };
 
-Background.prototype.update = function () { };
+Background.prototype.update = function () {
 
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
-//________________________________________________________________________________________________________
+    if (!MapSelection) {
+        // console.log(this.desert.grid === this.forest.grid);
 
+        if (MapType === 'desert') {
+            this.game.map = this.desert.grid;
+            console.log(this.game.map === this.forest.grid);
+            this.game.entities.splice(0,0,this.desert);
+            
+        }
+        else {
+            this.game.map = this.forest.grid;
+            this.game.entities.splice(0,0,this.forest);
+        }
 
-
-
-// function Tank(game) {
-//     //Barrell Code
-//     //________________________________________________________________________________________________________
-//     this.BB = AM.getAsset("./img/tank_red2Barrell.png");
-//     this.bullet = AM.getAsset("./img/bullet_red_2.png");
-//     this.explosionA = AM.getAsset("./img/Explosion_A.png")
-//     this.cursorX;
-//     this.cursorY;
+        for (var i = 0; i < this.game.entities.length; i++) {
+            if (this.game.entities[i].constructor.name === 'Background') {
+                this.game.entities.splice(i,1);
+            }
     
-//     //_________________________________________________________________________________________________________
+        }
 
-//     this.moveDownAnimation = new Animation( AM.getAsset("./img/tank_red.png"),  0, 0, 50, 50, 1,1,true,false);
-//     this.moveRightAnimation = new Animation( AM.getAsset("./img/tank_red.png"), 50,0, 50,50,1,1, true,false);
-//     this.moveUpAnimation = new Animation(AM.getAsset("./img/tank_red.png"),100,0,50,50,1,1,true,false);
-//     this.moveLeftAnimation = new Animation( AM.getAsset("./img/tank_red.png"),150,0,50, 50,1,1,true, false);
-
-//     this.moveDownRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),0,0,73,60,1, 1,true,false); //quick note{:}
-//     this.moveUpRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),73,0,73,60,1,1,true,false);
-//     this.moveRightRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),146,0,73,60,1,1,true,false);
-//     this.moveLeftRobotAnimation = new Animation(AM.getAsset("./img/robot.png"),219,0,73,60,1,1,true,false);
-//     //this.bulletShot = AM.getAsset("./img/bullet_onlyred.png");
-//     this.up = false;
-//     this.down = false;
-//     this.left = false;
-//     this.right = false;
-//     this.lastMove = "none";
-//     this.hero = false;
-//     this.speed = 10;
-//     this.ctx = game.ctx;
-//     this.x = 300;
-//     this.y = 300;
-//     this.shooting = false;
-//     this.cleanShot = false;
-//     this.boundingbox = new BoundingBox(this.x, this.y, this.moveUpAnimation.frameWidth, this.moveUpAnimation.frameHeight);
-//     this.maxHealth = 200;
-//     this.currentHealth = 200;
-    
-    
-//     Entity.call(this, game, 300, 300);
-// }
-
-// Tank.prototype = new Entity();
-// Tank.prototype.constructor = Tank;
-
-// Tank.prototype.update = function() {
-//     var bool = true;
-//     //Barrell Code
-//     //____________________________________________________________________________________________________
-//     if (this.game.mouse) {
-//         //console.log("fhdfhfdh");
-//         var dy = this.y - this.cursorY;
-//         var dx = this.x - this.cursorX;
-//         var theta = Math.atan2(dy, dx); // range (-PI, PI]
-//         //theta *= 180 / Math.PI;
-//         this.cursorX = this.game.mouse.x;
-//         this.cursorY = this.game.mouse.y;
-//         this.bullet = this.rotateAndCache(AM.getAsset("./img/bullet_red_2.png"), theta);
-//         this.BB = this.rotateAndCache(
-//             AM.getAsset("./img/tank_red2Barrell.png"),
-//             theta
-//         );
-//         //console.log(this.spritesheet);
-//     } else {
-//         //console.log("fhdfhfdh");
-//         var dy = this.y - this.cursorY;
-//         var dx = this.x - this.cursorX;
-//         var theta = Math.atan2(dy, dx); // range (-PI, PI]
-//         //theta *= 180 / Math.PI;
-//         //this.cursorX = this.game.mouse.x;
-//         //this.cursorY = this.game.mouse.y;
-//         this.BB = this.rotateAndCache(
-//             AM.getAsset("./img/tank_red2Barrell.png"),
-//             theta
-//         );
-//     }
-//     //_____________________________________________________________________________________________________
-
-//     if (this.game.click) {
-//         this.shooting = true;
-//     }
-//     if (this.shooting) {
-//         bulletShot = new BulletFire(this.game, this.bullet, true, this.x - 16, this.y - 16, this.cursorX, this.cursorY, theta);
-//         this.game.addEntity(bulletShot);
-//         this.shooting = false;
-//         //this.bullet.fire = true;
-//     }
-
-//     //if(this.boundingbox.collide())
-
-//     if (this.cleanShot) {
-//         cleanshot = new Explosion(this.game, this.explosionA, true, this.x, this.y);
-//         this.game.addEntity(cleanshot);
-//         this.cleanShot = false;
-//         //this.bullet.fire = true;
-//     }
-
-//     //if(!this.boundingbox.collide(this.game.tanks[1].boundingbox)){
-
-//         if (this.game.keyboard === 38 || this.game.keyboard === 87) {
-//             //moving up
-//             this.up = true;
-//             this.down = false;
-//             this.right = false;
-//             this.left = false;
-//         }
-//         if (this.up === true) {
-//             this.y -= this.speed;
-//             this.boundingbox.y -= this.speed;
-//         }
-//         if (this.game.keyboard === 39 || this.game.keyboard === 68) {
-//             //moving right
-    
-//             this.up = false;
-//             this.down = false;
-//             this.right = true;
-//             this.left = false;
-//         }
-//         if (this.right === true) {
-//             this.x += this.speed;
-//             this.boundingbox.x += this.speed;
-//         }
-//         if (this.game.keyboard === 40 || this.game.keyboard === 83) {
-//             //moving down
-//             this.up = false;
-//             this.down = true;
-//             this.right = false;
-//             this.left = false;
-//         }
-//         if (this.down === true) {
-//             this.y += this.speed;
-//             this.boundingbox.y += this.speed;
-//         }
-//         if (this.game.keyboard === 37 || this.game.keyboard === 65) {
-//             //moving left
-//             this.up = false;
-//             this.down = false;
-//             this.right = false;
-//             this.left = true;
-//         }
-//         if (this.left === true) {
-//             this.x -= this.speed;
-//             this.boundingbox.x -= this.speed;
-//         }
-
-//     //}
-    
-
-//     Entity.prototype.update.call(this);
-// };
-
-// Tank.prototype.draw = function() {
-//     drawHealthBar(this.ctx, this.x+5, this.y-5, 40, 4, this.currentHealth, this.maxHealth);
-//     //this.moveRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-//     if (this.up) {
-//         this.moveUpAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.up = false;
-//         this.lastMove = "up";
-//     }
-//     if (this.down) {
-//         this.moveDownAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.down = false;
-//         this.lastMove = "down";
-//     }
-//     if (this.right) {
-//         this.moveRightAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.right = false;
-//         this.lastMove = "right";
-//     }
-//     if (this.left) {
-//         this.moveLeftAnimation.drawFrame(
-//             this.game.clockTick,
-//             this.ctx,
-//             this.x,
-//             this.y
-//         );
-//         this.left = false;
-//         this.lastMove = "left";
-//     }
-//     if (!this.left && !this.right && !this.up && !this.down) {
-//         //if tank isnt moving then stay at most recent direction.
-//         if (this.lastMove === "left")
-//             this.moveLeftAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "right")
-//             this.moveRightAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "down")
-//             this.moveDownAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "up")
-//             this.moveUpAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//         if (this.lastMove === "none")
-//             this.moveUpAnimation.drawFrame(
-//                 this.game.clockTick,
-//                 this.ctx,
-//                 this.x,
-//                 this.y
-//             );
-//     }
-
-//     //Barrell Code
-//     this.ctx.drawImage(this.BB, this.x, this.y);
-
-
-//     this.ctx.beginPath();
-//     this.ctx.lineWidth = "2";
-//     this.ctx.strokeStyle = "red";
-//     this.ctx.rect(this.boundingbox.x, this.boundingbox.y, this.boundingbox.width, this.boundingbox.height);
-//     this.ctx.stroke();
-
-
-//     Entity.prototype.draw.call(this);
-// };
-
-
-
-
-// // // Vehicles class
-// function Vehicles(game) {
-//     console.log("Where is my vehicles");
-//     this.firstAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleA.png"), 256, 256, 4, 0.10, 4, true, 1);
-//     // this.secondAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleB.png"), 256,256,4,0.1, 4, true,1);
-//     // this.thirdAnimation = new Animation(AM.getAsset("./img/TankSprites/vehicleC.png"), 256,256,4,0.1, 4, true,1);
-//     this.x = 240;
-//     this.y = 285;
-//     this.speed = 0; 
-//     this.game = game;
-//     this.ctx = game.ctx;
-
-//     // Entity.call(this, game, 240, 285);
-// }
-
-// Vehicles.prototype.draw = function () {
-//     this.firstAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-//     // this.secondAnimation.drawImage(this.game.clockTick, this.ctx,this.x+100,this.y);
-//     // this.thirdAnimation.drawImage(this.game.clockTick,this.ctx, this.x+200, this.y);
-//     Entity.prototype.draw.call(this);
-// }
-
-// Vehicles.prototype.update = function () {
-//     if (this.firstAnimation.elapsedTime < this.firstAnimation.totalTime * 8 / 4)
-//         this.x += this.game.clockTick * this.speed;
-//     if (this.x > 800) this.x = -230;
-//     Entity.prototype.update.call(this);
-// }
-
-
-
-
+        // updatedMap = true;
+    }
+};
 
 
 
