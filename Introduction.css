@@ -26,6 +26,25 @@ body {
     margin-top: 0;
 }
 
+.head {
+    font-family: Roboto;
+    font-style: normal;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    margin-top: 0;
+
+}
+
+.warning{
+    font-family: Roboto;
+    font-style: normal;
+    text-align: center;
+    color: red;
+    font-size: 56px;
+    margin-top: 0;
+}
+
 div {
     position: relative;
     top: 40%;

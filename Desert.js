@@ -163,12 +163,12 @@ function setUpDesert() {
             else if ( // draw a roof
                 (i === 13 && j === 44)
             ) {
-                grid[i][j] = new Cell(i,j,new Component(this.roofSecond, i* w, j *w +50, 250,200,'r'));
+                grid[i][j] = new Cell(i,j,new Component(this.roofSecond, i* w, j *w +50, 250,200,'r',i* w,i* w,220, 170));
             }   
             else if ( // draw a roof
                 (i === 34 && j === 1)
             ) {
-                grid[i][j] = new Cell(i,j,new Component(this.roofSecond, i* w, j *w, 250,200,'r'));
+                grid[i][j] = new Cell(i,j,new Component(this.roofSecond, i* w, j *w, 250,200,'r', i* w, j *w,220,170));
             }
             else if ( i === 5 && j === 5){
                 grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
@@ -499,6 +499,9 @@ Desert.prototype.draw = function () {
             this.game.buildings[i].contains.width,
             this.game.buildings[i].contains.height);
         }
+        // bounding box helper
+        // this.ctx.strokeRect(this.game.buildings[i].contains.x-this.game.camera.x, this.game.buildings[i].contains.y-this.game.camera.y,
+            // this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
 
     }
 

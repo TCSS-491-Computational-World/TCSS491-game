@@ -447,10 +447,8 @@ EnemyTank.prototype.draw = function() {
 };
 
 
-
-
-
 function findEnemyPath(game, tank_x, tank_y, direction, speed) {
+    // console.log(game.buildings);
     // console.log(game.map);
     if (direction === 4) {
         tank_x  +=  speed;
@@ -500,39 +498,142 @@ function findEnemyPath(game, tank_x, tank_y, direction, speed) {
         if (game.buildings[i].contains.type === 't') {
             var startX  =   game.buildings[i].x * 50;
             var startY  =   game.buildings[i].y * 50;
-            var endX    =   game.buildings[i].x * 50 + 100;
-            var endY    =   game.buildings[i].y * 50 + 100;
+            
+            var endX    =   game.buildings[i].x * 50 + game.buildings[i].contains.boundingWidth;
+            var endY    =   game.buildings[i].y * 50 + game.buildings[i].contains.boundingHeight;
+
+            console.log(endX,endY);
+
             if (tank_x + 40 > startX && tank_x < endX  
                 && tank_y + 40 > startY && tank_y < endY) {
                 return false;
             }
         }
-        if (game.buildings[23].contains.type === 'r') {
-            var startX  =   game.buildings[23].x * 50 + 10;
-            var startY  =   game.buildings[23].y * 50 + 60;
-            var endX    =   game.buildings[23].x * 50 + 220;
-            var endY    =   game.buildings[23].y * 50 + 170;
+        if (game.buildings[i].contains.type === 'r') {
+            var startX  =   game.buildings[i].x * 50 + 10;
+            var startY  =   game.buildings[i].y * 50 + 60;
+            var endX    =   game.buildings[i].x * 50 + game.buildings[i].contains.boundingWidth;
+            var endY    =   game.buildings[i].y * 50 + game.buildings[i].contains.boundingHeight;
             
             if (tank_x + 40 > startX && tank_x < endX  
                 && tank_y + 40 > startY && tank_y < endY) {
                 return false;
             }
         }
-        if (game.buildings[0].contains.type === 'r') {
-            var startX  =   game.buildings[0].x * 50 + 10;
-            var startY  =   game.buildings[0].y * 50 + 60;
-            var endX    =   game.buildings[0].x * 50 + 220;
-            var endY    =   game.buildings[0].y * 50 + 170;
+        // if (game.buildings[0].contains.type === 'r') {
+        //     var startX  =   game.buildings[0].x * 50 + 10;
+        //     var startY  =   game.buildings[0].y * 50 + 60;
+        //     var endX    =   game.buildings[0].x * 50 + 220;
+        //     var endY    =   game.buildings[0].y * 50 + 170;
             
-            if (tank_x + 40 > startX && tank_x < endX  
-                && tank_y + 40 > startY && tank_y < endY) {
-                return false;
-            }
-        }      
+        //     if (tank_x + 40 > startX && tank_x < endX  
+        //         && tank_y + 40 > startY && tank_y < endY) {
+        //         return false;
+        //     }
+        // }
+        // if (game.buildings[23].contains.type === 'r') {
+        //     var startX  =   game.buildings[23].x * 50 + 10;
+        //     var startY  =   game.buildings[23].y * 50 + 60;
+        //     var endX    =   game.buildings[23].x * 50 + 220;
+        //     var endY    =   game.buildings[23].y * 50 + 170;
+            
+        //     if (tank_x + 40 > startX && tank_x < endX  
+        //         && tank_y + 40 > startY && tank_y < endY) {
+        //         return false;
+        //     }
+        // }
+        
+
     }
     return true;
 
 }
+
+
+
+// function findEnemyPath(game, tank_x, tank_y, direction, speed) {
+//     // console.log(game.map);
+//     if (direction === 4) {
+//         tank_x  +=  speed;
+//         tank_y  -=  speed;
+        
+//     }
+//     else if (direction === 6) {
+//         tank_x  -=  speed;
+//         tank_y  -=  speed;
+//     }
+//     else if (direction === 8) {
+//         tank_x  -=  speed;
+//         tank_y  +=  speed;
+//     }
+//     else if (direction === 2) {
+//         tank_x  +=  speed;
+//         tank_y  +=  speed;
+//     }
+//     else if (direction === 5) {
+//         tank_y  -=  speed;
+//     }
+//     else if (direction === 3) {
+//         tank_x  +=  speed;
+//     }
+//     else if (direction === 1) {
+//         tank_y  +=  speed;
+//     }
+//     else{
+//         tank_x -= speed;
+//     }
+
+//     // Using walls list
+//     for (let i = 0; i < game.walls.length; i++) {
+//         var startX  =   game.walls[i].x * 50;
+//         var startY  =   game.walls[i].y * 50;
+//         var endX    =   game.walls[i].x * 50 + 50;
+//         var endY    =   game.walls[i].y * 50 + 50;
+//         if (tank_x + 40 > startX && tank_x < endX  
+//             && tank_y + 40 > startY && tank_y < endY) {
+//             return false;
+//         }
+//     }
+//     // console.log(game.buildings);
+//     // debugger;
+//     // Using 
+//     for (let i = 0; i < game.buildings.length; i++) {
+//         if (game.buildings[i].contains.type === 't') {
+//             var startX  =   game.buildings[i].x * 50;
+//             var startY  =   game.buildings[i].y * 50;
+//             var endX    =   game.buildings[i].x * 50 + 100;
+//             var endY    =   game.buildings[i].y * 50 + 100;
+//             if (tank_x + 40 > startX && tank_x < endX  
+//                 && tank_y + 40 > startY && tank_y < endY) {
+//                 return false;
+//             }
+//         }
+//         if (game.buildings[23].contains.type === 'r') {
+//             var startX  =   game.buildings[23].x * 50 + 10;
+//             var startY  =   game.buildings[23].y * 50 + 60;
+//             var endX    =   game.buildings[23].x * 50 + 220;
+//             var endY    =   game.buildings[23].y * 50 + 170;
+            
+//             if (tank_x + 40 > startX && tank_x < endX  
+//                 && tank_y + 40 > startY && tank_y < endY) {
+//                 return false;
+//             }
+//         }
+//         if (game.buildings[0].contains.type === 'r') {
+//             var startX  =   game.buildings[0].x * 50 + 10;
+//             var startY  =   game.buildings[0].y * 50 + 60;
+//             var endX    =   game.buildings[0].x * 50 + 220;
+//             var endY    =   game.buildings[0].y * 50 + 170;
+            
+//             if (tank_x + 40 > startX && tank_x < endX  
+//                 && tank_y + 40 > startY && tank_y < endY) {
+//                 return false;
+//             }
+//         }      
+//     }
+//     return true;
+
+// }
 
 
 

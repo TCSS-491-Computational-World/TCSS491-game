@@ -38,7 +38,7 @@ function setUpForest() {
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t")
+                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t",i*w,j*w,85,80)
                 );
             } else if (
                 // draw tree border West
@@ -109,7 +109,7 @@ function setUpForest() {
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.forestOne, i * w, j * w, 200, 150, "t")
+                    new Component(this.forestOne, i * w, j * w, 200, 150, "t",i*w,j*w,190,135)
                 );
             } else if (
                 // draw a big tree  !!!!!NO BOUNDING BOX
@@ -361,8 +361,8 @@ Forest.prototype.draw = function() {
                 this.game.buildings[i].contains.height
             );
     
-            this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
-                                this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
+            // this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
+                                // this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
 
         } else if (
             this.game.buildings[i].contains !== 0 &&
@@ -376,8 +376,8 @@ Forest.prototype.draw = function() {
                 this.game.buildings[i].contains.height
             );
 
-            this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
-                this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
+            // this.ctx.strokeRect(this.game.buildings[i].contains.boundingX-this.game.camera.x, this.game.buildings[i].contains.boundingY-this.game.camera.y,
+                // this.game.buildings[i].contains.boundingWidth, this.game.buildings[i].contains.boundingHeight) ;
 
         }
     }
