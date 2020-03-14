@@ -319,7 +319,7 @@ Tank.prototype.update = function() {
         this.triggerbox.midpointy = (this.triggerbox.y + (this.triggerbox.y + this.triggerbox.height))/2;
     }
 
-    if (this.game.keyboard[2] === true && this.game.keyboard[3] === true ) {
+    if (this.game.keyboard[2] === true && this.game.keyboard[3] === true && this.moveDownRight) {
         //moving down and right
         this.TankState = 2;
         this.lastState = 2;

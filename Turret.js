@@ -44,7 +44,7 @@ function Turret(game, x, y) {
     this.cleanShot = false;
     this.boundingbox = new BoundingBox(this.x, this.y, this.moveDownAnimation.frameWidth + 17, this.moveDownAnimation.frameHeight + 19);
     this.triggerbox = new BoundingBox(this.x, this.y, this.moveDownAnimation.frameWidth + 17, this.moveDownAnimation.frameHeight + 19);
-    this.distance = 1;
+    this.distance = 500;
     this.maxHealth = 500;
     this.currentHealth = 500;
     this.theta = 0;
@@ -256,7 +256,12 @@ Turret.prototype.update = function() {
     // }
     // // console.log(this.x);
 
-    // if (this.up === true  && this.y >=0   && findEnemyPath(this.game, this.x, this.y, 5, this.speed)) {
+    // if (this.up === true  && this.y >=0   && findEnemyPath(this.game, this.x, this.y, 5, this.speed)) {\
+
+
+
+
+
     if(this.speed === 1){
         this.x -= this.speed;
         this.boundingbox.y -= this.speed;
@@ -266,6 +271,12 @@ Turret.prototype.update = function() {
         this.speed = 2;
     }
         
+
+
+
+
+
+
     // }
     // if (this.random <= 50 && this.random > 25) {
     //     //moving right
@@ -443,12 +454,12 @@ Turret.prototype.draw = function() {
     // //Barrell Code
     // this.ctx.drawImage(this.BB, this.x + 6 - this.game.camera.x, this.y + 5 - this.game.camera.y);
 
-    //Bounding box helper.
-    // this.ctx.beginPath();
-    // this.ctx.lineWidth = "2";
-    // this.ctx.strokeStyle = "red";
-    // this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.triggerbox.y - this.game.camera.y, this.triggerbox.width, this.triggerbox.height);
-    // this.ctx.stroke();
+ //   Bounding box helper.
+    this.ctx.beginPath();
+    this.ctx.lineWidth = "2";
+    this.ctx.strokeStyle = "red";
+    this.ctx.rect(this.boundingbox.x - this.game.camera.x, this.boundingbox.y - this.game.camera.y, this.boundingbox.width, this.boundingbox.height);
+    this.ctx.stroke();
 
     // this.ctx.beginPath();
     // this.ctx.lineWidth = "1";
