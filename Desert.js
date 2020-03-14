@@ -1,6 +1,4 @@
 // var grid = new Array(50); 
-
-//尝试知道每个格子都有什么 contains for each c
 function Cell(theX, theY, theContain) {
     this.x = theX;
     this.y = theY;
@@ -384,7 +382,6 @@ function Desert(game) {
   this.ctx = game.ctx
   this.grid = setUpDesert();
 //   console.log(this.grid);
-
   this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
   this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
   this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
@@ -454,22 +451,7 @@ Desert.prototype.update = function () {
 
 // draw the map
 Desert.prototype.draw = function () {
-    // //select Map 
-    // this.ctx.fillStyle = 'black';
-    // this.ctx.fillRect(0, 0, 1000,600);
-
-    // // desert map seleciton.
-    // this.ctx.fillStyle = 'white';
-    // this.ctx.fillRect(0, 0, 250,250);
-    // // forest map selection.
-    // this.ctx.fillStyle = 'white';
-    // this.ctx.fillRect(0, 0, 250,250);
-
-
-
-
-
-    
+ 
   var w = 50;
   /* Draw all tiles on the map.
   */

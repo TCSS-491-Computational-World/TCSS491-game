@@ -94,9 +94,6 @@ Camera.prototype.draw = function() {
         this.ctx.fillStyle = 'transparent';
         this.ctx.fillRect(this.x - this.game.camera.x + 800,this.y-this.game.camera.y + 400,200,200);
     }
-
-
-
     var pixel = 4;
     // walls drawing on the minimap
     for (let i = 0; i < this.walls.length; i++){

@@ -92,6 +92,9 @@ function Background(game) {
     this.y = 0;
     this.game = game;
     this.ctx = game.ctx;
+    this.desert = new Desert(this.game);
+    this.forest = new Forest(this.game);
+    // console.log(this.desert.grid === this.forest.grid);
     // this.clicked = false;
 }
 
@@ -119,31 +122,33 @@ Background.prototype.draw = function () {
 
     }
 
-    // if (gameOver) {
-    //     this.ctx.fillStyle = 'black';
-    //     this.ctx.fillRect(0,0,2500,2500);
-    //     this.ctx.font = "56px Arial";
-    //     // this.ctx.strokeStyle = "#F5E616";
-
-    // }
 
 };
 
 Background.prototype.update = function () {
-    // for (var i = 0; i < this.game.entities.length; i++) {
-    //     console.log(this.game.entities[i].constructor.name);
-    // }
-    if (!updatedMap) {
+
+    if (!MapSelection) {
+        // console.log(this.desert.grid === this.forest.grid);
+
+        if (MapType === 'desert') {
+            this.game.map = this.desert.grid;
+            console.log(this.game.map === this.forest.grid);
+            this.game.entities.splice(0,0,this.desert);
+            
+        }
+        else {
+            this.game.map = this.forest.grid;
+            this.game.entities.splice(0,0,this.forest);
+        }
+
         for (var i = 0; i < this.game.entities.length; i++) {
-            if (this.game.entities[i].constructor.name === MapType) {
+            if (this.game.entities[i].constructor.name === 'Background') {
                 this.game.entities.splice(i,1);
             }
-            // if (this.game.) {
-
-            // }
+    
         }
-        
-        updatedMap = true;
+
+        // updatedMap = true;
     }
 };
 
@@ -248,14 +253,14 @@ AM.downloadAll(function () {
     gameEngine.tanks = tanks;
     var gameScore = new Score(gameEngine, 0); //game score for player
     var camera = new Camera(gameEngine,gameEngine.tanks[0].x,gameEngine.tanks[0].y,1000,600);   // camera on our tank
-    var desert = new Desert(gameEngine);  
+    // var desert = new Desert(gameEngine);  
     var background = new Background(gameEngine);
     // var forest = new Forest(gameEngine);
-    gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
+    // gameEngine.map = desert.grid;                                                           // the map----desert Jerry did
     // gameEngine.map = forest.grid;
     gameEngine.camera = camera;
 
-    gameEngine.addEntity(desert);                                                           // desert map Jerry did
+    // gameEngine.addEntity(desert);                                                           // desert map Jerry did
     // gameEngine.addEntity(forest);
     gameEngine.addEntity(tank);
     gameEngine.addEntity(enemytank1);

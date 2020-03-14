@@ -1,5 +1,3 @@
-// var grid = new Array(50);
-
 //尝试知道每个格子都有什么 contains for each c
 function Cell(theX, theY, theContain) {
     this.x = theX;
@@ -64,9 +62,6 @@ function setUpForest() {
                 (i === 5 && j === 0) ||
                 (i === 5 && j === 1) ||
                 (i === 6 && j === 0) ||
-                // (i === 9 && j === 0) ||
-                // (i === 11 && j === 0) ||
-                // (i === 12 && j === 0) ||
                 (i === 17 && j === 0) ||
                 (i === 19 && j === 0) ||
                 (i === 20 && j === 0) ||
@@ -286,23 +281,23 @@ function checkBuilding(game) {
 // Component.prototype.update = function() {};
 
 // // Forest object
-// function Forest(game) {
-//     // this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false);
+function Forest(game) {
+    // this.coinAnimation = new Animation(AM.getAsset("./img/coin2.png"), 0, 0, 16, 16, 0.2, 8, true, false);
 
-//     this.forestGrass = AM.getAsset("./img/forest/grass03.png");
-//     this.radius = 200;
-//     this.game = game;
-//     this.ctx = game.ctx;
-//     this.grid = setUpForest();
-//     //   console.log(this.grid);
+    this.forestGrass = AM.getAsset("./img/forest/grass03.png");
+    this.radius = 200;
+    this.game = game;
+    this.ctx = game.ctx;
+    this.grid = setUpForest();
+    //   console.log(this.grid);
 
-//     this.game.map = this.grid; // passing the whole map to gameEngine Jerry did
-//     this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
-//     this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
+    this.game.map = this.grid; // passing the whole map to gameEngine Jerry did
+    this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
+    this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
 
-//     this.game.buildings = checkBuilding(game);
-//     Entity.call(this, game, 0, 400);
-// }
+    this.game.buildings = checkBuilding(game);
+    Entity.call(this, game, 0, 400);
+}
 
 Forest.prototype = new Entity();
 Forest.prototype.constructor = Forest;
@@ -374,20 +369,20 @@ Forest.prototype.draw = function() {
      */
 
     // draw walls // unneccesary
-    for (let i = 0; i < this.game.walls.length; i++) {
-        if (
-            this.game.walls[i].contains !== 0 &&
-            !this.game.walls[i].contains.removed
-        ) {
-            this.ctx.drawImage(
-                this.game.walls[i].contains.image,
-                this.game.walls[i].contains.x - this.game.camera.x,
-                this.game.walls[i].contains.y - this.game.camera.y,
-                this.game.walls[i].contains.width,
-                this.game.walls[i].contains.height
-            );
-        }
-    }
+    // for (let i = 0; i < this.game.walls.length; i++) {
+    //     if (
+    //         this.game.walls[i].contains !== 0 &&
+    //         !this.game.walls[i].contains.removed
+    //     ) {
+    //         this.ctx.drawImage(
+    //             this.game.walls[i].contains.image,
+    //             this.game.walls[i].contains.x - this.game.camera.x,
+    //             this.game.walls[i].contains.y - this.game.camera.y,
+    //             this.game.walls[i].contains.width,
+    //             this.game.walls[i].contains.height
+    //         );
+    //     }
+    // }
     // draw buildings and trees
     for (let i = 0; i < this.game.buildings.length; i++) {
         if (
