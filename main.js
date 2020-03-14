@@ -353,7 +353,7 @@ AM.downloadAll(function () {
         var enemytank2 = new EnemyTank(gameEngine , 500, 2200, 200, 1, 200, 350);
         var enemytank3 = new EnemyTank(gameEngine , 400, 400, 200, 1, 200, 350);  
         var enemytank4 = new EnemyTank(gameEngine, 1700, 500, 200, 1, 200, 350);
-        var enemytank5 = new EnemyTank(gameEngine , 1000, 1400, 200, 1, 200, 350);
+        var enemytank5 = new EnemyTank(gameEngine , 1250, 1000, 200, 1, 200, 350);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300, 200, 1, 200, 350);  
         var enemytank7 = new Turret(gameEngine, 1600, 800);
         // var enemyRobot = new Robot(gameEngine, 400, 400);                                                       // the enemy robot Roman did
@@ -410,7 +410,7 @@ AM.downloadAll(function () {
         var enemytank2 = new EnemyTank(gameEngine , 500, 2200, 100, 1, 400, 400);
         var enemytank3 = new EnemyTank(gameEngine , 400, 400, 100, 1, 400, 400);  
         var enemytank4 = new EnemyTank(gameEngine, 1700, 500, 100, 1, 400, 400);
-        var enemytank5 = new EnemyTank(gameEngine , 1000, 1400,100, 1, 400, 400);
+        var enemytank5 = new EnemyTank(gameEngine , 1250, 1000,100, 1, 400, 400);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300,100, 1, 400, 400); 
         var enemytank7 = new Turret(gameEngine, 1600, 800); 
 
@@ -469,7 +469,7 @@ AM.downloadAll(function () {
         var enemytank2 = new EnemyTank(gameEngine , 500, 2200, 50, 2, 400, 500);
         var enemytank3 = new EnemyTank(gameEngine , 400, 400, 50, 2, 400, 500);  
         var enemytank4 = new EnemyTank(gameEngine, 1700, 500, 50, 2, 400, 500);
-        var enemytank5 = new EnemyTank(gameEngine , 1000, 1400, 50, 2, 400, 500);
+        var enemytank5 = new EnemyTank(gameEngine , 1250, 1000, 50, 2, 400, 500);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300, 50, 2, 400, 500);  
 
         // var enemytank7 = new EnemyTank(gameEngine, 1800, 2300, 200, 2, 400, 500);
@@ -551,7 +551,7 @@ AM.downloadAll(function () {
         var enemytank2 = new EnemyTank(gameEngine , 500, 2200, 200, 1, 200, 350);
         var enemytank3 = new EnemyTank(gameEngine , 400, 400, 200, 1, 200, 350);  
         var enemytank4 = new EnemyTank(gameEngine, 1700, 500, 200, 1, 200, 350);
-        var enemytank5 = new EnemyTank(gameEngine , 1000, 1400, 200, 1, 200, 350);
+        var enemytank5 = new EnemyTank(gameEngine , 1250, 1000, 200, 1, 200, 350);
         var enemytank6 = new EnemyTank(gameEngine , 800, 1300, 200, 1, 200, 350);  
         var enemytank7 = new Turret(gameEngine, 1600, 800);
         var enemytank8 = new Turret(gameEngine, 800, 1600);

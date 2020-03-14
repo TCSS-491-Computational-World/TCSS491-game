@@ -38,7 +38,7 @@ function setUpForest() {
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t",i*w,j*w,72,66) // checked
+                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t",i*w,j*w,72,68) // checked
                 );
             } else if (
                 // draw tree border West
@@ -103,15 +103,22 @@ function setUpForest() {
                 (i === 20 && j === 30) ||
                 (i === 20 && j === 29) ||
                 (i === 40 && j === 42) ||
-                (i === 20 && j === 26)
+                (i === 20 && j === 26) ||
+                (i === 20 && j === 23) || 
+                (i === 22 && j === 24) || 
+                (i === 24 && j === 24) ||
+                (i === 26 && j === 24)
+
             ) {
                 // Forest Tree One
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.forestOne, i * w, j * w, 200, 150, "t",i*w,j*w,190,135)
+                    // new Component(this.forestOne, i * w, j * w, 200, 150, "t",i*w,j*w,10,10) // checked
+                    new Component(this.forestOne, i * w, j * w, 200, 150, "t",i*w,j*w,165,130) // checked
                 );
-            } else if (
+            } 
+            else if (
                 // draw a big tree  !!!!!NO BOUNDING BOX
                 (i === 0 && j === 1) ||
                 (i === 1 && j === 0) ||
@@ -134,7 +141,7 @@ function setUpForest() {
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.forestOne, i * w, j * w, 250-30, 200-30, "t", i * w, j*w,190,140)
+                    new Component(this.forestOne, i * w, j * w, 250-30, 200-30, "t", i * w, j*w,190,140) // checked
                 );
             } else if (
                 // Jerry trees
@@ -156,14 +163,14 @@ function setUpForest() {
                     // boundingY,
                     // boundingWidth,
                     // boundingHeight
-                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t")
+                    new Component(this.forestTwo, i * w, j * w, 100, 100, "t" , i * w, j * w, 72, 68) // checked
                 );
             } else if (i === 24 && j === 26) {
                 //castle roof
                 grid[i][j] = new Cell(
                     i,
                     j,
-                    new Component(this.castle, i * w, j * w, 250,200, "r")
+                    new Component(this.castle, i * w, j * w, 250,200, "r",i * w, j * w, 250,200) // checked
                 );
             } else {
                 grid[i][j] = new Cell(i, j, 0);

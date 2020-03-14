@@ -15,9 +15,10 @@ body{
 }
 .title{
     font-family: Roboto;
+    font-weight: bold;
     font-style: normal;
     text-align: center;
-    color: white;
+    color: black;
     font-size: 5vw;
     margin-top: 0;
 }
