@@ -1,6 +1,4 @@
-// var grid = new Array(50); 
-
-//尝试知道每个格子都有什么 contains for each c
+// / var grid = new Array(50); 
 function Cell(theX, theY, theContain) {
     this.x = theX;
     this.y = theY;
@@ -9,7 +7,7 @@ function Cell(theX, theY, theContain) {
 
 
 // Map setting
-function setUp() {
+function setUpDesert() {
     this.healthPack = AM.queueDownload("./img/healthPack.png");
     this.wall = AM.getAsset("./img/background/crate.png");
     this.roofFirst = AM.getAsset("./img/rooftop.png");    // first roofTop
@@ -332,43 +330,43 @@ function removePowerup(game){
 
 
 
-// component on map
-function Component(image,x,y,width,height,type) {
-    this.image = image;
-    this.x = x;
-    this.y = y;
-    this.width = width; // limit width
-    this.height = height;   // limit height
-    this.type = type;   // check the type of the component, like wall, building or tree etc.
+// // component on map
+// function Component(image,x,y,width,height,type) {
+//     this.image = image;
+//     this.x = x;
+//     this.y = y;
+//     this.width = width; // limit width
+//     this.height = height;   // limit height
+//     this.type = type;   // check the type of the component, like wall, building or tree etc.
 
-    if(this.type === 'hp') {
+//     if(this.type === 'hp') {
         
-        this.healthPackAnimation = new Animation(AM.getAsset("./img/healthPack.png"), 0 , 0, 16, 16, 0.5, true, false);
-        this.boundingbox = new BoundingBox(this.x + 18, this.y + 18,this.width,this.height);
-    } else {
-        this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);
-    }
+//         this.healthPackAnimation = new Animation(AM.getAsset("./img/healthPack.png"), 0 , 0, 16, 16, 0.5, true, false);
+//         this.boundingbox = new BoundingBox(this.x + 18, this.y + 18,this.width,this.height);
+//     } else {
+//         this.boundingbox = new BoundingBox(this.x,this.y,this.width,this.height);
+//     }
 
 
 
-       // bounding box
-    this.cleanShot = false;                                                     // working for bullet fire
-    this.removed = false;                                                       // check if it needs to draw on the map
-}
-Component.prototype = new Entity();
-Component.prototype.constructor = Component;
+//        // bounding box
+//     this.cleanShot = false;                                                     // working for bullet fire
+//     this.removed = false;                                                       // check if it needs to draw on the map
+// }
+// Component.prototype = new Entity();
+// Component.prototype.constructor = Component;
 
-Component.prototype.draw = function () {
-    // if(this.type === 'gp'){
-    //     console.log("ISSSS DRAWWWWWING");
-    //     this.healthBarAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-    // }
+// Component.prototype.draw = function () {
+//     // if(this.type === 'gp'){
+//     //     console.log("ISSSS DRAWWWWWING");
+//     //     this.healthBarAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+//     // }
 
-};
+// };
 
-Component.prototype.update = function () {
+// Component.prototype.update = function () {
 
-};
+// };
 
 
 
@@ -382,16 +380,15 @@ function Desert(game) {
   this.radius = 200;
   this.game = game;
   this.ctx = game.ctx
-  this.grid = setUp();
+  this.grid = setUpDesert();
 //   console.log(this.grid);
-
   this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
   this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
   this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
   this.game.powerups = checkPowerups(game);
 
   this.game.buildings = checkBuilding(game);
-  Entity.call(this, game, 0, 400);
+  Entity.call(this, game, 0, 0);
 
 }
 
@@ -454,6 +451,7 @@ Desert.prototype.update = function () {
 
 // draw the map
 Desert.prototype.draw = function () {
+ 
   var w = 50;
   /* Draw all tiles on the map.
   */
@@ -500,7 +498,7 @@ Desert.prototype.draw = function () {
 
     for (let i = 0; i < this.game.powerups.length; i++) {
         if (this.game.powerups[i].contains.type === 'hp'){
-            console.log("ISSSSS GOING PPPPP");
+            // console.log("ISSSSS GOING PPPPP");
             this.healthPackAnimation.drawFrame(this.game.clockTick, this.ctx, this.game.powerups[i].contains.x - this.game.camera.x  + 20 ,
                  this.game.powerups[i].contains.y - this.game.camera.y + 20);
 
@@ -515,7 +513,7 @@ Desert.prototype.draw = function () {
     }
 
      
-    
+
 
 
 
@@ -716,60 +714,7 @@ Desert.prototype.setUpComponents = function () {
               grid[i][j].contains = 'w';
           }
 
-
-
-          // // drawing tree 2
-          // if  ((i === 0 && j == 10)
-          //     || (i === 21 && j == 26)
-          //     || (i === 41 && j == 28)
-          //     || (i === 47 && j === 5)
-          //     || (i === 48 && j == 36)
-          //     ) {
-          //     ctx.drawImage(AM.getAsset("./img/background/tree2.png"),i*w,j*w,100,100);
-          // }
-
-
-
-
-          // // drawing tree 1
-          // if((i === 9 && j === 6)
-          //     || (i === 11 && j === 40)
-          //     || (i === 13 && j === 13)
-          //     || (i === 15 && j === 9)
-          //     || (i === 42 && j === 21)
-          //     || (i === 47 && j === 13)
-          //     || (i === 29 && j === 27)
-          // ) {
-          //     ctx.drawImage(AM.getAsset("./img/background/tree1.png"),i*w, j*w, 100,100);
-          // }
-          // // drawing tree 3
-          // if (( i === 0 && j === 49)
-          // ||  ( i  === 6 && j === 35 )
-          // || ( i === 16 && j === 24)
-          // || ( i === 40&& j === 34)
-          // || ( i === 44 && j === 47)
-          // ) {
-          //     ctx.drawImage(AM.getAsset("./img/background/tree3.png"),i*w, j*w, 150,150);
-          // }
-
-
-          // // drawing rooftop
-          // if ( i === 19 && j === 5) {
-          //     ctx.drawImage(AM.getAsset("./img/rooftop.png"),i*w, j*w, 250, 250);
-          // }
-
-          // // drawing roof
-          // if ( i === 19 && j === 12) {
-          //     ctx.drawImage(AM.getAsset("./img/roof.png"),i*w, j*w, 250, 200);
-          // }
-
-
-
-
       }
   }
-//   console.log(grid);
-//   debugger;
+
 };
-
-
