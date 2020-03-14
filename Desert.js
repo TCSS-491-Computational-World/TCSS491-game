@@ -182,9 +182,9 @@ function setUpDesert() {
             else if ( i === 20 && j === 20){
                 grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
             }
-            else if ( i === 25 && j === 25){
-                grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
-            }
+            // else if ( i === 25 && j === 25){
+            //     grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
+            // }
             else if ( i === 30 && j === 30){
                 grid[i][j] = new Cell(i, j, new Component(this.healthPack, i*w, j*w, 16, 16, 'hp'))
             }
