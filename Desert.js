@@ -234,7 +234,7 @@ function setUpDesert() {
 }
 
 // check where is path only for the buildings or walls
-function checkPath(game) {
+function checkDesertPath(game) {
     // console.log(grid);
     // console.log(game.map.length);
     var path = [];
@@ -253,7 +253,7 @@ function checkPath(game) {
 }
 
 
-function checkWalls(game){
+function checkDesertWalls(game){
     var walls = [];
     for (let i = 0; i < game.map.length; i++) {
         for (let j = 0; j < game.map[i].length; j++) {
@@ -267,7 +267,7 @@ function checkWalls(game){
     return walls;
 }
 
-function removeWalls(game){
+function removeDesertWalls(game){
     var next = [];
     var newPath = game.path;
     // console.log("Before "+ game.path.length);
@@ -284,7 +284,7 @@ function removeWalls(game){
 }
 
 
-function checkBuilding(game) {
+function checkDesertBuilding(game) {
     var buildings = [];
     for (let i = 0; i < game.map.length; i++) {
         for (let j = 0; j < game.map[i].length; j++) {
@@ -298,7 +298,7 @@ function checkBuilding(game) {
     return buildings;
 }
 // log all the powerups
-function checkPowerups(game){
+function checkDesertPowerups(game){
     var powerups = [];
     for(let i = 0; i < game.map.length; i++){
         for(let j = 0; j < game.map[i].length; j++){
@@ -312,7 +312,7 @@ function checkPowerups(game){
     return powerups;
 }
 // once a powerup is drove over we remove it
-function removePowerup(game){
+function removeDesertPowerup(game){
     var next = [];
     //var newPath = game.path;
     // console.log("Before "+ game.path.length);
@@ -383,11 +383,11 @@ function Desert(game) {
   this.grid = setUpDesert();
 //   console.log(this.grid);
   this.game.map = this.grid;        // passing the whole map to gameEngine Jerry did
-  this.game.path = checkPath(game); // the path of the tank, except other vehicles Jerry did
-  this.game.walls = checkWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
-  this.game.powerups = checkPowerups(game);
+  this.game.path = checkDesertPath(game); // the path of the tank, except other vehicles Jerry did
+  this.game.walls = checkDesertWalls(game); // the path of the tank, except other vehicles Jerry did, work for bullet shot
+  this.game.powerups = checkDesertPowerups(game);
 
-  this.game.buildings = checkBuilding(game);
+  this.game.buildings = checkDesertBuilding(game);
   Entity.call(this, game, 0, 0);
 
 }
@@ -437,11 +437,11 @@ Desert.prototype.update = function () {
 
 
 
-    var tempP = removePowerup(this.game);
+    var tempP = removeDesertPowerup(this.game);
     this.game.powerups = tempP.powerups;
 
 
-    var temp = removeWalls(this.game);
+    var temp = removeDesertWalls(this.game);
     // console.log(temp);                       // checked
     this.game.walls = temp.walls;               // this method will remove wall from walls list 
     this.game.path  = temp.path;                // add it to path list.
