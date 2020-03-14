@@ -92,8 +92,9 @@ function Background(game) {
     this.y = 0;
     this.game = game;
     this.ctx = game.ctx;
-    this.desert = new Desert(this.game);
+
     this.forest = new Forest(this.game);
+    this.desert = new Desert(this.game);
     // console.log(this.desert.grid === this.forest.grid);
     // this.clicked = false;
 }
