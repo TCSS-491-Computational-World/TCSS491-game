@@ -66,7 +66,7 @@ function Tank(game) {
     this.cooldown = 200;
     this.lastMove = "none";
     this.hero = false;
-    this.velocity = 4; //set the speed of tank  // after merge
+    this.velocity = 2; //set the speed of tank  // after merge
     this.speed = this.velocity;
     this.game = game;
     // console.log(game);
@@ -84,8 +84,8 @@ function Tank(game) {
 
     
     
-    this.maxHealth = 200;
-    this.currentHealth = 200;
+    this.maxHealth = 1000;
+    this.currentHealth = 1000;
 
     this.collision;
     this.tankIndex = 0;
@@ -122,7 +122,7 @@ Tank.prototype.update = function() {
 
     this.tempList = this.game.tanks;
     for(j = 0; j < this.game.tanks.length; j++){
-        if(this.tempList[j].x === this.x){
+        if(this.tempList[j].x === this.x && this.tempList[j].y === this.y){
             this.tankIndex = j;
             //this.tempList.splice(this.tankIndex, 1);
         }

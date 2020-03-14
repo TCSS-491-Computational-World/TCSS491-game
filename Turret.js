@@ -66,10 +66,11 @@ Turret.prototype.update = function() {
     for(j = 0; j < this.game.tanks.length; j++){
         if(this.tempList[j].x === this.x){
             this.tankIndex = j;
+    
             //this.tempList.splice(this.tankIndex, 1);
         }
     }
-    console.log("MY TANKK INDEX:    " + this.tankIndex);
+    console.log("MY TUUUUUUUREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET           INDEX:    " + this.tankIndex);
 
 
     var bool = true;

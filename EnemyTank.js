@@ -58,7 +58,7 @@ EnemyTank.prototype.update = function() {
 
     this.tempList = this.game.tanks;
     for(j = 0; j < this.game.tanks.length; j++){
-        if(this.tempList[j].x === this.x){
+        if(this.tempList[j].x === this.x && this.tempList[j].y === this.y){
             this.tankIndex = j;
             //this.tempList.splice(this.tankIndex, 1);
         }
