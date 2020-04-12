@@ -242,7 +242,7 @@ GameEngine.prototype.update = function () {
     for (var i = this.entities.length - 1; i >= 0; i--) {
         if (this.entities[i].removeFromWorld) {
             this.entities.splice(i, 1);
-            //console.log("removed from world");
+            console.log("removed from world");
         }
     }
     // console.log("After "+this.entities.length);
